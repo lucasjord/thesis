@@ -1,0 +1,635 @@
+% app2.tex (will be Appendix C)
+%!TeX spellcheck = en_GB
+
+\chapter[MultiView Additional]{MultiView Ring Calibration}
+
+\section{Additional Equations}
+	\subsection{Delay Plane Derivations}
+		In this part of the appendix I want to provide mathematical justification for the planar approximations for baseline, dry tropospheric and source position offset in \hyperref[sec:advpr]{Section \S\ref*{sec:advpr}}.
+		
+		\paragraph{Baseline Error:} \label{app:baselineerror} starting from the difference of two LoS geodetic delays caused by a baseline error, I substitute that $\alpha_1 = \alpha_2+a$ and $\delta_1=\delta_2+b$:
+	\begin{equation*}
+	\begin{split}
+	c(\tau_1-\tau_2) =& \Delta B_x\cos(t-\alpha_1)\cos\delta_1 - \Delta B_y\sin(t-\alpha_1)\cos\delta_1 + \Delta B_z\sin\delta_1 \\
+	                 &- \Delta B_x\cos(t-\alpha_2)\cos\delta_2 + \Delta B_y\sin(t-\alpha_2)\cos\delta_2 - \Delta B_z\sin\delta_2 \\
+	                 =& \Delta B_x\cos(t-\alpha_2-a)\cos\left(\delta_2+b\right) - \Delta B_y\sin(t-\alpha_2-a)\cos\left(\delta_2+b\right) + \Delta B_z\sin\left(\delta_2+b\right) \\
+					 &- \Delta B_x\cos(t-\alpha_2)\cos\delta_2 + \Delta B_y\sin(t-\alpha_2)\cos\delta_2 - \Delta B_z\sin\delta_2
+	\end{split}
+	\end{equation*} 
+
+	I can use the double angle formulae to reduce to expression down:
+    \begin{align*}
+		\cos(t-\alpha_2-a)\cos\left(\delta_2+b\right) =& \left(\cos\left(t-\alpha_2\right)\cos a + \sin\left(t-\alpha_2\right)\sin a\right)\left(\cos\delta_2\cos b - \sin\delta_2\sin b\right)\\
+													  =& \left(\cos\left(t-\alpha_2\right)\left(1-\frac{a^2}{2}\right) + a\sin\left(t-\alpha_2\right)\right)\left(\cos\delta_2\left(1-\frac{b^2}{2}\right) - b\sin\delta_2\right)\\												  
+													  =& \cos\left(t-\alpha_2\right)\cos\delta_2\left(1-\frac{a^2}{2}-\frac{b^2}{2}\right) - b\cos\left(t-\alpha_2\right)\sin\delta_2 - a\sin\left(t-\alpha_2\right)\cos\delta_2\\ &+  a\,b\,\sin\left(t-\alpha_2\right)\sin\delta_2 \\
+	\\	\sin(t-\alpha_2-a)\cos\left(\delta_2+b\right) =& \left(\sin\left(t-\alpha_2\right)\cos a - \cos\left(t-\alpha_2\right)\sin a\right)\left(\cos\delta_2\cos b - \sin\delta_2\cos b\right)\\
+													  =& \sin\left(t-\alpha_2\right)\cos\delta_2\left(1-\frac{a^2}{2}-\frac{b^2}{2}\right) + b\sin\left(t-\alpha_2\right)\sin\delta_2 + a\cos\left(t-\alpha_2\right)\cos\delta_2 \\ &- a\,b\,\cos\left(t-\alpha_2\right)\sin\delta_2\\
+	\\	\sin\left(\delta_2+b\right) =& \sin\delta_2\cos b + \cos\delta_2\sin b \\
+									=& \sin\delta_2\left(1-\frac{b^2}{2}\right) + b\cos\delta_2
+	\end{align*} where I have omitted terms with $O^3$ or greater. All $O^0$ terms cancel with the second half of the original expression. If I group terms by $\textbf{a}$, $\textbf{b}$, $\textbf{a}^2$, ..., $\textbf{a\times b}$ I arrive at:
+	\begin{equation}
+	\begin{split}
+		c(\tau_1-\tau_2) =&~ \textbf{a}\left(-\Delta B_x\sin\left(t-\alpha_2\right)\cos\delta_2 +\Delta B_y\cos\left(t-\alpha_2\right)\cos\delta_2\right)	\\
+					     &+ \textbf{b}\left(-\Delta B_x\cos\left(t-\alpha_2\right)\sin\delta_2 +\Delta B_y\sin\left(t-\alpha_2\right)\sin\delta_2 + \Delta B_z\cos\delta_2\right) \\
+					     &+ \textbf{a\,b}\left(\Delta B_x\sin\left(t-\alpha_2\right)\sin\delta_2-\Delta B_y\cos\left(t-\alpha_2\right)\sin\delta_2\right) \\
+					     &+ \frac{\textbf{a}^2}{2}\left(-\Delta B_x\cos\left(t-\alpha_2\right)\cos\delta_2+\Delta B_y\sin\left(t-\alpha_2\right)\cos\delta_2 \right) \\
+    				     &+ \frac{\textbf{b}^2}{2}\left(-\Delta B_x\cos\left(t-\alpha_2\right)\cos\delta_2+\Delta B_y\sin\left(t-\alpha_2\right)\cos\delta_2 - \Delta B_z\sin\delta_2\right) \\
+    				     =&~ \textbf{a}\mathcal{A}_{bl} + \textbf{b}\mathcal{B}_{bl} + \textbf{a\,b}\,\mathcal{C}_{bl} + \frac{1}{2}\textbf{a}^2\mathcal{D}_{bl} + \frac{1}{2}\textbf{b}^2\mathcal{E}_{bl}
+	\end{split}
+	\label{eq:baselineerrorfull}
+	\end{equation} If $\textbf{a}$, $\textbf{b}$ are `small' then the $O^2$ terms are comparatively reduced.
+
+	\paragraph{Dry Tropospheric Error} \label{app:tropoplaneerror} I have a target (T) and calibrator (C) at respective coordinates ($\alpha$, $\delta$) for a sample telescope at Earth latitude $\varphi$. The target and calibrator are (as in the previous derivation) offset from one another \textbf{a} radians in RA and \textbf{b} radians in DEC.
+	\begin{equation}
+		\begin{split}
+		\Delta\tau_{dtr} =&~\sigma_{\tau_z} \left(\frac{1}{\cos Z_C}-\frac{1}{\cos Z_T}\right)\\
+						 =&~\sigma_{\tau_z} F \\
+		 \therefore	F =   &\left(\sin\delta_C\sin\varphi+\cos\delta_C\cos\varphi\cos(t_{lst}-\alpha_C)\right)^{-1} \\
+			              & -\left(\sin\delta_T\sin\varphi+\cos\delta_T\cos\varphi\cos(t_{lst}-\alpha_T)\right)^{-1} \\ 
+	          F(\textbf{a},\textbf{b}) =
+	                      &\left(\sin(\delta_T+\textbf{b})\sin\varphi+\cos(\delta_T+\textbf{b})\cos\varphi\cos(t_{lst}-\alpha_T-\textbf{a})\right)^{-1} \\ 			   &-\left(\sin\delta_T\sin\varphi+\cos\delta_T\cos\varphi\cos(t_{lst}-\alpha_T)\right)^{-1}
+		\end{split}
+	\end{equation}
+	This function $F$ is obviously more complex than in the previous example. While it is possible to Taylor expand the $\sin$ and $\cos$ terms, it is easier to perform a 2D McLaren expansion and determine magnitudes after:
+	\begin{equation*}
+		F(\textbf{a},\textbf{b}) = F(0,0) + F_a(0,0)~\textbf{a} + F_b(0,0)~\textbf{b} + F_{aa}(0,0)~\frac{1}{2}\textbf{a}^2 +  F_{ab}(0,0)~\frac{1}{2}\textbf{ab} +  F_{bb}(0,0)~\frac{1}{2}\textbf{b}^2 + \sigma_{O^3}
+	\end{equation*} where $F_{a}=\frac{\partial F}{\partial a}$,  $F_{ab}=\frac{\partial^2 F}{\partial a \partial b}$ etc.
+	
+	I am going to let $h_T=t_{lst}-\alpha_T$ as the hour angle for the target and $$\kappa=\sin(\delta_T+\textbf{b})\sin\varphi+\cos(\delta_T+\textbf{b})\cos\varphi\cos(h_T-\textbf{a})$$ as it appears frequently. Performing the partial derivatives gives:
+	\begin{align*}
+		F_a(\textbf{a},\textbf{b}) &= \frac{1}{\kappa^2}\left(-\cos\left(\delta_T+\textbf{b}\right)\cos\varphi\sin\left(h_T-\textbf{a}\right)\right) \\
+		F_b(\textbf{a},\textbf{b}) &= \frac{1}{\kappa^2}\left(\cos\varphi\cos\left(h_T-\textbf{a}\right)\sin\left(\delta_T+\textbf{b}\right)-\sin\varphi\cos\left(\delta_T+\textbf{b}\right)\right) \\
+		F_{aa}(\textbf{a},\textbf{b}) &= \frac{1}{\kappa^3}\left(\cos\varphi\cos\left(\delta_T+\textbf{b}\right)\left(\cos\varphi\cos\left(\delta_T+\textbf{b}\right)\left(1+\sin^2\left(h_T+\textbf{a}\right)\right)+\sin\varphi\cos\left(h_T+\textbf{a}\right)\sin\left(\delta_T+\textbf{b}\right)\right)\right) \\
+		F_{ab}(\textbf{a},\textbf{b}) &= \frac{1}{\kappa^3}\left(-\cos\varphi\sin\left(h_T-\textbf{a}\right)\left(\cos\varphi\cos\left(h_T+\textbf{a}\right)\sin\left(\delta_T+\textbf{b}\right)\cos\left(\delta_T+\textbf{b}\right)-\sin\varphi\left(\cos^2\left(\delta_T+\textbf{b}\right)\right)\right)\right) \\
+		F_{bb}(\textbf{a},\textbf{b}) &= \frac{1}{\kappa}+\frac{2}{\kappa^3}\left(\cos\varphi\cos\left(h_T-\textbf{a}\right)\sin\left(\delta_T+\textbf{b}\right)-\sin\varphi\cos\left(\delta_T+\textbf{b}\right) \right)^2
+	\end{align*}
+	And evaluating them at (\textbf{a}, \textbf{b}) = (0, 0) gives:
+	\begin{align*}
+		F(0,0) &= 0 \\
+		F_a(0,0) &= \frac{-1}{\cos^2 Z_T}\cos\delta_T\cos\varphi\sin h_T \\
+		F_b(0,0) &= \frac{1}{\cos^2 Z_T}\left(\cos\varphi\cos h_T\sin\delta_T-\sin\varphi\cos\delta_T\right) \\
+		F_{aa}(0,0) &= \frac{1}{\cos^3 Z_T}\left(\cos\varphi\cos\delta_T\left(\cos\varphi\cos\delta_T\left(1+\sin^2 h_T\right)+\sin\varphi\cos h_T)\sin\delta_T\right)\right)\\
+		F_{ab}(0,0) &= \frac{-1}{\cos^3 Z_T}\cos\varphi\sin h_T\left(\cos\varphi\cos h_T\sin\delta_T\cos\delta_T-\sin\varphi\left(\cos^2\delta_T+1\right)\right) \\
+		F_{bb}(0,0) &= \frac{1}{\cos Z_T}+\frac{2}{\cos^3 Z_T}\left(\cos\varphi\cos h_T\sin\delta_T-\sin\varphi\cos\delta_T \right)^2
+	\end{align*}
+	
+	And therefore total delay slope is:
+	\begin{align*}
+		\Delta\tau_{dtr} &= \sigma_{\tau_z}\left(F(0,0) + F_a(0,0)~\textbf{a} + F_b(0,0)~\textbf{b} + F_{aa}(0,0)~\frac{1}{2}\textbf{a}^2 +  F_{ab}(0,0)~\frac{1}{2}\textbf{ab} +  F_{bb}(0,0)~\frac{1}{2}\textbf{b}^2\right)  + \sigma_{O^3} \\
+						 &=\textbf{a}\mathcal{A}_{dtr} + \textbf{b}\mathcal{B}_{dtr} + \textbf{a\,b}\,\mathcal{C}_{dtr} + \frac{1}{2}\textbf{a}^2\mathcal{D}_{dtr} + \frac{1}{2}\textbf{b}^2\mathcal{E}_{dtr} + \sigma_{O^3}
+	\end{align*}
+	
+	\paragraph{Source Position Error} \label{app:sourceposerror} starting from the difference of two delays caused by a position errors in the target $\sigma_C$ and calibrator error $\sigma_C$, I substitute that $\alpha_C = \alpha_T+a$ and $\delta_C=\delta_T+b$:
+	\begin{equation*}
+		\begin{split}
+		c\left(\tau_{\theta,C}-\tau_{\theta,T}\right)= c\Delta\tau_\theta =&~\sigma_{\alpha,C}\cos\delta_C(B_x\sin(t-\alpha_C)+B_y\cos(t-\alpha_C)\,)\\
+		&+~\sigma_{\delta,C}(-B_x\cos(t-\alpha_C)\sin\delta_C+B_y\sin(t-\alpha_C)\sin\delta_C+B_z\cos\delta_C) \\
+		&-~\sigma_{\alpha,T}\cos\delta_T\left(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\right)\\
+		&-~\sigma_{\delta,T}\left(-B_x\cos(t-\alpha_T)\sin\delta_T+B_y\sin(t-\alpha_T)\sin\delta_T+B_z\cos\delta_T\right)\\
+			=&~\sigma_{\alpha,C}\cos\left(\delta_T+b\right)(B_x\sin(t-\alpha_T-a)+B_y\cos(t-\alpha_T-a)\,)\\
+			&+~\sigma_{\delta,C}(-B_x\cos(t-\alpha_T-a)\sin\left(\delta_T+b\right)+B_y\sin(t-\alpha_T-a)\sin\left(\delta_T+b\right)+B_z\cos\left(\delta_T+b\right)) \\
+			&-~\sigma_{\alpha,T}\cos\delta_T\left(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\right)\\
+			&-~\sigma_{\delta,T}\left(-B_x\cos(t-\alpha_T)\sin\delta_T+B_y\sin(t-\alpha_T)\sin\delta_T+B_z\cos\delta_T\right)
+		\end{split}
+	\end{equation*} where $\sigma_\alpha$ and $\sigma_\delta$ are the positional uncertainties in Right Ascension and Declination respectively.
+	
+	I can use the expansions for $\cos(t-\alpha_T-a)\cos\left(\delta_T+b\right)$, $\sin(t-\alpha_T-a)\cos\left(\delta_T+b\right)$ and $\sin\left(\delta_T+b\right)$ shown in \hyperref[app:baselineerror]{Section~\S\ref*{app:baselineerror}} as well as the expansions below:
+	\begin{align*}
+	\cos(t-\alpha_T-a)\sin\left(\delta_T+b\right) =& \left(\cos\left(t-\alpha_T\right)\cos a + \sin\left(t-\alpha_T\right)\sin a\right)\left(\sin\delta_T\cos b + \cos\delta_T\sin b\right)\\
+	=& \left(\cos\left(t-\alpha_T\right)\left(1-\frac{a^2}{2}\right) + a\sin\left(t-\alpha_T\right)\right)\left(\sin\delta_T\left(1-\frac{b^2}{2}\right) + b\cos\delta_T\right)\\	
+	=& \cos\left(t-\alpha_T\right)\sin\delta_T\left(1-\frac{a^2}{2}-\frac{b^2}{2}\right) + a\sin\left(t-\alpha_T\right)\sin\delta_2 + b\cos\left(t-\alpha_T\right)\cos\delta_T \\ &+  a\,b\,\sin\left(t-\alpha_T\right)\cos\delta_T \\
+	\\	
+	\sin(t-\alpha_T-a)\sin\left(\delta_T+b\right) =& \left(\sin\left(t-\alpha_T\right)\cos a - \cos\left(t-\alpha_T\right)\sin a\right)\left(\sin\delta_T\cos b + \cos\delta_T\sin b\right)\\	
+	=& \sin\left(t-\alpha_T\right)\sin\delta_T\left(1-\frac{a^2}{2}-\frac{b^2}{2}\right) - a\cos\left(t-\alpha_T\right)\sin\delta_T + b\sin\left(t-\alpha_T\right)\cos\delta_T \\ &- a\,b\,\cos\left(t-\alpha_2\right)\cos\delta_2\\
+	\\	
+	\cos\left(\delta_T+b\right) =& \cos\delta_T\cos b - \sin\delta_T\sin b \\
+	=& \cos\delta_T\left(1-\frac{b^2}{2}\right) - b\sin\delta_T
+	\end{align*}
+	If I substitute the expansions then collect terms in $\textbf{a}$, $\textbf{b}$, $\textbf{ab}$, $\textbf{a}^2$ and $\textbf{b}^2$ I am left with:
+	\begin{equation*}
+		\begin{split}
+			c\Delta\tau_\theta =& \big[\big(\sigma_{\alpha,C} - \sigma_{\alpha,T}\big)\cos\delta_T\big(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\,\big) \\
+			&+\big(\sigma_{\delta,C} - \sigma_{\delta,T}\big)\big(B_x\sin\delta_T\cos(t-\alpha_T)-B_y\sin\delta_T\sin(t-\alpha_T)-B_z\cos\delta_T\big)\big] \\\vspace{0.5cm}
+			+&~{\bf a}\, \big[-\sigma_{\alpha,C}\cos\delta_T \left(B_x \cos(t-\alpha_T)+B_y\sin(t-\alpha_T)\,\right) \\ 
+			&\hspace{1cm}-\sigma_{\delta,C}\sin\delta_T\left(B_x\sin(t-\alpha_T)+ B_y\cos(t-\alpha_T)\right)\big] \\\vspace{1cm}
+			+&~{\bf b}\, \big[\sigma_{\alpha,C}\sin\delta_T \left(B_x \sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\,\right) \\ 
+			&\hspace{2cm}+\sigma_{\delta,C}(B_x\cos\delta_T\cos(t-\alpha_T)- B_y\cos\delta_T\sin(t-\alpha_T)+B_z\sin\delta_T\,)\big] \\ 
+			-&~\left(\frac{\textbf{a}^2}{2}+\frac{\textbf{b}^2}{2}\right)\big[\sigma_{\alpha,C}\cos\delta_T\big(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\,\big) \\
+			&+\sigma_{\delta,C}\big(B_x\sin\delta_T\cos(t-\alpha_T)-B_y\sin\delta_T\sin(t-\alpha_T)\big)\big] \\
+			-&~\frac{\textbf{b}^2}{2}B_z\cos\delta_T \\
+			+&~\textbf{ab}\big[-\sigma_{\alpha,C}B_x\cos(t-\alpha_T)\sin\delta_T+\sigma_{\alpha,C}B_y\sin(t-\alpha_T)\sin\delta_T\\
+			&\hspace{2cm}-\sigma_{\delta,C}B_x\sin(t-\alpha_T)\cos\delta_T - \sigma_{\delta,C}B_y\cos(t-\alpha_T)\cos\delta_T\big]
+		\end{split}
+	\end{equation*}
+    	
+
+	\subsection{Finite Sum of Angles}\label{app:additionalequationsC} Here I show justification for an expression given in text:
+		\begin{align*}
+			S =& \sum_{i=1}^{N}R_i^2\,\cos^2\left(\theta_i+\psi\right) \\
+			=& \sum_{i=1}^{N}\frac{R_i^2}{2}\,\left(1 + \cos\left(2\theta_i + 2\psi\right)\right) \\
+			=& N\frac{\overline{R^2}}{2} + \sum_{i=1}^{N}\frac{R_i^2}{2}\,\left(\cos 2\psi\cos 2\theta_i - \sin 2\psi\sin 2\theta_i\right)
+			\end{align*} In the rings we have $R_i\approx\overline{R}$ and $\theta_i=\frac{2\pi\left(i-1\right)}{N}$ aka. azimuthally well sampled. Continuing:
+	
+		\begin{equation*}
+			\begin{split}
+			S =& N\frac{\overline{R^2}}{2} + \frac{\overline{R}^2}{2}\,\left(\,\,\cos 2\psi\sum_{i=1}^{N}\left(\cos\frac{4\pi\left(i-1\right)}{N}\right) - \sin 		2\psi\sum_{i=1}^{N}\left(\sin\frac{4\pi\left(i-1\right)}{N}\right)\,\,\right) \\
+			=& N\frac{\overline{R^2}}{2} + \frac{\overline{R}^2}{2}\cos 2\psi\left(\cos\left(\frac{4\pi}{N}\right)\sum_{i=1}^{N}\cos\left(\frac{4\pi}{N}i\right) + 		\sin\left(\frac{4\pi}{N}\right)\sum_{i=1}^{N}\sin\left(\frac{4\pi}{N}i\right)\right)  \\ 
+			-& \frac{\overline{R}^2}{2}\sin 2\psi\left(\cos\left(\frac{4\pi}{N}\right)\sum_{i=1}^{N}\sin\left(\frac{4\pi}{N}i\right) - \sin\left(\frac{4\pi}{N}\right)\sum_{i=1}^{N}\cos\left(\frac{4\pi}{N}i\right)\right)
+			\end{split}
+		\end{equation*}
+		The trigonometric identities
+		\begin{align*}
+			\sum_{n=1}^{N}\cos(n\theta) &= -\frac{1}{2} + \frac{\sin \theta(N+\frac{1}{2})}{2\sin  \frac{\theta}{2}}\\
+			\sum_{n=1}^{N}\sin(n\theta) &= \frac{1}{2}\cot\frac{\theta}{2} - \frac{\cos \theta(N+\frac{1}{2})}{2\sin \frac{\theta}{2}}
+		\end{align*} can be used to simplify the expression. Since $\theta=\frac{4\pi}{N}$ it should first be noted that:
+		\begin{align*}
+			\cos \frac{4\pi}{N}(N+\frac{1}{2}) = \cos(\frac{2\pi}{N}) \\
+			\sin \frac{4\pi}{N}(N+\frac{1}{2}) = \sin(\frac{2\pi}{N})
+		\end{align*} 
+		Therefore:
+		\begin{align*}
+			\sum_{i=1}^{N}\cos\left(\frac{4\pi}{N}i\right) &=-\frac{1}{2} + \frac{\sin(\frac{2\pi}{N})}{2\sin(\frac{2\pi}{N}) } = 0\\
+			\sum_{i=1}^{N}\sin\left(\frac{4\pi}{N}i\right) &= \frac{1}{2}\cot\frac{2\pi}{N} - \frac{\cos(\frac{2\pi}{N})}{2\sin(\frac{2\pi}{N})} = 0
+		\end{align*}
+	
+		\begin{equation*}
+			\therefore \sum_{i=1}^{N}\left(R_i\cos\left(\theta_i+\psi\right)\right)^2 = \frac{\overline{R^2}}{2}N = \frac{\overline{R}^2+\sigma_R^2}{2}\,N
+		\end{equation*} where $\overline{R^2}$ is the square of the mean, $\overline{R}^2$ is the mean squared and $\sigma_R^2$ is the variance of $R$.
+
+\clearpage
+\section{Additional Figures} \label{app3:figures}
+	\subsection{Raw Phases}
+
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G0634_25.pdf}
+				\caption[G0634--2335 MV025 Phases]{G0634--2335 $\overline{R}=3$~deg Ring, MV025}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1901_25.pdf}
+				\caption[G1901--2112 MV025 Phases]{G1901--2112 $\overline{R}=6.5$~deg Ring, MV025}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1336_25.pdf}
+				\caption[G1336--0829 MV025 Phases]{G1336--0829 $\overline{R}=7.5$~deg Ring, MV025}
+			\end{figure}
+			
+			%%%%
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G0634_26.pdf}
+				\caption[G0634--2335 MV026 Phases]{G0634--2335 $\overline{R}=3$~deg Ring, MV026}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1901_26.pdf}
+				\caption[G1901--2112 MV026 Phases]{G1901--2112 $\overline{R}=6.5$~deg Ring, MV026}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1336_26.pdf}
+				\caption[G1336--0829 MV026 Phases]{G1336--0829 $\overline{R}=7.5$~deg Ring, MV026}
+			\end{figure}
+			
+			%%%%
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G0634_27.pdf}
+				\caption[G0634--2335 MV027 Phases]{G0634--2335 $\overline{R}=3$~deg Ring, MV027}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1901_27.pdf}
+				\caption[G1901--2112 MV027 Phases]{G1901--2112 $\overline{R}=6.5$~deg Ring, MV027}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1336_27.pdf}
+				\caption[G1336--0829 MV027 Phases]{G1336--0829 $\overline{R}=7.5$~deg Ring, MV027}
+			\end{figure}
+			
+			%%%%
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G0634_28.pdf}
+				\caption[G0634--2335 MV028 Phases]{G0634--2335 $\overline{R}=3$~deg Ring, MV028}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1901_28.pdf}
+				\caption[G1901--2112 MV028 Phases]{G1901--2112 $\overline{R}=6.5$~deg Ring, MV028}
+			\end{figure}
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.9\textwidth]{raw_phases_G1336_28.pdf}
+				\caption[G1336--0829 MV028 Phases]{G1336--0829 $\overline{R}=7.5$~deg Ring, MV028}
+			\end{figure}
+
+	\clearpage
+	\subsection{Phase and Phase Slopes measured by MultiView} \label{sec:mvphaseslopeplots}
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringcdho_mv025}
+			\caption[Cd-Ho MV025]{Cd--Ho}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringkeho_mv025}
+			\caption[Ke-Ho MV025]{Ke--Ho}
+		\end{subfigure}
+		~			
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringygho_mv025}
+			\caption[Yg-Ho MV025]{Yg--Ho}
+		\end{subfigure}
+		\caption[]{MV025}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringcdho_mv026}
+			\caption[Cd-Ho MV026]{Cd--Ho}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringkeho_mv026}
+			\caption[Ke-Ho MV026]{Ke--Ho}
+		\end{subfigure}
+		~			
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringygho_mv026}
+			\caption[Yg-Ho MV026]{Yg--Ho}
+		\end{subfigure}
+		\caption[]{MV026}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringcdho_mv027}
+			\caption[Cd-Ho MV027]{Cd--Ho}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringkeho_mv027}
+			\caption[Ke-Ho MV027]{Ke--Ho}
+		\end{subfigure}
+		~			
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringygho_mv027}
+			\caption[Yg-Ho MV027]{Yg--Ho}
+		\end{subfigure}
+		\caption[]{MV027}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringcdho_mv028}
+			\caption[Cd-Ho MV028]{Cd--Ho}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringkeho_mv028}
+			\caption[Ke-Ho MV028]{Ke--Ho}
+		\end{subfigure}
+		~			
+		\begin{subfigure}[t]{0.9\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{ringygho_mv028}
+			\caption[Yg-Ho MV028]{Yg--Ho}
+		\end{subfigure}
+		\caption[]{MV028}
+	\end{figure}
+
+\clearpage	
+\section{Additional Tables}
+
+%\subsection{Orbit Source Position Shifts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ASTROMETRY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Inverse Phase Referencing Astrometry}\label{app:iprtables}
+
+%G0634
+\begin{table}[h]
+	\footnotesize
+	\centering
+	\onehalfspacing
+		\begin{tabular}{llrrrrrr} 
+			\toprule
+			\multicolumn{1}{c}{\bf Epoch} &
+			\multicolumn{1}{c}{\bf Source} & 
+			\multicolumn{1}{c}{ $\boldsymbol{S}$} & 
+			\multicolumn{1}{c}{ $\boldsymbol{\sigma_S}$} & 
+			\multicolumn{1}{c}{ $\boldsymbol{\Delta\alpha}$ } &
+			\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\alpha}}$ } & 
+			\multicolumn{1}{c}{ $\boldsymbol{\Delta\delta}$ } &
+			\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\delta}}$ } \\
+			\multicolumn{1}{c}{} & 
+			\multicolumn{1}{c}{} & 
+			\multicolumn{1}{c}{ \textbf{(mJy)} }&
+			\multicolumn{1}{c}{ \textbf{(mJy)} }&
+			\multicolumn{1}{c}{ \textbf{(mas)} }&
+			\multicolumn{1}{c}{ \textbf{(mas)} }&
+			\multicolumn{1}{c}{ \textbf{(mas)} }&
+			\multicolumn{1}{c}{ \textbf{(mas)} }\\
+			\midrule
+			MV025 &G0634--2335 & 1407.0 & 4.00   &   -0.002  & 0.002   &    0.001 &  0.002  \\ 
+			&J0636--2113 & 230.75 & 1.02   &   -0.163  & 0.004   &    0.018 &  0.003  \\ 
+			&J0643--2451 & 176.24 & 0.98   &   -0.062  & 0.005   &   -0.102 &  0.004  \\ 
+			&J0620--2515 &  99.67 & 6.03   &    0.219  & 0.049   &    0.113 &  0.035  \\ 
+			&J0639--2141 &  37.52 & 1.15   &    0.032  & 0.024   &    0.076 &  0.022  \\ 
+			&J0632--2614 & 497.08 & 3.24   &    0.013  & 0.005   &   -0.038 &  0.005  \\ 
+			&J0629--1959 & 219.00 &19.60   &   -0.296  & 0.073   &   -0.038 &  0.058  \\ \hline
+			%&
+			MV026 &G0634--2335 & 910.99 & 0.74   &    0.001  & 0.001   &    0.001 &  0.001  \\ 
+			&J0636--2113 & 134.82 & 1.22   &   -0.106  & 0.008   &   -0.048 &  0.006  \\ 
+			&J0643--2451 & 114.56 & 0.67   &   -0.119  & 0.006   &    0.027 &  0.004  \\ 
+			&J0620--2515 & 211.28 & 2.61   &    0.033  & 0.011   &    0.059 &  0.008  \\ 
+			&J0639--2141 &  27.11 & 0.41   &    0.041  & 0.014   &    0.022 &  0.010  \\ 
+			&J0632--2614 & 462.77 & 2.51   &    0.048  & 0.005   &    0.027 &  0.004  \\ 
+			&J0629--1959 & 658.78 & 3.04   &    0.024  & 0.004   &   -0.096 &  0.003  \\ \hline
+			%&
+			MV027 &G0634--2335 & 1136.0 & 1.00   &   -0.002  & 0.001   &   -0.001 &  0.001  \\ 
+			&J0636--2113 & 190.00 & 1.77   &    0.079  & 0.008   &    0.073 &  0.007  \\ 
+			&J0643--2451 & 170.11 & 0.87   &    0.124  & 0.005   &    0.053 &  0.004  \\ 
+			&J0620--2515 & 315.82 & 3.59   &   -0.314  & 0.010   &   -0.203 &  0.008  \\ 
+			&J0639--2141 &  33.82 & 0.40   &    0.201  & 0.010   &    0.143 &  0.008  \\ 
+			&J0632--2614 & 568.78 & 3.99   &   -0.134  & 0.006   &   -0.100 &  0.005  \\ 
+			&J0629--1959 & 811.42 & 6.37   &    0.052  & 0.007   &   -0.019 &  0.005  \\ \hline
+			%&
+			MV028 &G0634--2335 & 947.04 & 1.06   &   -0.004  & 0.001   &    0.000 &  0.001  \\ 
+			&J0636--2113 & 146.42 & 1.56   &   -0.122  & 0.009   &    0.049 &  0.008  \\ 
+			&J0643--2451 & 130.05 & 0.74   &    0.040  & 0.006   &    0.000 &  0.004  \\ 
+			&J0620--2515 & 211.60 & 3.15   &    0.034  & 0.013   &    0.028 &  0.010  \\ 
+			&J0639--2141 &  29.40 & 0.34   &   -0.059  & 0.010   &   -0.127 &  0.008  \\ 
+			&J0632--2614 & 442.38 & 4.12   &    0.063  & 0.008   &    0.005 &  0.006  \\ 
+			&J0629--1959 & 606.29 & 7.91   &   -0.113  & 0.012   &    0.028 &  0.009  \\ \bottomrule
+		\end{tabular}
+\end{table}
+
+%G1336
+\begin{table}[h]
+    \footnotesize
+	\centering
+	\onehalfspacing
+	\begin{tabular}{llrrrrrr} 
+	\toprule
+	\multicolumn{1}{c}{\bf Epoch} &
+	\multicolumn{1}{c}{\bf Source} & 
+	\multicolumn{1}{c}{ $\boldsymbol{S}$} & 
+	\multicolumn{1}{c}{ $\boldsymbol{\sigma_S}$} & 
+	\multicolumn{1}{c}{ $\boldsymbol{\Delta\alpha}$ } &
+	\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\alpha}}$ } & 
+	\multicolumn{1}{c}{ $\boldsymbol{\Delta\delta}$ } &
+	\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\delta}}$ } \\
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{ \textbf{(mJy)} }&
+	\multicolumn{1}{c}{ \textbf{(mJy)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }\\
+	\midrule
+	MV025 & G1336--0829 & 743.35 & 0.94  & -0.023  & 0.001  & -0.076  &  0.001 \\
+	& J1354--0206 & 292.82 & 6.32  & -0.229  & 0.020  & -0.110  &  0.018 \\
+	& J1351--1449 & 322.14 & 8.45  &  0.111  & 0.022  &  0.363  &  0.018 \\
+	& J1312--0424 &  46.39 & 2.38  &  0.031  & 0.055  & -0.054  &  0.046 \\
+	& J1406--0848 &  74.33 & 3.25  & -0.216  & 0.046  &  0.198  &  0.030 \\
+	& J1305--1033 & 139.79 & 2.87  &  0.114  & 0.018  & -0.068  &  0.014 \\
+	& J1406--0707 & 132.32 & 3.37  &  0.199  & 0.022  &  0.105  &  0.019 \\ \hline
+	%&
+	MV026 & G1336--0829 & 415.98 & 0.77  & -0.036  & 0.002  & -0.067  &  0.002 \\
+	& J1354--0206 & 282.82 & 4.80  & -0.462  & 0.016  & -0.012  &  0.013 \\
+	& J1351--1449 & 242.44 & 3.41  &  0.153  & 0.012  &  0.008  &  0.011 \\
+	& J1312--0424 &  74.49 & 1.72  & -0.351  & 0.021  & -0.120  &  0.016 \\
+    & J1406--0848 &  43.62 & 2.27  & -0.175  & 0.042  & -0.350  &  0.037 \\
+	& J1305--1033 &  47.61 & 2.12  & -0.202  & 0.041  & -0.073  &  0.031 \\
+	& J1406--0707 &   9.86 & 2.06  & -0.019  & 0.167  & -0.003  &  0.163 \\ \hline
+	%&
+	MV027 & G1336--0829 & 571.82 & 1.14  & -0.025  & 0.002  & -0.019  &  0.002 \\
+	& J1354--0206 &  21.86 & 8.21  & -1.577  & 0.513  & -1.182  &  0.425 \\
+	& J1351--1449 & 175.39 & 5.10  &  0.155  & 0.025  &  0.107  &  0.024 \\
+	& J1312--0424 &  48.62 & 3.30  & -0.460  & 0.071  & -0.275  &  0.049 \\
+	& J1406--0848 & -39.05 & 3.81  &  1.089  & 0.100  & -1.581  &  0.088 \\
+	& J1305--1033 &  14.80 & 3.60  & -0.490  & 0.243  & -0.288  &  0.238 \\
+	& J1406--0707 &  44.40 & 2.45  & -0.461  & 0.048  &  0.267  &  0.040 \\ \hline
+	%&
+	MV028 & G1336--0829 & 476.14 & 0.77  & -0.023  & 0.002  & -0.028  &  0.001 \\
+	& J1354--0206 & 201.55 & 4.17  & -0.081  & 0.020  & -0.281  &  0.017 \\
+	& J1351--1449 & 287.88 & 5.78  & -0.025  & 0.017  &  0.209  &  0.015 \\
+	& J1312--0424 &  43.01 & 2.55  &  0.154  & 0.055  &  0.045  &  0.039 \\
+	& J1406--0848 &  95.91 & 1.96  & -0.243  & 0.020  & -0.177  &  0.017 \\
+	& J1305--1033 &  59.97 & 2.91  & -0.139  & 0.046  &  0.144  &  0.039 \\
+	& J1406--0707 &  88.94 & 1.54  &  0.175  & 0.016  & -0.102  &  0.014 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+%G1901
+\begin{table}[h]
+    \footnotesize
+    \centering
+    \onehalfspacing
+	\begin{tabular}{llrrrrrr} 
+	\toprule
+	\multicolumn{1}{c}{\bf Epoch} &
+	\multicolumn{1}{c}{\bf Source} & 
+	\multicolumn{1}{c}{ $\boldsymbol{S}$} & 
+	\multicolumn{1}{c}{ $\boldsymbol{\sigma_S}$} & 
+	\multicolumn{1}{c}{ $\boldsymbol{\Delta\alpha}$ } &
+	\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\alpha}}$ } & 
+	\multicolumn{1}{c}{ $\boldsymbol{\Delta\delta}$ } &
+	\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\delta}}$ } \\
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{ \textbf{(mJy)} }&
+	\multicolumn{1}{c}{ \textbf{(mJy)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }&
+	\multicolumn{1}{c}{ \textbf{(mas)} }\\
+	\midrule
+MV025 & G1901--2112  &  191.052  &  0.820  & -0.031  &  0.004  & -0.006  & 0.003  \\
+	  & J1916--1519  &   61.031  &  3.805  &  0.247  &  0.052  &  0.333  & 0.043  \\
+	  & J1848--2718  &  274.016  &  1.606  &  0.106  &  0.005  & -0.009  & 0.004  \\
+	  & J1928--2035  &   15.209  &  1.641  & -1.743  &  0.055  & -2.446  & 0.206  \\
+ 	  & J1832--2039  &  125.929  &  4.012  & -0.223  &  0.033  &  0.342  & 0.019  \\
+	  & J1916--2708  &   81.726  &  1.116  &  0.060  &  0.012  & -0.278  & 0.008  \\ \hline
+	%&
+MV026 & G1901--2112  &  119.279  &  0.233  & -0.005  &  0.002  & -0.005  & 0.001  \\
+	  & J1916--1519  &  122.695  &  1.164  & -0.014  &  0.008  &  0.132  & 0.006  \\
+	  & J1848--2718  &  171.466  &  1.901  &  0.161  &  0.010  & -0.162  & 0.006  \\
+	  & J1928--2035  &   46.523  &  0.417  &  0.092  &  0.008  &  0.024  & 0.005  \\
+	  & J1832--2039  &  132.461  &  2.469  & -0.080  &  0.018  &  0.028  & 0.011  \\
+	  & J1916--2708  &   59.731  &  0.670  &  0.111  &  0.010  & -0.147  & 0.007  \\ \hline
+	%&
+MV027 & G1901--2112  &  140.980  &  0.208  & -0.004  &  0.001  & -0.002  & 0.001  \\
+	  & J1916--1519  &   89.282  &  1.358  &  0.477  &  0.014  &  0.371  & 0.011  \\
+	  & J1848--2718  &  228.981  &  2.463  & -0.502  &  0.011  & -0.367  & 0.007  \\
+	  & J1928--2035  &   40.462  &  0.718  &  0.631  &  0.016  &  0.225  & 0.012  \\
+	  & J1832--2039  &  108.851  &  3.585  & -0.454  &  0.033  & -0.105  & 0.021  \\
+	  & J1916--2708  &   61.593  &  1.076  &  0.226  &  0.014  & -0.041  & 0.011  \\ \hline
+	%&
+MV028 & G1901--2112  &  137.140  &  0.246  & -0.001  &  0.002  & -0.001  & 0.001  \\
+	  & J1916--1519  &  113.679  &  1.646  &  0.157  &  0.014  & -0.049  & 0.010  \\
+	  & J1848--2718  &  176.485  &  2.970  &  0.069  &  0.017  & -0.102  & 0.010  \\
+	  & J1928--2035  &   46.149  &  0.524  &  0.256  &  0.010  &  0.009  & 0.008  \\
+	  & J1832--2039  &  161.779  &  2.108  & -0.202  &  0.013  &  0.163  & 0.008  \\
+	  & J1916--2708  &   58.530  &  0.826  & -0.031  &  0.013  & -0.137  & 0.010  \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Inverse MultiView Astrometry}   \label{app:imvtables}
+
+%g0634
+\begin{table}[h]
+	\footnotesize
+	\centering
+	\onehalfspacing
+	\begin{tabular}{llrrrrrr} 
+		\toprule
+		\multicolumn{1}{c}{\bf Epoch} &
+		\multicolumn{1}{c}{\bf Source} & 
+		\multicolumn{1}{c}{ $\boldsymbol{S}$} & 
+		\multicolumn{1}{c}{ $\boldsymbol{\sigma_S}$} & 
+		\multicolumn{1}{c}{ $\boldsymbol{\Delta\alpha}$ } &
+		\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\alpha}}$ } & 
+		\multicolumn{1}{c}{ $\boldsymbol{\Delta\delta}$ } &
+		\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\delta}}$ } \\
+		\multicolumn{1}{c}{} & 
+		\multicolumn{1}{c}{} & 
+		\multicolumn{1}{c}{ \textbf{(mJy)} }&
+		\multicolumn{1}{c}{ \textbf{(mJy)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }\\
+		\midrule
+		MV025 & G0634--2335 & 1256.0  &  7.0   &   0.069  &  0.005  &  0.026  &  0.000 \\
+		& J0636--2113 &  244.2  &  0.9   &  -0.112  &  0.003  & -0.035  &  0.000 \\
+		& J0643--2451 &  152.8  &  1.8   &  -0.079  &  0.011  & -0.065  &  0.000 \\
+		& J0620--2515 &  211.5  &  6.4   &   0.172  &  0.027  &  0.037  &  0.020 \\
+		& J0639--2141 &   39.9  &  0.7   &   0.087  &  0.016  &  0.033  &  0.010 \\
+		& J0632--2614 &  503.1  &  6.1   &   0.075  &  0.010  &  0.020  &  0.000 \\
+		& J0629--1959 &  380.3  &  6.7   &  -0.082  &  0.039  & -0.164  &  0.030 \\ \hline
+		
+		MV026	& G0634--2335 &  869.9  &  1.7   &   0.042  &  0.002  &  0.029  &  0.000 \\
+		& J0636--2113 &  145.0  &  1.0   &  -0.024  &  0.006  &  0.026  &  0.000 \\
+		& J0643--2451 &  116.2  &  0.5   &   0.014  &  0.004  &  0.044  &  0.000 \\
+		& J0620--2515 &  250.9  &  2.1   &  -0.081  &  0.008  &  0.035  &  0.000 \\
+		& J0639--2141 &   27.1  &  0.4   &   0.192  &  0.016  &  0.067  &  0.010 \\
+		& J0632--2614 &  481.6  &  1.7   &   0.050  &  0.003  &  0.024  &  0.000 \\
+		& J0629--1959 &  636.9  &  3.3   &   0.007  &  0.005  & -0.037  &  0.000 \\ \hline
+		
+		MV027 & G0634--2335 & 1114.0  &  2.0   &   0.016  &  0.002  &  0.026  &  0.000 \\
+		& J0636--2113 &  191.3  &  1.7   &   0.059  &  0.008  &  0.048  &  0.000 \\
+		& J0643--2451 &  175.2  &  0.9   &   0.061  &  0.005  & -0.004  &  0.000 \\
+		& J0620--2515 &  355.5  &  2.8   &  -0.028  &  0.007  &  0.000  &  0.000 \\
+		& J0639--2141 &   35.8  &  0.3   &   0.091  &  0.009  &  0.062  &  0.000 \\
+		& J0632--2614 &  608.0  &  3.7   &   0.011  &  0.005  &  0.016  &  0.000 \\
+		& J0629--1959 &  998.6  &  5.3   &  -0.075  &  0.005  & -0.031  &  0.000 \\ \hline
+		
+		MV028	& G0634--2335 &  919.0  &  1.4   &   0.018  &  0.001  & -0.014  &  0.000 \\
+		& J0636--2113 &  151.1  &  1.3   &  -0.040  &  0.008  &  0.032  &  0.000 \\
+		& J0643--2451 &  139.1  &  0.7   &   0.064  &  0.005  &  0.020  &  0.000 \\
+		& J0620--2515 &  282.1  &  3.0   &  -0.088  &  0.010  & -0.069  &  0.000 \\
+		& J0639--2141 &   29.8  &  0.3   &   0.084  &  0.010  & -0.120  &  0.000 \\
+		& J0632--2614 &  515.9  &  2.2   &   0.001  &  0.004  &  0.032  &  0.000 \\
+		& J0629--1959 &  697.5  &  6.4   &  -0.008  &  0.008  & -0.061  &  0.000 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Self--Calibration Astrometry} \label{app:sfctables}
+
+%G0634
+\begin{table}[h]
+	\footnotesize
+	\centering
+	\onehalfspacing		
+	\begin{tabular}{llrrrrrr} 
+		\toprule
+		\multicolumn{1}{c}{\bf Epoch} &
+		\multicolumn{1}{c}{\bf Source} & 
+		\multicolumn{1}{c}{ $\boldsymbol{S}$} & 
+		\multicolumn{1}{c}{ $\boldsymbol{\sigma_S}$} & 
+		\multicolumn{1}{c}{ $\boldsymbol{\Delta\alpha}$ } &
+		\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\alpha}}$ } & 
+		\multicolumn{1}{c}{ $\boldsymbol{\Delta\delta}$ } &
+		\multicolumn{1}{c}{ $\boldsymbol{\sigma_{\Delta\delta}}$ } \\
+		\multicolumn{1}{c}{} & 
+		\multicolumn{1}{c}{} & 
+		\multicolumn{1}{c}{ \textbf{(mJy)} }&
+		\multicolumn{1}{c}{ \textbf{(mJy)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }&
+		\multicolumn{1}{c}{ \textbf{(mas)} }\\
+		\midrule
+		MV025 & G0634--2335 & 1419.0  &  3.0   &  -0.003  &  0.002  &  0.001  &  0.001 \\
+		& J0636--2113 &  256.1  &  0.8   &  -0.002  &  0.003  & -0.009  &  0.002 \\
+		& J0643--2451 &  201.0  &  0.7   &  -0.005  &  0.003  & -0.011  &  0.002 \\
+		& J0620--2515 &  495.7  &  1.1   &   0.000  &  0.002  &  0.003  &  0.001 \\
+		& J0639--2141 &   54.0  &  0.6   &   0.035  &  0.010  & -0.026  &  0.008 \\
+		& J0632--2614 &  762.9  &  1.0   &  -0.013  &  0.001  & -0.004  &  0.001 \\
+		& J0629--1959 &    1.1  &  0.0   &  -0.008  &  0.001  &  0.021  &  0.001 \\ \hline
+		MV026 		& G0634--2335 &  917.3  &  0.5   &   0.002  &  0.001  &  0.001  &  0.000 \\
+		& J0636--2113 &  168.3  &  0.4   &   0.022  &  0.002  &  0.013  &  0.002 \\
+		& J0643--2451 &  129.2  &  0.4   &   0.005  &  0.004  &  0.019  &  0.002 \\
+		& J0620--2515 &  316.6  &  0.4   &  -0.026  &  0.001  & -0.008  &  0.001 \\
+		& J0639--2141 &   33.9  &  0.3   &   0.057  &  0.009  &  0.008  &  0.008 \\
+		& J0632--2614 &  518.3  &  0.5   &   0.003  &  0.001  &  0.000  &  0.001 \\
+		& J0629--1959 &  752.8  &  0.6   &   0.010  &  0.001  &  0.022  &  0.001 \\ \hline
+		MV027       & G0634--2335 & 1142.0  &  1.0   &  -0.001  &  0.001  &  0.000  &  0.001 \\
+		& J0636--2113 &  227.0  &  0.6   &  -0.001  &  0.002  &  0.004  &  0.002 \\
+		& J0643--2451 &  190.0  &  0.4   &  -0.009  &  0.002  &  0.001  &  0.002 \\
+		& J0620--2515 &  431.7  &  0.6   &  -0.004  &  0.001  & -0.004  &  0.001 \\
+		& J0639--2141 &   40.2  &  0.3   &   0.074  &  0.007  &  0.049  &  0.006 \\
+		& J0632--2614 &  678.6  &  0.8   &   0.000  &  0.001  & -0.001  &  0.001 \\
+		& J0629--1959 &    1.0  &  0.0   &   0.001  &  0.001  &  0.008  &  0.001 \\ \hline
+		MV028 		& G0634--2335 &  961.4  &  0.8   &  -0.003  &  0.001  & -0.002  &  0.001 \\
+		& J0636--2113 &  185.2  &  0.4   &   0.009  &  0.002  &  0.006  &  0.002 \\
+		& J0643--2451 &  152.1  &  0.3   &   0.006  &  0.002  &  0.008  &  0.002 \\
+		& J0620--2515 &  343.3  &  0.4   &  -0.008  &  0.001  & -0.003  &  0.001 \\
+		& J0639--2141 &   35.7  &  0.3   &   0.028  &  0.007  &  0.006  &  0.006 \\
+		& J0632--2614 &  555.8  &  0.5   &  -0.003  &  0.001  &  0.000  &  0.001 \\
+		& J0629--1959 &  913.4  &  0.6   &   0.009  &  0.001  &  0.011  &  0.001 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+
+\afterpage{\blankpage}
+
+
+

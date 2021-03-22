@@ -1,0 +1,449 @@
+%%chapter 4
+%!TeX spellcheck = en_GB 
+%\blankpage   
+%\blankpage
+\chapter{Parallax and Proper Motions of First Galactic Quadrant Star Forming Regions}\label{chap:chapter3}
+	\onehalfspacing    
+	
+	\vspace{5cm}
+	In this chapter I present measurements of parallaxes towards 4 star forming regions in the First Galactic Quadrant. These parallaxes were observed as part of the Bar and Spiral Structure (BeSSeL) Survey's most recent programme: BR210.  I use the measured and previous parallaxes to fit a spiral arm model to the maser distributions in the Perseus arm and use the proper motions to determine local Galactic kinematics. Finally I discuss the applicability of these techniques to \spirals.
+    
+    \singlespacing
+
+        
+        \newpage
+    \section{Introduction}
+        The BeSSeL Survey has been an ongoing legacy project on the VLBA since 2010 and in that time has collected data on just under 200 masers\footnote{http://bessel.vlbi-astrometry.org/observations} cumulating in the reduction and publication of $>90\%$ \citep[][not including parallaxes published as part of the VERA project]{Reid2019}. These parallaxes, proper motions and resultant distances individually provide important size, luminosity and kinematic information about the specific star forming region, which can be then used in other studies. However when combined in a large collections they are utilized to trace the structure, dynamics and constrain the size and mass of our Galaxy.
+        
+        Despite the large and sweeping success of BeSSeL and VERA, there have been numerous target masers for which a parallax observation has not resulted in a significantly constrained distance. Most of these can be attributed to water maser variability and eventual spot disappearance over the course of a year. Even in cases where the maser spot persists for a majority of a year, disappearance in final epochs can cause large uncertainties and parallax measurement uncertainty approaching 20\% or far exceeding it in terms of parallax fit degeneracy.
+        
+        Initial BeSSeL observations (made under project codes BR145 and BR198) were limited to targeting 22.2~GHz water and occasional 12.2~GHz class II methanol masers. Upgrades to the VLBA in 2015 allowed observations of 6.7~GHz methanol masers, and in response BeSSeL conducted the BR149 series exclusively dedicated to targeting these masers. At the sacrifice of generally less compact maser spots, 6.7~GHz methanol masers have greatly reduced average variability compared to their 22~GHz counterparts. This means phase reference features persist for periods much longer than a year. In addition at these lower frequencies interferometer coherence times are much longer and it was believed that phase errors resulting from residual tropospheric delays would allow as stable (if not more stable) phase referencing solutions. Therefore BR149 proceeded with the observations of 6.7~GHz methanol masers as 4 epochs per maser spaced out over 12\,months.
+        
+        Regrettably, parallax measurements for the methanol masers in BR149 were significantly noisier than previous water maser measurements and as a result sometimes maser distances were very difficult to constrain. The source of this added uncertainty is attributed to residual ionosphere, which was not initially expected to be a major influence at intermediate frequencies. In some extreme cases, different quasars would even give systematically different parallax measurements, suggesting a parallax `gradient' over the sky \citep{Reid2017,Zhang2019}. This type of measurement uncertainty is particularly deleterious when there are only a small number of epochs in a parallax measurement, such as for BR149. 
+        
+        Therefore BR210 was introduced to combat these issues. Targeting both 22~GHz water and 6.7~GHz methanol masers, BR210 stands out among BeSSeL projects in observational approach and includes 16 epochs and multiple quasars per maser. 
+        %l-v diagram of Perseus gap
+        \afterpage{
+        \begin{figure}
+        	\centering
+%        	\includegraphics[trim={1cm 5cm 2cm 5cm},clip,width=0.9\textwidth]{perseusgap_warms.pdf}
+        	\includegraphics[trim={0cm 0cm 0cm 0cm},clip,width=0.9\textwidth]{perseusgap_warms.pdf}
+        	\caption[First quadrant $l-v$ diagram]{$l-v$ diagram of the first Galactic quadrant. {\bf Coloured contours}: Integrated CO emission from \citet{Dame2001}; {\bf Blue, black and red dashed lines}: projected arm locations for the Local, Perseus and Outer arms respectively; {\bf Black crosses}: High mass star formation regions as traced by 6.7~GHz methanol masers from \citet{Yang2019}; {\bf Pink:} location of masers analysed in this chapter.}
+        	\label{fig:perseusgap}
+        \end{figure}
+	    }
+	    
+        \hyperref[fig:perseusgap]{Figure \ref*{fig:perseusgap}} shows modelled locations for the Local, Perseus and Outer arms as derived from pitch angles and rotation curves given in \citet{Reid2019} projected on a $l$--$v$ diagram with CO emission contours. Included are the locations of many HMSFR as traced by 6.7~GHz methanol masers. Concerning the Perseus arm, there exists a region between $50<l<80^\circ$ with little in the way of dense gas regions or HMSFR, which is commonly referred to as the {\it Perseus gap}, and is inexplicable by either arm projection or sensitivity. 
+        
+        The aim of the parallax observations described in this chapter is to increase our knowledge of the structure of the first Galactic quadrant, particularly concerning the Perseus arm and Perseus gap by analysing BeSSeL VLBA data for three water masers and one methanol maser observed as part of BR210 and discuss the nuances of each parallax and region.
+       
+    \section{Observations and Reduction}    
+        Observational data were collected on the NRAO VLBA: project codes, epochs of observation and fractional year are shown in \hyperref[tab:br210_epochs]{Table \ref*{tab:br210_epochs}}. BR210 observations were split into five separate groupings, labelled A through to F, each containing 4--5 target masers based on sky distribution. BR210A$\rightarrow$E comprises 22.2~GHz water masers while BR210F includes only 6.7~GHz methanol masers.
+        
+        The individual observing sessions were $\sim7-9$\,hours with approximately identical layouts. Each epoch contains 1 shared track for between 4--5 individual maser targets bracketed by geoblocks. In addition there are two geoblocks placed bracketing the transit $\pm2$~hours. Geodetic block data was recorded in left circular polarization with $8\times16$\,MHz bands, and line data was recorded in dual polarisation with $4\times16$\,MHz (8~IFs total and 512~Mbits/s rate in both recording modes). For $K$--band and $C$--band the modes were slightly different. The data were correlated with the DiFX software correlator \citep{Deller2011} in Socorro, New Mexico.
+      
+		\subsection{K--band: BR210A to E}
+			Mode 1, geoblock: These bands were spaced such that the lower edge was 
+			\begin{equation*}
+			\nu_L = 23522+14\times(0,1,4,9,15,22,32,34)~\text{MHz}
+			\end{equation*} for each of the eight 16~MHz bands. This spacing is deliberate as it maximises delay--sensitivity in the synthesised bandwidth by minimising degenerate spacings. Synthesised bandwidth for geoblock data is $\Delta\nu=492$\,MHz. 
+			
+			Mode 2, line: Masers, associated calibrators and fringe--finder calibrators were observed $\Delta\nu=64$\,MHz continuous bandwidth centred on $\nu_0=22.235$~GHz.
+			
+			For both modes all sources and IFs were correlated in 32 spectral channels ($\delta\nu_{cont}=0.5$~MHz/chan). Line data processed in an additional pass: a zoom band for one of the IFs (that contained the maser line), correlated 2000 channels giving fine frequency resolution $\delta\nu_{line}=8$~kHz/chan or velocity resolution $\delta v=0.108$~\kms.
+
+		\subsection{Wide C--band: BR210F}
+	        Mode 1: two frequency groupings of $4\times16$~MHz IFs spaced 2.978~GHz apart. Each grouping was $\Delta\nu=496$~MHz synthesised bandwidth with lower band edge frequencies as given below:
+	        \begin{align*}
+	        \nu_{L,\text{LO}} &= 4112 + 4\times(1,20,80,120) ~\text{MHz}\\
+	        \nu_{L,\text{HI}} &= 7090 + 4\times(1,20,80,120) ~\text{MHz}
+	        \end{align*} again spaced to maximise delay--sensitivity in the individual 4.3 and 7.3 GHz groups. Mode 2: Masers and calibrators were observed in 4 adjacent 16~MHz IFs centred on $\nu_0 = 6.668$~GHz.
+	        
+	        All data correlated with 32 channels pass 1. Second pass on mode 2 data: central 8~MHz zoom band of the third IF correlated with 2000 spectral channels $\delta\nu_{line}=4$~kHz/chan or velocity resolution $\delta v=0.18$~\kms.
+        
+		\subsection{Sources}
+			The targets consisted of three 22.2~GHz water masers and one 6.7~GHz methanol maser believed to be located in the Perseus Arm of the Milky Way based on kinematic distances and known Galactic structure. Maser and reference quasar information is given in \hyperref[tab:br210_targets]{Table \ref*{tab:br210_targets}}.
+			% masers table
+			\begin{table}[h]
+				\onehalfspacing
+				\footnotesize
+				\centering
+				\caption[Observed BeSSeL masers]{Information on observed masers and quasars. Columns: \textbf{(1)} Name in Galactic coordinates for masers and J2000 for quasars, \textbf{(2)} Right Ascention in J2000, \textbf{(3)} Declination in J2000, \textbf{(4)} median self--calibrated image integrated flux density, \textbf{(5)} separation between maser and quasar, \textbf{(6)} mean maser emission velocity, \textbf{(7)} maser type-- either 22.2~GHz \water\space or 6.7~GHz \choh.}
+				\label{tab:br210_targets}
+				\begin{tabular}{rcccccc}
+					\toprule
+					\textbf{Name}&$\boldsymbol{\alpha_{J2000}}$&$\boldsymbol{\delta_{J2000}}$&$\boldsymbol{S}$&$\boldsymbol{\Delta\theta}$&$\boldsymbol{V}$&{\bf Type}\\
+					&$\boldsymbol{(hh:mm:ss)}$&$\boldsymbol{(dd:mm:ss)}$&{\bf(mJy)}&{\bf(deg)}&{\bf(\kms)}&\\
+					\midrule
+					\textbf{G021.87$+$0.01}   & $18:31:01.7367$ & $-09:49:01.116$ & ...                  & ...   &$+19.6$ & \water\\
+					J1825$-$0737     & $18:25:37.6096$ & $-07:37:30.013$ & $116^{+1}_{-1}$      & 2.566 &  ...   &       \\        
+					J1835$-$1115     & $18:35:19.5754$ & $-11:15:59.326$ & $<10$                & 1.793 &  ...   &       \\\hline 
+					\textbf{G037.81$+$0.41}  & $18:58:53.8794$ & $+04:32:15.004$& ...                  & ...   &$+19.0$ & \water\\
+					J1855$+$0251     & $18:55:35.4364$ & $+02:51:19.563$ & $72^{+16}_{-29}$     & 1.874 &  ...   &       \\
+					J1856$+$0610     & $18:56:31.8388$ & $+06:10:16.765$ & $151^{+19}_{-29}$    & 1.738 &  ...   &       \\\hline
+					\textbf{G060.57$-$0.18}  & $19:45:52.5019$ & $+24:17:42.749$ & ...                  & ...   &$+3.7$  & \choh \\
+					J1946$+$2418     & $19:46:19.9607$ & $+24:18:56.909$ & $24^{+5}_{-1}$       & 0.116 &  ...   &       \\
+					J1949$+$2421     & $19:49:33.1420$ & $+24:21:18.245$ & $124^{+12}_{-9}$     & 0.921 &  ...   &       \\\hline 
+					\textbf{G070.29$+$1.60}  & $20:01:45.3486$ & $+33:32:45.711$ & ...                  & ...   &$-26.7$ & \water\\
+					J1957$+$3338     & $19:57:40.5499$ & $+33:38:27.943$ & $126^{+6}_{-24}$     & 1.024 &  ...   &       \\
+					J2001$+$3323     & $20:01:42.2090$ & $+33:23:44.765$ & $137^{+13}_{-13}$    & 0.151 &  ...   &       \\
+					\bottomrule
+				\end{tabular}
+				\vspace{0.5cm}
+			\end{table}
+        
+        
+        \subsection{Calibration}
+		    The VLBA data reduction was conducted via the Standard VLBI Calibration procedure (see \hyperref[{sec:standardvlbicalibration}]{Section~\S \ref*{sec:standardvlbicalibration}}) as applicable to the observing frequencies and modes listed above. The only difference to the calibration procedure came in the form of various time range flagging: more often than not there was a clock jump directly after the first geoblock compared to the second. This is a known issue and comes about as a consequence of the first (and only the first) frequency change in an experiment. The resolution to this issue is to flag the time range before the jump at offending stations.
+	
+	\clearpage
+    \section{Results and Discussion}    
+        \subsection{Astrometry and Parallax Fitting}
+	        The first step after calibration is fitting elliptical Gaussians to maser or quasar emission in phase referenced images. This process was performed manually with \aips\space task \textbf{JMFIT} and option DOPRINT$=-4$. \hyperref[tab:g021_position]{Tables \ref*{tab:g021_position}}, \hyperref[tab:g037_position]{\ref*{tab:g037_position}},  \hyperref[tab:g060_position]{\ref*{tab:g060_position}} and  \hyperref[tab:g070_position]{\ref*{tab:g070_position}} show the measured flux densities and astrometric positions of masers or quasars over time resulting from this fitting.
+	        
+	        The parallax $\varpi$ and proper motions $\mu_x$, $\mu_y$ are solved from the measured position over time ($x$, $y$) via weighted--least squares on \hyperref[eq:parrequation]{Equation \ref*{eq:parrequation}}. This process is undertaken using the FORTRAN programme \textbf{fit\_parallax\_multi\_4d} (written and provided by Mark J. Reid). Measured parallax and proper motions are given in \hyperref[tab:br210_parallax]{Table \ref*{tab:br210_parallax}} with the parallax and proper motion curves given in \hyperref[fig:per_g021parallax]{Figures \ref*{fig:per_g021parallax}}, \hyperref[fig:per_g037parallax]{\ref*{fig:per_g037parallax}}, \hyperref[fig:per_g060parallax]{\ref*{fig:per_g060parallax}} and \hyperref[fig:per_g070parallax]{\ref*{fig:per_g070parallax}}.
+	        %Results table
+	        \begin{table}[h]
+	        	\onehalfspacing
+	        	\footnotesize
+	        	\centering
+	        	\caption[Parallax and Proper Motions]{Measured parallax and proper motions of masers. (1) Maser name in Galactic coordinates, (2) quasar name in J2000, (3) measured parallax, }
+	        	\label{tab:br210_parallax}
+	        	\begin{tabular}{rrccccc}
+	        		\toprule
+	        		\textbf{Maser}&\textbf{Reference}&$\boldsymbol{\varpi}$&$\boldsymbol{\mu_x}$&$\boldsymbol{\mu_y}$&&$\boldsymbol{D}$\\
+	        		&&{\bf(mas)}&{\bf(mas\,yr$\boldsymbol{^{-1}}$)}&{\bf(mas\,yr$\boldsymbol{^{-1}}$)}&&{\bf(kpc)}\\
+	        		\midrule
+	        		\textbf{G021.88$+$0.01} &J$1825-0737$      &  $0.014\pm0.124$ & $-3.60\pm0.48$ & $-6.35\pm0.16$ &  & $\gtrsim2.5$ \\
+	        		Best estimate& 				   & 				  & 			   & 			    & & $13.7^{+0.9}_{-0.8}$ \\\hline 
+	        		\textbf{G037.82$+$0.41}  &J$1855+0251$      &  $0.093\pm0.010$ & $-2.622\pm0.025$ & $-5.837\pm0.037$ &  &  \\
+	        		&J$1856+0610$      &  $0.074\pm0.011$ & $-2.660\pm0.028$ & $-5.514\pm0.037$ &  &  \\
+	        		Weighted average&           &  $0.084\pm0.008$ & $-2.64 \pm0.02 $ & $-5.68 \pm0.03$  &  & $11.90^{+0.82}_{-0.72}$ \\\hline
+	        		\textbf{G060.57--0.18}  &J$1946+2418$      &  $0.130\pm0.011$ & $-3.237\pm0.028$ & $-5.729\pm0.040$ &  &  \\
+	        		&J$1949+2421$      &  $0.131\pm0.014$ & $-3.217\pm0.036$ & $-5.638\pm0.033$ &  &  \\
+	        		Weighted average&           &  $0.130\pm0.009$ & $-3.23 \pm0.02$  & $-5.67 \pm0.03$  &  & $7.69^{+0.38}_{-0.34}$ \\\hline
+	        		%\textbf{G070.29$+$1.60}&   &  &  &  &  &  \\
+	        		%            &J$1957+3338$      &  $0.280\pm0.025$ & $-2.072\pm0.088$ & $-3.983\pm0.052$ &  &  \\
+	        		%            &J$2001+3323$      &  $0.222\pm0.031$ & $-1.930\pm0.104$ & $-3.948\pm0.066$ &  &  \\
+	        		%            Weighted average&           &  $0.26 \pm0.02$  & $-2.01 \pm0.07$  & $-3.97 \pm0.04$  &  &  $3.85^{+0.21}_{-0.19}$
+	        		\textbf{G070.29$+$1.60}   &J$1957+3338$&  &  &  &  \\ \& & J$2001+3323$ & $0.097\pm0.011$ & $-1.46\pm0.04$ & $-3.69\pm0.05$ &  & $11.2^{+1.1}_{-1.2}$ \\\bottomrule
+	        	\end{tabular}
+	        \end{table}
+                
+		%\clearpage
+        \subsection{G021.87+0.01}
+            G021.87$+$0.01 is a 22.2~GHz water maser spatially associated with an extended green object (EGO) and \hii\space regions GAL021.87+00.01 and GAL021.88+00.02 \citep[][ respectively]{Rodgers1960,Wink1982}.
+            I measured a parallax of $\varpi=0.014\pm0.124$\,mas towards G021.88$+$0.01, which is not statistically significant. Due to the very high fractional uncertainty ($f\sim9$) no inclusion of priors into the parallax probability can resolve the issue. Parallax inversion suggests the  distance estimate is $D\gtrsim2.5$\,kpc: even with the uncertainty encountered, a maser at this distance would have a measurable parallax and therefore this is the preliminary lower--bound estimate. 
+				        
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=.9\textwidth]{G021-J1825.pdf}
+				\caption[G021.87+0.01 Parallax Fit]{Parallax of G021.87$+$0.01 against QSO J1825--0737. Epochs 1, A, B, C, D, E, F, G are excluded from fit due to lack of detectable phase reference feature in either spectrum or map.}
+				\label{fig:per_g021parallax}
+			\end{figure}	        
+				        
+            Using the measured recession velocity of the maser $v=19.6^{+5}_{-2}$\,\kms, I calculate a kinematic distance. Taking an analytic rotation curve:
+            \begin{align*}
+            %\begin{split}
+	            \Theta(R) &= \Theta_\odot (K_1 + K_2\frac{R_\odot}{R}) \hspace{1cm} 3<R<8\,\text{kpc} \\
+				          &= \Theta_\odot \hspace{3.8cm} R>8\,\text{kpc}
+            %\end{split}
+            \end{align*} 
+            with $K_1=0.171$, $K_2=0.889$ \citep{McClure2016} and $\Theta_\odot=235\pm5$\,\kms, $R_\odot=8.35\pm0.15$ \citep{Reid2014}. As it has a positive velocity in the first quadrant, it is likely to be inner Galaxy ($R<R_\odot$) and therefore gives near/far kinematic distances $D_n=1.8^{+0.7}_{-0.9}$ and $D_f=13.7^{+0.9}_{-0.7}$\,kpc. The lower--bound distance estimate helps to resolve the ambiguity by supporting the far distance.
+            
+            Although the parallax was not statistically significant, the proper motions were. I measured proper motions of $\mu_x=-3.60\pm0.48$ and $\mu_y=-6.35\pm0.16$\,mas/yr. In Galactic coordinates this becomes $\mu_{l*}= -7.3\pm0.3$, $\mu_b=0.2\pm0.3$\,mas/yr and signifies almost complete motion in the negative $l$--direction (which is towards the Galactic centre). Using the above rotation curve, I calculate the possible velocities tangential to the line of sight with:
+            \begin{equation*}
+                v_t = \sqrt{\Theta(R)^2 + \Theta_\odot^2 - 2\Theta(R)\Theta_\odot\left(R_\odot - d\cos l\right)}
+            \end{equation*} where $R$ is calculated via $R^2 = d^2 + R_\odot^2 - 2\,R_\odot\,d\,\cos l$. The Galactic rotation speed of the maser will be $$v_{tm} = 4.7\,d\,\mu_{l*}~\text{\kms}$$ where 4.7 is the approximate conversion between \kms and AU/yr if $d$ is in kpc and $\mu_{l*}$ is in mas/yr. \hyperref[fig:g021_tangentvel]{Figure \ref*{fig:g021_tangentvel}} shows the result of this basic modelling. Favourable regions include $0.1<D<0.8$, $6.3<D<8.5$ and $11.8<D<15.2$\,kpc, the largest of these being consistent with the lower distance estimate and far kinematic distance.
+
+            It should be noted that the velocity structure of the Galactic centre region ($4\lesssim D\lesssim11.8$\,kpc) is more complex and hence poorly modelled. However, this does not disregard the likelihood of finding a target in this region to the random/viral-ised velocities of gas/stars in this region.
+            
+            \begin{SCfigure}
+            	\centering
+            	\includegraphics[width=0.45\textwidth]{g021_propermotion_diff.pdf}
+            	\caption[Proper motion distance G021.87$+$0.01]{Modelled proper motion distance for G021.87$+$0.01 vs. residual velocity. \textbf{Solid line:} Upper 95\% CI limit with $\mu_l = -6.4$\,mas/yr; \textbf{Dashed line:} Lower 95\% CI with $\mu_l = -8.2$\,mas/yr. \textbf{Green region:} acceptable velocity differences bounded by $\pm10$\,\kms.} \label{fig:g021_tangentvel}
+            \end{SCfigure}
+            
+            Finally, \hyperref[fig:g021_spitzer]{Figure \ref*{fig:g021_spitzer}} shows the sky position of G021.87$+$0.01 against photometric \textit{Spitzer IRAC} data. The maser is spatially co--incident with a region of enhanced $4.5~\mu$m emission (aka. an EGO) outside of a larger region of $8\mu$m emission. The small angular size of the EGO circumstantially supports a large distance. 
+            
+            Looking at additional information that may be relevant to estimating the distance to this source, it is listed as having an `Unconstrained' KDA resolution from either \hi\space self absorption, emission/absorption or $8\mu$m absorption \citep{Ellsworth2015}.
+                        
+		    \begin{SCfigure}
+			    \centering
+		     	\includegraphics[width=0.45\textwidth]{g21_glimpse.pdf}
+		        \caption[G021.87$+$0.01 Sky position]{Astrometric position of \water\space maser G021.87$+$0.01 against {\it Spitzer} GLIMPSE data. \textbf{Blue star:} position of G021.87$+$0.01 $l=21.87977$, $b=0.01401$~deg. \textbf{RGB image:} $8$, $4.5$ and $3.6\mu$m emission. } \label{fig:g021_spitzer}
+		    \end{SCfigure}
+            
+            One of the main attributed reasons for the poor parallax constraint are maser morphological changes over the course of the observations. As clearly seen in \hyperref[fig:g021_spectra]{Figure \ref*{fig:g021_spectra}}, the spectrum changes drastically over a period of $\sim4$\,weeks, before a longer stable period. The spread of the observations regrettably does not allow for careful sampling of the flux density over time, however, it is clear that the spectrum remained more stable for at least 8 weeks after the 4th epoch. At the date of the 4th epoch the spectrum is very weak and likely dimming below detectable levels. Comparing the calibrator flux density for epoch 4 against previous and future epochs indicates that this dimming is likely intrinsic and not a calibration or onsource--time issue; in fact, the noise level remains similar over the epochs. 
+            
+            Therefore, the spectra for the initial 4 epochs is very likely emanating from a different set of maser spots than the following 7, after which the maser dims below detectable levels. This necessity to `change' phase reference features whether intended or otherwise introduces large systemic uncertainties that likely mask any detectable parallax signature. The spectral feature from latter epochs was from the same region and velocity, but likely a different part of the star formation region. Luckily all features apparently shared the same proper motion and this is why it was clearly detectable despite the feature change.
+            
+            The phase reference feature (post epoch 7) also had structure. Imaging it with all 9 antennas proved difficult and began to resolve the internal structure which seemingly had varying intensity between the components. Therefore only the inner--five VLBA antennas (FT, KP, LA, OV and PT) were used and this also placed a lower--bound on the astrometric accuracy of any particular epoch at approximately $\Delta\theta=\theta_{sep}\frac{1\,\text{cm}}{1508\,\text{km}}\sim60\mu$as.
+
+			Finally only one of the two calibrators was sufficient intensity to be used as a phase reference calibrator. As the maser was weak and variable, inverse phase referencing was impossible for almost all epochs and normal phase referencing was required. The  way the observations were conducted was designed for inverse phase referencing and therefore the sensitivity on the maser was reduced by a factor of $\sqrt{2}$ as half the data were outside the coherence time.
+
+		%\clearpage
+       	\subsection{G037.81+0.41}
+	       	G037.81$+$0.41 is a 22.2~GHz water maser located towards \hii\space regions and submillimeter sources in the inner Galaxy (\hyperref[fig:g037_glimpse]{Figure \ref*{fig:g037_glimpse}}). I measured a parallax of $\varpi=0.084\pm0.008$\,mas towards this star formation region, which implies a distance of $D=11.90^{+0.82}_{-0.72}$\,kpc. As the parallax has fractional uncertainty $f\simeq0.1$, no inclusion of priors or additional information is required and this is considered a direct measurement of the distance. The proper motions were measured as $\mu_x  =-2.64\pm0.02$, $\mu_y-5.68 \pm0.03$\,mas/yr, which converts to Galactic proper motions of $\mu_{l*}=-6.27\pm0.02$, $\mu_b=-0.266\pm0.002$\,mas/yr.
+	       	
+	        \begin{figure}[h]
+	        	\centering
+	        	\begin{subfigure}[t]{0.9\textwidth}
+	        		\includegraphics[width=1.0\textwidth]{G037-J1855.pdf}
+	        		\caption{With respect to J1855$+$0251.}
+	        	\end{subfigure}
+	        	~
+	        	\begin{subfigure}[t]{0.9\textwidth}
+	        		\includegraphics[width=1.0\textwidth]{G037-J1856.pdf}
+	        		\caption{With respect to J1856$+$0610.}
+	        	\end{subfigure}
+	        	\caption[G037.82$+$0.41 Parallax Fit]{Parallaxes and proper motions of target G037.82$+$0.41  referenced to corresponding calibrators.}
+	        	\label{fig:per_g037parallax}
+	        \end{figure}	       	
+	       	
+	       	
+	       	\begin{SCfigure}[][h]
+	       		\centering
+	       		\includegraphics[width=0.4\textwidth]{g37_glimpse.pdf}
+	       		\caption[G037.82$+$0.41 Sky position]{Astrometric position of \water\space maser G037.82$+$0.41 against {\it Spitzer} GLIMPSE data. \textbf{Blue star:} position of G037.82$+$0.41 $l=37.81968$, $b=0.41252$~deg. \textbf{RGB image:} $8$, $4.5$ and $3.6\mu$m emission.} \label{fig:g037_glimpse}
+	       	\end{SCfigure}	     	
+	       	
+	       	\hyperref[fig:g037_spotmap]{Figure \ref*{fig:g037_spotmap}} shows the spectrum and spatial--velocity distribution of maser spots (spotmap) for G037.82$+$0.41. The water maser has a spectrum with $\sim5$ peaks but a rich spatial distribution of spots. The spatial distribution of spots is reflective of a bipolar outflow as is commonplace in water maser structures.
+	       	
+	       	The parallax measurement of G037.82$+$0.41 is a prime example of everything going right: compact maser component, compact and bright quasar sources, non--variable reference feature and no external/weather problems impacting observations. As such the astrometry is able to reach the theoretical minimum of $\sigma_\theta\sim0.01$\,mas and this is reflected in the formal fitting errors for the parallax ($\sigma_\theta=2\sigma_\varpi\sim16\mu$as).
+	       	
+	       	\begin{figure}[h]
+	       		\centering
+	       		\begin{subfigure}[t]{0.475\textwidth}
+	       			\centering
+	       			\includegraphics[width=0.95\textwidth]{G037_spectra.eps}
+	       			%\includegraphics[trim={2.0cm 0.4cm 2.4cm 0.4cm},clip,width=0.9\textwidth]{G037_spectra.eps}
+	       			%\caption[G037.81+0.41 spectra]{}
+	       		\end{subfigure}
+	       		~
+	       		\begin{subfigure}[t]{0.475\textwidth}
+	       			\centering
+	       			\includegraphics[width=0.95\textwidth]{G037_spotmapf.eps}
+	       		\end{subfigure}              
+	       		\caption[G037.81$+$0.41 Spectrum and Spotmap]{Spatial-velocity distribution of emission in G037.81$+$0.41 on epoch BR210C9. \textbf{Left:} Spectrum. Vertical red line indicates phase reference velocity. \textbf{Right}: Spotmap. Phase reference feature at (0,0). Phase reference velocity does not line up with peak in spectrum as there are two emission regions overlapping in frequency and spatially proximate (North--East of phase reference feature, similar velocity). } \label{fig:g037_spotmap}
+	       	\end{figure}
+
+	
+		
+		\clearpage
+        \subsection{G060.58--0.18}            
+            G060.58--0.18 is 6.7~GHz class II methanol maser located towards a giant molecular cloud and \hii\space region (\hyperref[fig:g060_glimpse]{Figure \ref*{fig:g060_glimpse}}). A simple maser with a single emission region present in the auto-- and cross--correlation spectrum, it only had one maser spot visible in the maps over the 16 epochs. This spot was compact and showed very little sign of variation and no signs of evolution.
+            
+            I measured a parallax of $\varpi=0.130\pm0.009$\,mas for G060.48--0.18 which gives a distance of $D=7.69^{+0.38}_{-0.34}$\,kpc. The low fractional uncertainty $f=0.07$ makes the distance probability distribution near--Gaussian and therefore unambiguous. I also measured a proper motion of $\mu_x=-3.23\pm0.02$ and $\mu_y=-5.67\pm0.03$\,mas/yr which become $\mu_{l*}=-6.52\pm0.05$, $\mu_b=-0.09\pm0.01$\,mas/yr.
+           
+            \begin{figure}[h]
+            	\centering
+            	\begin{subfigure}[t]{0.9\textwidth}
+            		\includegraphics[width=1.0\textwidth]{G060-J1946.pdf}
+            		\caption{With respect to J1946$+$2418.}
+            	\end{subfigure}
+            	\vfill
+            	\begin{subfigure}[t]{0.9\textwidth}
+            		\includegraphics[width=1.0\textwidth]{G060-J1949.pdf}
+            		\caption{With respect to  J1949$+$2421.}
+            	\end{subfigure}
+            	\caption[G060.57--0.18 Parallax Fit]{Parallaxes and proper motions G060.57--0.18 referenced to corresponding calibrators.}
+            	\label{fig:per_g060parallax}
+            \end{figure}
+           
+            These values are statistically identical to the published parallax and proper motion of $\varpi=0.121\pm0.015$\,mas and $\mu_x=-3.26\pm0.15$ and $\mu_y=-5.66\pm0.15$\,mas/yr \citep{Reid2019}. These older measurements were attained as part of BR149(R) and used a 4--quasar setup of J1946$+$2418, J1949$+$2421 (which were used in BR210), J1946$+$2300 and J1936$+$2357 observed in 4 epoch total. Despite the fact that BR210 had $4\times$ as many epochs there was not an assumed $2\times$ decrease in parallax uncertainty (instead $\frac{9}{15}$). Either formal errors in the original observations were underestimated, or there are sources of systematic uncertainty, so increasing the number of epochs does not reduce the uncertainty by $\sqrt{N}$.  Nevertheless, the systematic errors must be sufficiently small or epoch independent to not skew the result.
+                        
+			\begin{SCfigure}[][h]
+				\centering
+				\includegraphics[width=0.45\textwidth]{g60_glimpse.eps}
+				\caption[G060.58--0.18 Sky position]{Astrometric position of \choh\space maser G060.58--0.18 against {\it Spitzer} GLIMPSE data. \textbf{Blue star:} position of G060.58--0.18. \textbf{RGB:} $5~\mu$m emission; \textbf{RGB image:} $8$, $4.5$ and $3.6\mu$m emission.} \label{fig:g060_glimpse}
+			\end{SCfigure}
+			
+            The maser feature used for astrometry had a constant unresolved flux density of $S_\nu\sim5$\,Jy, allowing for inverse PR to both quasars at all epochs with high $\text{SNR}\ge150$ (\hyperref[tab:g060_position]{Table \ref*{tab:g060_position}}). The quasars themselves were of very high quality in terms of flux density, absence of structure (\hyperref[fig:g60_ref]{Figure \ref*{fig:g60_ref}}) and perhaps most importantly: angular distance from maser (\hyperref[fig:g060_quasars]{Figure~\ref*{fig:g060_quasars}}). 
+            
+            \begin{SCfigure}
+            	\centering
+            	\includegraphics[width=0.45\textwidth]{g060_calibrators.pdf}
+				\caption[G060.57--0.18 quasar distribution]{Quasar distribution for G060.57--0.18. \textbf{Red:} Maser position; \textbf{Blue:} J1946$+$2418 position; \textbf{Green:} J1949$+$2421 position. Quasars are aligned radially in the positive $\alpha$--direction. Concentric circles eminating from maser postion are spaced $0.25$~deg.} \label{fig:g060_quasars}
+            \end{SCfigure}
+            
+            The two quasars J1946$+$2421 and J1949$+$2418 were $\theta_{sep}=0.116$ and $0.921$\,deg from the maser respectively. Given the SNR on the detected quasars, the thermal noise is expected to be $\sigma_{th}\sim4\mu$as and implies that the systematic uncertainty in the per--epoch astrometry is $\sigma_\theta=2\sigma_\varpi=22$ and $28\mu$as for each quasar. Since the quasars are offset from the maser in approximately the same direction I consider the case where measurement uncertainty is modelled as being radially dependent on the separation between the calibrator and target:
+			\begin{equation*}
+			\begin{split}
+				\sigma_\theta^2 &= \sigma_{sys}^2 + \sigma_{cont}^2 \\
+								&= \theta_{sep}^2\left(\frac{c\sigma_\tau}{|B_{max}|}\right)^2 + \sigma_{const}^2
+			\end{split}
+			\end{equation*} and fit the two--point data, I get $\sigma_{const}=22\mu$as and $\frac{c\sigma_\tau}{|B_{max}}|=5.3\times10^{-9}$. Therefore the expected average per--epoch residual delay is $c\sigma_\tau=4.5$\,cm, which is consistent with that expected from ionosphere even after TEC calibration \citep{WalkerChatterjee1999}. %The constant residual astrometric accuracy over the field is somewhat inexplicable, as it is much larger than the expected thermal noise. It is not unreasonable to assume that it originates from positional errors in the maser reference and quasars.
+           
+            This maser was repeated in BR210 as it is specifically important that the distance estimate is accurate. G060.57$-$0.18 is one of the few maser located in the Perseus Gap and the distance to this source has now been independently confirmed.
+
+		\clearpage
+        \subsection{G070.29+1.60}
+            G070.29$+$1.60 is a 22~GHz water maser located in the giant molecular cloud K3-50A/W58a \citep{Kohoutek1965,Wynn1969}. This maser is located near the centre of strong IR emission revealed by WISE data (\hyperref[fig:g070_pos]{Figure \ref*{fig:g070_pos}}) and has an apparent companion 6.7~GHz methanol maser G070.18$+$1.74. The velocities of the two masers are statistically identical $v_{\text{H}_2\text{O}}=-26.7\pm10$ and $v_{\text{CH}_2\text{OH}}=-23\pm5$\,\kms and appear to be part of the same molecular cloud. G070.18$+$1.74 is located on an arc offset $\theta=0.177$\,deg away from G070.29$+$1.60. 
+            
+            \begin{figure}[h]
+            	\centering
+            	\begin{subfigure}[t]{0.9\textwidth}
+            		\includegraphics[width=1.0\textwidth]{G070-J1957.pdf}
+            		\caption{With respect to J1957$+$3338.}
+            	\end{subfigure}
+            	\vfill
+            	\begin{subfigure}[t]{0.9\textwidth}
+            		\includegraphics[width=1.0\textwidth]{G070-J2001.pdf}
+            		\caption{With respect to J2001$+$3323.}
+            	\end{subfigure}
+            	\caption[G070.29$+$1.60 Parallax Fit]{Parallax and proper motion for target G070.29$+$1.60 referenced to corresponding calibrators.}
+            	\label{fig:per_g070parallax}
+            \end{figure}
+            
+            I measure a parallax of $\varpi=0.097\pm0.011$\,mas towards G070.29$+$1.60 (\hyperref[tab:br210_parallax]{Table \ref*{tab:br210_parallax}}). Inverting this parallax suggests the most likely distance is $D=11.2^{+1.2}_{-1.1}$\,kpc. Additionally, I measured a proper motion of $\mu_x=-1.45\pm0.04$ and $\mu_y=-3.69\pm0.05$\,mas/yr which convert to $\mu_{l*}=-3.89\pm0.06$ and $\mu_b=-0.74\pm0.02$\,mas/yr.
+            
+            %\afterpage{
+            \begin{figure}[h]
+        		\centering
+        		\includegraphics[width=0.8\textwidth]{g70_wise.pdf}
+        		\caption[K3--50A/W58a GMC and Masers]{K3--50A/W58a giant molecular cloud region. \textbf{RGB image:} WISE W4,W2,W1 ($22$, $4.6$, $3.4\mu$m); \textbf{Black star:} \water\space maser G070.29$+$1.60; \textbf{Blue star:} \choh\space maser G070.18$+$1.74. Image size is $9'\times9'$ in J2000 coordinate system.}\label{fig:g070_pos}
+        	\end{figure}
+        	%\clearpage}
+        
+            G070.18$+$1.74 has a published parallax and proper motion of $\varpi=0.136\pm0.014$\,mas and $\mu_x=-2.88\pm0.15$\,mas/yr, $\mu_y=-5.18\pm0.18$\,mas/yr \citep[giving $\mu_{l*}=-5.92\pm0.15$ and $\mu_b=-0.33\pm0.08$~mas/yr; ][]{Zhang2019}. These data was collected in BR149R. The parallaxes of the two masers are not statistically different, suggesting that the distance to W58a as a whole the average of $D=8.3\pm1.4$~kpc. % and it has an East--North--East length of $l=38\pm4$\,pc.
+            
+            The proper motions of the two masers do not agree within error and I suggest that this is most likely due to internal motions of the water maser. Unfortunately there is not more than a single phase reference feature visible in enough epochs to determine motions directly. As many water maser are associated with outflows, they do not reliably trace the systemic velocity of gas. Class II 6.7~GHz methanol are associated with embedded stars and they have been found to trace the gas velocity $\pm3$\kms \citep{Green2011b}. Therefore, I assume the proper motions measured in BR149 more accurately represent to motion of the gas cloud as a whole and calculate the inferred internal motions of G070.29$+$1.60. This gives $\mu_{x,int}=+1.33\pm0.16$ and $\mu_{y,int}=+1.42\pm0.19$~mas/yr (or $\mu_{l*,int}=+1.9\pm0.3$ and $\mu_{b,int}=-0.36\pm0.06$~mas/yr). At the distance of W58a this would be give $v_x =+52\pm14$ and $v_y=+55\pm15$~\kms (or $v_{l*}=75\pm20$ and $v_b=-14\pm4$). The line--of--sight velocity spread of transient spectral features in G070.29$+$1.60 over the 16 epochs was $v=-40$ to $-15$~\kms.
+
+			Using the Bayesian distance estimator from \citet{Reid2014,Reid2019}, I can compared the measured parallax distance to that expected from known Galactic structure and dynamics (\hyperref[fig:g070_bayes]{Figure \ref*{fig:g070_bayes}}). In the left--hand panel I have also used the measured values for the proper motion of the single water maser component. In the right--hand panel I assume that the methanol maser proper motions represent a better estimate for the region. It should be noted that this programme uses known parallaxes around the line of sight; in this case the solid blue line is the previously determined parallax for the methanol maser G070.18$+$1.74 and should be ignored. With the raw measurement of the proper motion, the expected distance is ambiguous between $D=1.35\pm0.8$, $6.75\pm0.92$ and $13.36\pm0.74$~kpc. Taken alone, the $\mu_b$ proper motion even favours a fourth distance of $D\sim4$~kpc in the local arm, however this is unfavoured by the other components. Using the modified proper motion as above, the number of plausible distances is reduced to only $D=6.77\pm0.78$\,kpc which agrees with the averaged distance of $D=8.3\pm1.4$\,kpc.
+            
+            G070.29$+$1.60 was quite a weak maser with a dynamic and variable spectrum. As far as I could determine there was only a single component that could be reliably located and used for phase referencing between epochs 3 and F, with the exception of epochs 4, 5 and D. Strong spectral features were visible in epoch 1, 2 around $v=-37$\,\kms, heavily diminished in epoch 3, 4 then completely missing from 5 onwards. There was a persistent weak spectral feature (in scalar average cross--correlated spectra) at $v=-23.34$\,\kms, visible in 14 epochs, however the spatial position of this feature could not be reliably located after exhaustive searching. This spectral feature is very close to assumed systemic velocity of the region as traced by the methanol maser.
+            
+            Due to the strength of the phase reference feature ($S\le1$~Jy) phases were referenced from the two quasars. Unfortunately this approach had the effect of reducing the SNR on the maser by an additional factor $\sqrt{2}$. This appears to be the primary reason why it was not possible to reliably image the weak maser feature at multiple epochs along with maser variability. It is likely that the phase reference feature first emerged above the noise at epoch 3. 
+            
+	        \begin{figure}[H]
+	        	\centering
+	        	\begin{subfigure}[t]{0.45\textwidth}
+	        		\centering
+	        		\includegraphics[width=0.9\textwidth]{pdf-2.png}
+	        		\caption[Measured proper motions bayesian]{$\mu_x=-1.45\pm0.04$ and\\ $\mu_y=-3.69\pm0.05$\,mas/yr}
+	        	\end{subfigure}
+	        	~
+	        	\begin{subfigure}[t]{0.45\textwidth}
+	        		\centering
+	        		\includegraphics[width=0.9\textwidth]{pdf-1.png}
+	        		\caption[G070.18$+$1.74 proper motions bayesian]{$\mu_x=-2.88\pm0.15$ and\\ $\mu_y=-5.18\pm0.18$\,mas/yr}
+	        	\end{subfigure}
+	        	\caption[G070 region baysian distance estimator]{Baysian distance estimator output from \citet{Reid2019} for G070.29$+$1.60 for respective proper motions. Line colours indicate different components of the probability density-- \textbf{Red:} spiral arm locations; \textbf{Blue:} previous parallaxes; \textbf{Green:} kinematic distance; \textbf{Cyan:} $l$ and $b$ proper motions; \textbf{Black:} multiplicably--combined probability density.}\label{fig:g070_bayes}%\vspace{0.25cm}
+	        \end{figure}
+            
+            The parallax fit (\hyperref[fig:per_g070parallax]{Figure \ref*{fig:per_g070parallax}}) depends disproportionally on the astrometry attained at epoch 3 compared to other epochs. This is due to the aforementioned spot variability and overall correlation of proper motion and parallax if the peaks are not sampled correctly. With the current fit for the parallax and proper motion of G070.29$+$1.60, the correlation coefficient between parallax $\varpi$ and proper motions $\mu$ are $\rho\left(\varpi,\mu_x\right)=-0.48$ and $\rho\left(\varpi,\mu_y\right)=-0.06$ for the East--West and North--South respectively. Removal of this point has serious implications for all variables and correlations. The parallax fit without epoch 3 becomes $\varpi=0.209\pm0.029$\,mas, $\mu_x=-1.84\pm0.08$\,mas/yr and $\mu_y=-3.90\pm0.04$\,mas/yr with $\rho\left(\varpi,\mu_x\right)=-0.95$ and $\rho\left(\varpi,\mu_y\right)=-0.42$\,! Inverting this alternate parallax would suggests the most likely distance is $D=3.85^{+0.21}_{-0.19}$\,kpc and would imply the maser is in the Local arm and a full 3\,kpc away from the distance measured. This suggests formal parallax fitting errors for under--sampled parallax curves are underestimated at best. 
+			
+			As I will show in the next section, the apparent height above the plane for G070.29$+$1.60 is $z-z_\odot=247$~pc and has a $Z-$velocity $\dot{Z}=-14$~\kms (or $-29$~\kms using measured values). This is quite an atypical region, far above the plane and with dynamics that are complex and difficult to interpret.
+			
+		\clearpage
+		\subsection{Kinematics and Spiral Arm Modelling}
+	        Following standard definitions, Galactic radius is $R=0$\,kpc at the Galactic centre and Galactic azimuth is $\beta=0^\circ$ towards the Sun and increasing clockwise following Galactic rotation. 
+            \begin{SCfigure}[][h]
+	            \centering
+             	\includegraphics[width=0.5\textwidth]{lbgalaxy.png}
+             	\caption[Galactic and Galactocentric Coordinates]{Schematic of the relationship between Galactic $(l,b,\frac{1}{\varpi})$ and Galactocentric $(R,\beta,z)$ coordinate systems.}\label{fig:gal_convert}
+            \end{SCfigure}
+            Careful inspection of \hyperref[fig:gal_convert]{Figure \ref*{fig:gal_convert}} reveals the conversion from Galactic coordinates $(l,b,\frac{1}{\varpi})$ to cylindrical Galactocentric coordinates $(R,\beta,z)$ are:
+	        %l,b conversion to R, beta
+	        \begin{align*}
+			    R &= \sqrt{R_\odot^2+\frac{\cos^2 b}{\varpi^2}-2\frac{R_\odot}{\varpi}\,\cos l\cos b}\\
+	            \sin\beta &= \frac{\cos b\sin l}{\varpi\,R}\\
+	            z - z_\odot&= \frac{1}{\varpi}\,\sin b
+	        \end{align*} again using $R_\odot=8.35\pm0.15$\,kpc \citep{Reid2014}. Use of a cylindrical coordinate system and general disregard for the height variable $z$ in spiral arm modelling is justified due to apparent solid body rotation and general constraint of maser regions to $|b|<5^\circ$. The maser scale height is thought to be $27\pm1$ \citep{Green2011b} or $19\pm2$\,pc \citep{Reid2019} and this makes the ratio $\frac{z}{D}\ll1$ for all masers to good approximation.
+	        
+%	        {\M Therefore at any reasonable Galactic distance $1/\varpi$ in the disk, $z$ will contribute less than $5\%$ of the total radius compared to the Galactocentric radii:
+%          	\begin{equation}
+%	          	\frac{z - z_\odot}{R} = \frac{\frac{1}{\varpi}\,\sin b}{\sqrt{R_\odot^2+\frac{1}{\varpi^2}-2\frac{R_\odot}{\varpi}\cos l}}
+%          	\end{equation}}
+
+			The reader is left to convert to Galactocentric Cartesian as desired with $X=-R\,\cos \beta$, $Y=R\,\sin \beta$ and $Z = z-z_\odot$. Of note however are the instantaneous changes to $X,Y,Z$ called $U,V,W$ in \kms. I can now convert maser Galactic coordinates to Galactocentric cylindrical coordinates. Using the above it can be shown that the conversion from Galactic velocities $(v,\mu_{l*},\mu_b)$ to Galactocentric Cartesian velocities $(U,V,W)$ requires the application of another rotation matrix:
+    		\[\begin{bmatrix}
+    		\boldsymbol{U} \\
+    		\boldsymbol{V} \\
+    		\boldsymbol{W}
+    		\end{bmatrix}
+    		=  
+    		\begin{bmatrix}
+    		\cos b\cos l & -\sin l       & -\cos l\sin b  \\
+     		\cos b\sin l & -\cos l       & -\sin l\sin b  \\
+     		\sin b       & 0             & \cos b        
+    		\end{bmatrix}
+    		\
+    		\begin{bmatrix}
+    		\boldsymbol{v} \\
+    		4.7\boldsymbol{D\mu_{l*}} \\
+    		4.7\boldsymbol{D\mu_b}
+    		\end{bmatrix}
+    		\ 	    
+    		\] where $v$ is the line--of--sight velocity in \kms and 4.7 is the approximate conversion from AU/yr to \kms. Galactocentric cylindrical coordinates are particularly useful for analysis of spiral arm pitch angles. These determinations are given in \hyperref[tab:maser_xyz]{Table \ref*{tab:maser_xyz}}.
+	        
+	        %maser conversion to R, beta
+	        \begin{table}[h]
+	        	\onehalfspacing
+	        	\footnotesize
+	        	\centering
+	        	\caption[Masers in Galactocentric coordinates]{Measured position in Galactocentric coordinates for masers based off measured quantities. (1) Maser name in Galactic coordinates, (2) distance between Sun and maser, (3) Galactocentric radii, (4) Galactocentric azimuth, (5) relative Galactic height, (6) $X$ velocity, (7) $Y$ velocity, (8) $Z$ velocity.}
+	        	\label{tab:maser_xyz}
+	        	\begin{tabular}{rccccccc}
+	        		\toprule
+	        		\textbf{Maser}&$\boldsymbol{D}$&$\boldsymbol{R}$&$\boldsymbol{\beta}$&$\boldsymbol{z-z_\odot}$&$\boldsymbol{U}$&$\boldsymbol{V}$&$\boldsymbol{W}$\\
+	        		&\textbf{(kpc)}&\textbf{(kpc)}&\textbf{(deg)}&\textbf{(pc)}&\textbf{(\kms)}&\textbf{(\kms)}&\textbf{(\kms)}\\
+	        		\midrule
+	        		\textbf{G021.88$+$0.02} & 14.1 & 7.1 & 131 & 4.2     &  173.7 & 398.7 & $-17.9$\\
+	        		\textbf{G037.82$+$0.41} & 11.9 & 7.4 & 97.5 & 86.4    &  266.1 & 324.8 & $+13.8$\\
+	        		\textbf{G060.57$-$0.18} & 7.7  & 8.1 & 55.3 & $-24.3$ &  207.8 & 120.4 & $ -3.3$\\
+	        		\textbf{G070.29$+$1.60} & 8.3  & 9.9 & 56.5 &  247    &  222.2 &  69.0 & $-14.7$\\
+	        		%                        & 8.3  & 9.9 & 56.5 &  247    &  222.2 &  69.0 & $-14.7$\\
+	        		%                        & 8.3  & 9.9 & 56.5 &  247    &  222.2 &  69.0 & $-14.7$\\
+	        		%&&&&&&& \\ 
+	        		\bottomrule
+	        	\end{tabular}
+	        \end{table}	
+	        
+			I consider spiral arms to take the classic log--spiral form as defined below:
+			\begin{equation*}
+			%\begin{split}
+			\ln{\left(\frac{R}{R_0}\right)}  = - \tan\psi\,\left(\beta - \beta_0\right) 
+			%\therefore \ln{R} & = m\,\beta + c
+			%\end{split}
+			\end{equation*} where $\psi$ is the spiral arm pitch angle and $R_0$ and $\beta_0$ are the values of the spiral arm distribution at some arbitrary reference position. When plotted as $\ln R$ vs. $\beta$, maser distribution should form a straight line with $\text{slope}=-\tan\psi$. I also wish to only consider spiral change in a `small' Galactic azimuthal section such that $0\le\beta-\beta_0<360^\circ$.
+			
+			In addition to the distances calculated/measured in this chapter, I include known parallaxes thought to be associated with the Perseus arm. I aim to simultaneously confirm that the masers measured here indeed are Perseus--associated and also determine a Perseus arm pitch angle including them.
+			
+			\begin{figure}[h]
+				\centering
+				\begin{subfigure}[t]{0.45\textwidth}
+					\centering
+					\includegraphics[width=0.9\textwidth]{perseusarm_lvsD.pdf}
+					%\caption[]{}
+				\end{subfigure}
+				~
+				\begin{subfigure}[t]{0.45\textwidth}
+					\centering
+					\includegraphics[width=0.9\textwidth]{perseusarm_fit.pdf}
+					%\caption[]{}
+				\end{subfigure}
+				\caption[Spiral Arm Fit]{Spiral arm fitting. \textbf{Left:} Distribution of Galactic Longitude $l$ vs. distance $D$. {Right:} Distance and $l$ converted to $\ln R$ and $\beta$ with distance errors propagated and shown as $1\sigma$. \textbf{Black markers:} Perseus arm associated masers; \textbf{red markers:} masers reduced in this chapter; \textbf{green line:} fit from weighted least--squares; \textbf{magenta line:} from normal least squares.}
+			\end{figure}
+			Fitting $(\ln R,\beta)$ with weighted least squares gives pitch angle for the Perseus arm of $\psi_{p,w}=10.77\pm0.04$\,deg. Un--weighted least squares gives a more conservative estimate of with $\psi_{p,uw}=13.2\pm3.9$\,deg. Both these values agree statistically with previous estimates $\psi=9.1\pm1.4$\,deg from \citet{Reid2014} or $\psi_<=10.3\pm1.4$, $\psi_>=8.7\pm2.7$ from \citet{Reid2019}. As a note on notation, $\psi_<$ and $\psi_>$ indicate values for the pitch angle before and after the so--called `kink' in the spiral arms \citep[see ][ for details]{Reid2019}.
+				        
+	\clearpage  
+    \section{Concluding Remarks}
+        I have determined the distances to and calculated the Galactic dynamics of 4 HMSFR in the First Galactic Quadrant. I have also identified them with the Perseus spiral arm and calculated an updated pitch angle.
+		
+		The analysis performed here has not only enhanced the knowledge pool in relation to Galactic structure visible from the Northern Hemisphere, but it is representative of the priorities necessary for accurate parallax measurements. Although interpolation of spiral structure is possible, \spirals\space will not be able to directly benefit from previously measured parallaxes or accurately known Galactic dynamics. \spirals\space aims to provide the measurements for future modelling and therefore it is important to learn lessons from BeSSeL.
+		
+		Astrometry of G021.87$+$0.01 and G070.29$+$1.60 demonstrate the degrading influence of water maser variability and evolution. Both distance determinations would not have been possible without additional constraints otherwise unavailable for \spirals\space and these are due to maser evolution. Evolutionary and variability effects are only apparent once the data are observed and reduced and cannot be mitigated through calibration or other techniques.
+		
+		Particular to these two masers is their low flux density, so astrometric observations would benefit greatly from more onsource time. Due to the large number of baselines available on the VLBA (36 or 45) shared tracks generally still provide sufficient onsource time and $uv-$coverage. It is also recognised that time has to be optimised for observations made using a competitive application--scheduled facility. \spirals\space will largely \textit{not} be weighted down due to facility availability. The ASCI array is owned and operated by the University of Tasmania and therefore there will be ample time available for well--sampled parallax measurements. This is extremely important due to the much smaller number of baselines (6 or 10) with generally lower sensitivity suggesting that it is more important to focus on sampling few targets well.
+		
+		G021.87$+$0.01 individually demonstrates the importance of high quality quasars. When inverse phase referencing was not possible, normal PR techniques were required. Unfortunately both reference quasars were too weak to get reliable fringe solutions and entire epochs had to be discarded. If at least one quasar had been bright enough with uncertain position or structure; calibration techniques exist to mitigate or model those effects. So intrinsically weak quasars limit the calibration approaches that can be used and are probably not worth using them at all because of this. G037.81+0.41 demonstrates that two `far' quasars ($\theta_{sep}\sim1.8$\,deg) at $K-$band still can give good parallaxes.
+				
+		Finally from G070.29$+$0.01 it is demonstrated that correct sparse sampling is more important than intense sampling. In theory, intense sampling of parallax curvature about the peak is able to break the fit degeneracy in the case of a missing first or last peak. However, in practice this should not be relied upon, especially for potentially distant targets. The correlation of proper motion and parallax in these case makes the parallax unreliable at best and misleading at worst. 
+		
+		Critical analysis of the parallax measurements undertaken for this thesis suggest that the formal parallax and proper motion uncertainties resulting from normal/weighted least--squares fitting are underestimated. Future work in trigonometric parallaxes will include an alternative fitting approach, most likely Markov--Chain Monte Carlo Bayesian orientated to accurately estimate parallax and proper motion curves and uncertainties from astrometric data in \spirals.
+	
+		
+		
+		

@@ -1,0 +1,250 @@
+% chap1.tex (Chapter 1 of the thesis)
+
+%!TeX spellcheck = en_GB
+%\blankpage
+\chapter{Introduction}
+    {\onehalfspacing    
+    \vspace{4cm}
+    The exact structure, number of spiral arms and size of our home galaxy, the Milky Way is still largely shrouded in mystery. While numerous optical and radio surveys have determined distances to stars, molecular clouds or even whole regions, the day is not yet here where we may see the Milky Way in its entirety.
+    
+    This thesis stands to introduce and discuss a new contender in the pursuit of mapping the Milky Way-- the Southern Hemisphere Parallax Interferometric Radio Astrometry Legacy Survey or \spirals. \spirals\space intends to use Very Long Baseline Interferometry to measure trigonometric parallaxes of High Mass Star Forming Regions traced by class II methanol masers. The distances will then be used to infer the otherwise ambiguous spiral structure in the Southern Hemisphere and combine the results those from Bar and Spiral Structure Legacy and VLBI Explorer Radio Astronomy projects, which use the same technique from the Northern Hemisphere. Together, the results can produce the most accurate representation of the structure, size and kinematics of the Galaxy.
+    
+    In the next few sections I will discuss the origins of the mystery of Galactic structure and the ongoing resolutions to it, specifically those relevant to the field of astrometry, radio astronomy and Very Long Baseline Interferometry.
+    
+    }
+    
+    \newpage
+	\section{Structure of the Milky Way}
+		Galaxies are broadly divided into three categories: elliptical, spiral and irregular. Elliptical galaxies are considered to be `old', characterised by a low surface brightness, a featureless circular/oblong shape and mostly population II stars in a hot dynamic environment \citep[dominated by random radial motion;][]{Hubble1936}. Spiral galaxies are characterised by an overall flat disk--like structure containing many population I stars and a rigid density pattern etched into the face. Spirals also generally contain a central bulge that possesses very similar properties to an elliptical galaxy \citep{Merritt1999}. Lastly,  irregulars are the remaining 2--3$\%$ of galaxies which `lack both rotational symmetry and, in general, dominating nuclei' \citep{Hubble1936}. 
+		%The morphology of galaxies can be further described by the Hubble sequence \citep{Hubble1926} or the de Vaucouleurs classification \citep{deVaucouleurs1959}, which both describe eccentricity for ellipticals or central barred structures and shape/tightness arms in spirals.  
+		\hyperref[fig:whirlpoolgalaxy]{Figure \ref*{fig:whirlpoolgalaxy}} below is a Hubble telescope image of M51a,  the `Whirlpool Galaxy' and it's near companion NGC5194b. This image shows an example of what a spiral galaxy looks like `face-on' as seen in visible light.
+		\begin{figure}[h]
+	    \centering
+		    \begin{subfigure}[t]{0.42\textwidth}
+				\centering
+			    \includegraphics[width=0.95\textwidth]{M51.jpg}
+			    \caption[M51, Whirlpool Galaxy]{Pictured here is the typical spiral galaxy: M51 aka the Whirlpool Galaxy and its interacting companion NGC5194b. M51 is approximately 9.5 million parsecs away and is only brought into such clarity by high-resolution Hubble Space Telescope images, which clearly show the fine-detail spiral structure and more importantly, the red hydrogen-$\alpha$ emission in the arms tracing the High Mass Star Formation Regions.}
+			    \label{fig:whirlpoolgalaxy}
+		    \end{subfigure}
+		    ~
+			\begin{subfigure}[t]{0.55\textwidth}
+				\centering	
+			    \includegraphics[width=0.9\textwidth]{NGC891.jpg}
+			    \caption[NGC891]{Pictured here is the almost directly edge-on galaxy NGC891 as by the Hubble space telescope. Although NGC891 is very obviously a spiral galaxy due to its flat shape, dust lanes and blue colour, any spiral pattern that it may posses is indiscernible. {\it Image Credit: Robert Gendler, NAOJ, HST/NASA, BYU, http://www.robgendlerastropics.com/NGC891-Subaru-HST.html}.}
+			    \label{fig:NGC891}
+			\end{subfigure}
+		\end{figure}
+		%M51a clearly has no bar and two tightly-wound arms. The de Vaucouleurs classification for M51a is `SA(s)bc pec', a spiral galaxy with no bar (SA), ring (s) and possessing tightly wound arms (bc) with the whole galaxy being slightly perturbed \citep[by the nearby companion galaxy;][]{deVaucouleurs1991}. 
+		This identification comes from the ability to directly observe the density pattern and the relative intragalactic distances. All face-on or partially face-on resolved galaxies in the near universe can be easily classified as such. However due to our location inside the disc of the Milky Way, our view of the Galaxy is much more similar to that of an edge-on galaxy (much like \hyperref[fig:NGC891]{Figure \ref*{fig:NGC891}}).
+
+	\section{Astrophysical Distances}
+		Distance remains to be one of the most elusive properties for astrophysicists and astronomers to measure. Many distance measurements rely on indirect techniques, such as standard candles -- where an object with an approximately known luminosity is measured at a certain intensity at Earth, thus giving the distance by the $1/{d^2}$ dependence. Examples of this are photometric or spectroscopic distances, where the observed intensity of stellar radiation in particular bands or the absorption/emission lines observed in the spectrum infer stellar classification and therefore absolute luminosity. The accuracy of these techniques suffer primarily from dust extinction effects in the line--of--sight reddening of photometric data or insufficient photon counts for spectroscopic data.
+		
+		Another technique worthy of mention is the method of dispersion measure-- where you observe an amount of dispersion in the (normally low--frequency $\nu<2$~GHz) radio emission along a line--of--sight. Combining this with a modelled or known electron column density causing the dispersion implies a likely distance \citep[e.g. ][]{Cordes2004,Yao2019}. Again, modelled techniques suffer from model inaccuracies and ionised regions can additionally corrupt the electron content assumptions \citep[e.g. Sagittarius A*; ][]{Reid1988}.
+	
+		\subsection{Kinematic Distance}
+			In radio astronomy, kinematic distance estimates are a widely-used and easy method for estimating astrophysical distance, although still plagued by potential systematic uncertainty \citep{Gomez2006}. 
+			
+			The methodology for kinematic distances is fairly simple: assuming that all matter in the Galaxy rotates in strictly circular paths of the same direction and assuming that the rotational speed is only dependant on the Galactic radius, observed Dopper velocities can be used to infer the Galactic radius. By accounting for projection effects, assuming an {\it a priori} radius $R_0$ and rotational velocity $\Theta_0$ of the solar system, distance to objects can be calculated.
+			\afterpage{\begin{figure}[h]
+					\centering
+					\includegraphics[width=0.8\textwidth]{KDA.png}
+					\caption[Schematic of Galactic rotation]{Top-down schematic of Galactic rotation.}
+					\label{intro:kinematicdist}
+				\end{figure}}
+		
+		    \hyperref[intro:kinematicdist]{Figure \ref*{intro:kinematicdist}} shows a diagram of kinematic distance estimation: objects rotate clockwise around the Galactic centre with velocity $\Theta$ (\kms) given by the rotation curve $\Omega$ (in \kms\,pc$^{-1}$). The observed velocity $v$ (in \kms) of an object will be the relative velocity along the line--of--sight:
+		    \begin{equation}
+		    v = \big(\,\Omega(R)\,R - \Theta(R_0)\,\big)\,\sin l\,\cos b
+		    \end{equation}
+		    where $l,b$ are the target source's Galactic coordinates and $R_0$ is the Sun's Galactic radius. 
+		    
+		    While simple, kinematic distances suffer from a few downsides. Firstly inside the solar circle, two distances (labelled `near' and `far';  \hyperref[intro:kinematicdist]{Figure \ref*{intro:kinematicdist}}) will give the same projected line--of--sight velocity and make the distance ambiguous without further information. In addition, the rotation curve of the Galaxy ($\Omega(R)$) needs to be modelled from distance--velocity data to accurately reflect the Galaxy and therefore needs to be based off another distance estimate.
+
+			Finally, any non--circular motion of a gas clump, star etc. around the Galaxy or internal motions \citep[like water masers with a large velocity spread; ][]{Titmarsh2013} will skew the only measurable quantity. As with any methodology, modelling requires confirmation based on real and direct measurable quantities, which is where the next technique comes in.
+	
+		\subsection{Trigonometric Parallax}
+			Trigonometric parallax is known as the `gold standard' of astronomical distances determinations as it serves as the method by which other distance techniques and standard candles can be calibrated. The technique is geometric, direct and requires no assumptions about luminosities, temperatures or intermediate environments (like dust extinction, electron content).
+	
+			As the Earth orbits around the Sun, it sweeps out a well-defined ellipse with semi-major axis (aphelion) and semi-minor axis (perihelion). The distance of 1 astronomical unit (AU) was initially conceived as the average between these two, thus being the year-average distance between the Sun and the Earth. However in 2012 it was redefined as exactly $1~\text{AU}=1.49597870700\times10^{11}$~m \citep{Capitaine2012}. A parallax is the change in relative angular displacement of any object due to this motion measured with respect to a fixed reference point (\hyperref[intro:parallax]{Figure \ref*{intro:parallax}}). %as seen from the Earth as it orbits the Sun between the two aphelion . 
+			If the object is $d$ parsecs (pc) away from the Sun, then the parallax $\varpi$ it exhibits will be:
+			\begin{equation}
+				\varpi=\frac{1}{d}
+			\end{equation} in units of arcsecond (as). The definition is actually the reverse-- an object that exhibits a PARallax of 1 arcSECond
+			
+			Friedrich Wilhelm Bessel measured the first parallax to the star 61 Cygni in 1838 of $\varpi=313.6\pm20.2$~mas, which implies a distance of $3.19^{+0.47}_{-0.36}$~pc and within error of the more recent values from {\it Gaia} of $\varpi=286.1457\pm0.059$~mas \citep{Gaia2018}. Not only does this illustrate the accuracy of the parallax technique, but also the large increase in precision that has been achieved over the previous 1.5 centuries ($\sim2.5$ orders of magnitude). For reasons that I will explain soon, trigonometric parallax techniques have an upper limit on the error that allows distance determination so this increase in precision is very important for distant targets. The parallax precision is very much linked to how accurately the position of an object can be determined at each epoch and for an unresolved object this is proportional to the observing instrumentation resolution. 
+			\begin{SCfigure}
+				\centering
+				\includegraphics[width=0.45\textwidth]{parallax.png}
+				\caption[Schematic of Trigonometric Parallax]{Simplified schematic of trigonometric parallax for a target source very close to the North Ecliptic Pole. The parallax $\varpi$ is half the total angle subtended by the Earth as it orbits the Sun when $d\gg1$\,AU relative to some stationary background.}
+				\label{intro:parallax}
+			\end{SCfigure}				         
+			The highest angular resolution and therefore positional accuracy that can be regularly achieved is with Very Long Baseline Interferometry (VLBI), however, for reasons I will discuss in \hyperref[chap:chapter2]{Chapter~\S\ref*{chap:chapter2}} this can typically only be realised when the target is unresolved. For this reason and others, many of the best targets for VLBI astrometry are masers.
+		
+	\section{Masers}
+		Astronomical masers (originally MASER: Microwave Amplification by Stimulated Emission of Radiation; colloquially \textit{noun:} maser(s), \textit{verb}: masing, to mase, \textit{adjective}: masable) are a physical phenomena that occur in specific conditions in the interstellar medium. While masers predate lasers in laboratory conditions \citep[1953;][ vs. 1960 by T. H., Maiman]{maser1955}, they both predate observations of astrophysical masers. The first astrophysical maser discovery did not occur until the 60's, with the OH species around 1.6~GHz. This discovery can be best attributed to \citet{Weaver1965} whom was the first to spectrally resolve the emission and noted the clear departure from local thermodynamic equilibrium (LTE) and now characteristically small line--widths. %The gain factor of astrophysical masers is thought to be small compared to laboratory masers on Earth.
+		
+		In modern astrophysics and astronomy, masers predominantly fall into two areas; analysing maser spectra and multiple transitions infer environmental conditions like magnetic fields, local thermodynamics, stellar environments or star forming regions; and using masers to determine kinematics including outflows, proper motions, Galactic rotation and trigonometric parallax.
+		
+		\subsection{Theory}
+			Whereas much emission at radio--frequencies for many molecules occurs via spontaneous transitions and can be related to the statistical thermal temperature of the environment, maser emission is due to unmitigated stimulated emission along the line of sight and are therefore very luminous and highly beamed compared to the latter.
+			\begin{SCfigure}
+				\centering
+				\includegraphics[width=0.55\textwidth]{maseraction}
+				\caption[Masering]{Simplified schematic of maser action. Molecule is excited by some pumping mechanism (green) to a higher energy state. Spontaneous de--excitation can occur at some transitions (purple), but at some energy level spontaneous emission is unfavourable and the molecule remains in a meta--stable state. Background radiation can stimulateh de--excitation, resulting in amplification (red).}
+				\label{fig:intro_maseraction}
+			\end{SCfigure}
+			The initial trigger for masing is some mechanism that excites a molecular species, called the `pump'. The nature of the pumping can be anything that can provide adequate energy to excite the molecule into a transitional path containing a maser step. Due to a departure from LTE in the environment, the molecular species is unlikely to undergo damping collisions which might otherwise partition the energy. In addition the masable step normally has some selection rules that make spontaneous emission from the upper level `forbidden'. This leads to the molecule having an over--representative population in this higher energy level that is inherently unfavourable -- called a population inversion. When a suitable background source is introduced, stimulated emission occurs and all the molecules along the line of sight emit largely coherently -- the maser. As long as the rate of pumping is greater than the rate of stimulated emission and much greater than the rate of spontaneous emission, population inversion is maintained and the maser can and will persist.
+			
+			While the background source can be many different phenomena-- spontaneous emission from the molecules themselves, Cosmic Microwave Background radiation or some other source of continuum emission, the primary categorical variable that distinguishes masers from one another is the pumping mechanism. The two types of maser that are typically discussed are collisionally or radiatively pumped -- one originating from excitation by molecules in a dense or shocked gas environment, the other from suitably energetic constant sources of radiation.   
+			
+			The masers that will be discussed here originate from rotational transitions, the energy of which are determined by the moment of inertia of the molecule and the various possible modes. While this will be briefly discussed below, both \citet{TowneSchawlow1955} and \citet{Gray2012} are excellent sources for more theoretical, technical and in--depth further reading.
+			
+		\subsection{Water}
+			\begin{figure}
+				\centering
+				\begin{subfigure}[t]{0.45\textwidth}
+					\includegraphics[width=\textwidth]{water}
+					\caption[Water molecule]{Water H$_2$O}
+					\label{fig:intro_watermolecule}
+				\end{subfigure}
+				~
+				\begin{subfigure}[t]{0.45\textwidth}
+					\includegraphics[width=\textwidth]{Methanol}
+					\caption[Methanol molecule]{Methanol CH$_3$OH}
+					\label{fig:intro_methanolmolecule}
+				\end{subfigure}
+				\caption[Microwave spectroscopy]{Molecular structure as obtained from microwave spectroscopy. Bond lengths are in angstroms (\AA).}
+			\end{figure}
+			
+			Water is an asymmetric top and has three axis of rotation. It also has three independent vibrational modes of the hydrogen atoms-- two stretches and one bend, where only the bend contributes to the energy structure in space and especially at radio frequencies. Therefore rotational energy levels of water are given as $J_{K_a\,K_c}$ where $J$ is the total angular momentum and $K$ is the angular momentum component in the $a$ and $c$ directions (\hyperref[fig:intro_watermolecule]{Figure \ref*{fig:intro_watermolecule}}). 
+			
+			Finally, water can come in two sub--species -- ortho: where the nuclear spins of the two hydrogens are parallel, or para: where the spins are anti--parallel. Only even--even levels exist in para--H$_2$O and even--odd for ortho--H$_2$O (\hyperref[fig:intro_waterlevels]{Figure \ref*{fig:intro_waterlevels}}).
+			
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.75\textwidth]{waterladderfixed}
+				\caption[Water energy levels]{Lowest rotational energy levels $J_{K_a K_c}$ for the ground vibrational state of water. {\bf Red:} Common masing transitions and those observed by Kuiper Airborne Observatory (K) and {\it Herschel} (H) -- The most relevant to analysis and discussion in this thesis being the $J_{K_a K_c}=6_{1\,6}\rightarrow5_{2\,3}$ 22.2~GHz transition. Adopted from Figure 1. \citet{Neufeld2017}.}
+				\label{fig:intro_waterlevels}
+			\end{figure}
+			
+			The strongest and most prominent maser transition known is the $J_{K_a K_c}=6_{1\,6}\rightarrow5_{2\,3}$ 22.2~GHz transition of ortho--H$_2$O, first detected by \citet{Cheung1969}. This transition is well--known for being a shocked gas tracer and is commonly found near High Mass Star Formation Regions (HMSFR) as outflows or water--fountains from late--type stars \citep[e.g. ][]{Orosz2019} and as extremely luminous megamasers in the centre of star forming galaxies \citep{DosSantosLepine1979}. I discuss and measure trigonometric parallaxes to 22.2~GHz water masers in \hyperref[chap:chapter3]{Chapter \S \ref*{chap:chapter3}}.
+			
+		\subsection{Methanol}
+			The physics of methanol masers is rather complex due to methanol being a 6--atom molecule and it being an asymmetric top with hindered internal rotation. However, due to the energy levels that can be accessed in an interstellar medium only the lowest--energy vibrational--torsional quantum state is typically considered. Within this, the slightly asymmetric nature of methanol leads to the torsion of the $-$OH tail group about the CH$_3$ bond to be split into 2 levels, a non-degenerate $A$ ($+$ or $-$ due to parity) and degenerate $E$. These two types of methanol have slightly different orientations of the $-$OH group relative to the CH$_3$ group and therefore a different moment of inertia. As such the $^\pm A$ and $E$ have different rotational energy levels and transitions (\hyperref[fig:intro_methanollevels]{Figure \ref*{fig:intro_methanollevels}}).
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.75\textwidth]{methenergy2}
+				\caption[Methanol energy levels]{Lowest rotational energy levels $J_K$ for the ground vibrational--torsional state ($v=0$) of $E$ and $A$--type methanol \citet{Jansen2011}. Labelled are the $J_K=5_1\rightarrow6_0\,A^+$ 6.7~GHz and $J_K=2_0\rightarrow3_{-1}\,E$ 12.2~GHz transitions relevant to analysis and discussion in this thesis.}
+				\label{fig:intro_methanollevels}
+			\end{figure}
+			
+			The strongest transition for methanol and the second strongest maser transition known is the $J_K=5_1\rightarrow6_0\,A^+$ transition at 6.66851928~GHz \citep{Menten1991}. While methanol is divided into two classes based off source of pumping -- collisional class I and radiative class II \citep[][]{Menten1991b}. The 6.7~GHz transition is class II and (to date) unambiguously associated with sites of HMSF \citep[][]{Ellingsen2006,Breen2013}. I discuss and measure a trigonometric parallax to a 6.7~GHz methanol maser in \hyperref[chap:chapter3]{Chapter \S \ref*{chap:chapter3}} and model their spatial structure and compactness in \hyperref[chap:chapter4]{Chapter \S \ref*{chap:chapter4}}.
+			
+			Other masers, 12.2~GHz class II methanol, OH and SiO masers are mentioned in passing throughout this thesis but are otherwise not relevant for discussion here.
+
+	\section{\spirals} 
+		\subsection{Mapping the Milky Way}
+		    When considering the structure of the Milky Way, one must first consider the primary issue: that we have a limited perspective of its structure from our position inside it. \hyperref[intro:galaxyinside]{Figure \ref*{intro:galaxyinside}} is that perspective, the Galaxy as a projection on a sphere, with no immediate way to determine 3D structure.
+
+		    Although objects can be theoretically resolved into their 2D angular separations and angular sizes with higher resolution telescopes, the absolute sizes or distances of objects along the same line of sight remains impossible to directly observe. In addition, the derived angular sizes and separations are meaningless without a reference scale (standard ruler). 
+
+		    \afterpage{\begin{figure}[t]
+		    		\centering
+		    		\includegraphics[width=0.75\textwidth]{Milky_Way_infrared.png}
+		    		\caption[Galaxy as seen from Earth]{Mollweide projection of the entire sky as seen by the Two Micron All-Sky Survey (2MASS). The projection is centered on the Galactic Center, taken to be Sagittarius A*. This point of view represents how the sky appears from the Earth in the Galactic Coordinate system with the centre of the image being $(l,b)=(0^\circ,0^\circ)$. {\it Atlas image mosaic courtesy of 2MASS/UMass/IPAC-Caltech/NASA/NSF.}}\label{intro:galaxyinside}
+		    	\end{figure}}
+		    
+		    While kinematic distances or dispersion measure techniques add a `depth' axis which can be converted into distance, trigonometric parallax realise the 3D motion and structure of the Galaxy and use that to measure the distance. Therefore trigonometric parallax is the ideal candidate for distance estimates inside the Milky Way, however it was not until the last few decades that optical or VLBI astrometry could achieve the precision necessary to make it an independent mapping tool on the Galactic scale. 
+		     
+		    Perhaps the earliest quantitative maps of the Milky Way were produced in the mid-50's, with the first complete map by \citet{Oort1958}. This work used the emission at 21\,cm (due to the spin inversion of neutral hydrogen) to trace out the density distribution of neutral hydrogen throughout the Galactic system. The immediate observation was that the bulk of the neutral medium was confined to a flat disk approximately 220\,pc thick. Distances were approximated using kinematic distance techniques and projection of the 21\,cm emission/absorption revealed rudimentary spiral structure (see \hyperref[intro:oortmap]{Figure \ref*{intro:oortmap}}). 
+			\afterpage{\begin{SCfigure}
+		    	\centering
+		    	\caption[Oort et al. 1958, Figure 4]{Figure 4 from \citet{Oort1958}. Original caption: {\it Distribution of neutral hydrogen in the Galactic System. The maximum densities in the z-direction are projected on the galactic plane, and contours are drawn through the points}.}
+		    	\includegraphics[width=0.55\textwidth]{OortMap.png}
+		    	\label{intro:oortmap}
+		    \end{SCfigure}}
+		    
+		    Oort details the nomenclature of some arms: Orion (containing the Sun), Perseus (outside solar circle), and Sagittarius (inside solar circle) and to some extent the 3\,kpc arm. Although the names of these arms slightly changed over time, the general locations and associations remained the same. This work stands out as the grounding influence on determinations of Galactic structure, however numerous problems (many outlined by Oort himself) meant that the spiral arms could not be determined with any accuracy using this method.
+
+		    Following this, perhaps the next notable chapter in begins with \citet{Georgelin1976}. One of the initial works that outlined a model for the spiral structure of the Milky Way, this work served as a reference for many further works. At the time, radio recombination lines from ionised hydrogen and radio molecular lines had only recently been discovered and extensively observed, in addition to optical data of \hii\space and OB stars in the Southern Hemisphere.
+		    
+		    A model of Galactic rotation was initially established by measuring the radial velocities of 151 optical \hii\space regions and spectrophotometric distances to their respective exciting stars. Stellar distances (via spectroscopic parallax) were used wherever they were available, however, when they were unavailable, kinematic distances were calculated using the rotation models derived. Kinematic distance ambiguities were individually removed with reasonable assumptions pertaining to whether the \hii\space region was optically observed (likely near) or not (likely far) in addition to absorption of lines at a higher velocity (far) and vice versa. Combining the optical results with the radio results, a picture of the Galaxy was formed (\hyperref[fig:GaG1967f11]{Figure \ref*{fig:GaG1967f11}}). Assuming that the high-excitation \hii\space regions were of higher importance (`brilliant and extended') and hence more readily trace spiral structure (like seen in external galaxies), 80\% of the thus-defined \hii\space regions fell along two symmetric pairs of arms with a pitch angle of 12$^\circ$.
+            \begin{SCfigure}
+            	\centering
+            	\includegraphics[width=0.45\textwidth]{Georgelinfig11}
+            	\caption[Georgelin and Georgelin 1976, Figure 11]{Figure 11 from \citet{Georgelin1976}. Original caption:\\ {\it Spiral model of our Galaxy obtained from high-excitation-parameter H{\textsc{ii}} regions ($U>70$ pc cm$^{-2}$); the resulting spiral pattern has two symmetric pairs of arms (i.e for altogether). No. 1 Major arm: {\em Sagittarius-Carina arm}; No. 2 Intermediate arm; {\em Scutum-Crux arm}; No. 1'. Internal arm: {\em Norma arm}; No 2'. External arm: {\em Perseus arm}. Hatched areas correspond to intensity maxima in the radio continuum and in neutral hydrogen.}}
+            	\protect \label{fig:GaG1967f11}
+            \end{SCfigure}
+            
+            Many works thereafter were based heavily on this work-- like \citet{TaylorCordes1993}, who were able to map the Galactic electron distribution by matching and perturbing arm locations to measurements of dispersion measure.
+            \citet{Caswell1987} used \hii\space regions traced by radio recombination lines to map the Southern Hemisphere, calculating kinematic distances and resolving ambiguities with techniques including \textsc{hi} absorption. While they collected independent data they found good agreement with \citet{Georgelin1976} and provided a more refined map of the Southern Hemisphere arm (\hyperref[fig:caswellhaynes]{Figure \ref*{fig:caswellhaynes}}).
+            \begin{SCfigure}
+            	\centering
+            	\includegraphics[width=0.45\textwidth]{caswellhaynes1987}
+            	\caption[\citet{Caswell1987} Figure 5.]{Figure 5 \citet{Caswell1987}. Original caption: {\it Spiral pattern delineated by \hii\,\,regions in the Galaxy. Individual \hii\space regions from the present work are shown only if there is no distance ambiguity. Two segments of spiral arms derived from the present work are shown with a thickness 1\,kpc. \dots}.}
+            	\label{fig:caswellhaynes}
+          	\end{SCfigure}
+            
+            %Another interesting chapter in the Milky Way mapping is \citet{TaylorCordes1993}. While more relevant to the previously mentioned dispersion measure distance estimation techniques, they modelled the spiral structure of the Milky Way      
+			%\begin{SCfigure}
+			%	\centering
+		    %	\includegraphics[width=0.45\textwidth]{taylorcordeselectron}
+			%	\caption[\citet{TaylorCordes1993} Figure 4.]{Figure 4 \citet{TaylorCordes1993}. Modified original caption: {\it Grey-scale representation of the free-electron density in the Galactic plane, according to our model. The largest densities are $n_e\dots\approx0.18$\,cm$^{-3}$ in the outer part of arm 2 and $n_e = 0.25 cm^-3$,$\dots$ The density of the Sun is $n_1 = 0.019$\,cm$^{-3}$.} }
+			%	\label{intro:taylorcordes}
+			%\end{SCfigure}		   	
+		   
+		   {\it Hipparcos} (HIgh Precision PARallax COllecting Satellite) was an astrometry satellite launched by the European Space Agency (ESA) in 1989 and continued operations until 1993. {\it Hipparcos} had a median astrometric accuracy of $\Delta\theta=0.8$\,mas, allowing distances of objects (primarily stars) to be determined up to $\sim125$\,pc from the Sun \citep[to 10\% uncertainty; ][]{Perryman1997}. In total, {\it Hipparcos} reported astrometry for $\gtrsim115000$ stars in the local Galaxy.
+		    	
+		   {\it Gaia} is ESA's space astrometry mission -- an optical astrometry satellite capable of measuring absolute positions of stars to an accuracy of between $\gtrsim4-20\,\mu$as \citep[depending on magnitude and band; ][]{Perryman2002}. Launched in 2013, {\it Gaia} is the direct successor to {\it Hipparcos} and will end its mission sometime after 2022, after which time it is expected to have measured astrometry for over $\sim1\times10^9$ stars.
+		
+		    	        	
+		\subsection{BeSSeL and VERA}
+        Bar and Spiral Structure Legacy (BeSSeL) survey was an US National Radio Astronomy Organisation (NRAO) Very Long Baseline Array (VLBA) large project. The core aim of BeSSeL was to map the Northern Hemisphere spiral structure of the Milky Way via trigonometric parallaxes of 22.2~GHz water and 6.7~GHz/12.2~GHz class II methanol masers \citep{Brunthaler2011,Reid2009,Reid2014,Reid2019}. The VLBA consists of $10\times25$~m radio telescopes with a maximum baseline of $\sim8600$\,km. The long baselines combined with well--calibrated, optimal sampled data allowed an expected astrometric accuracy $\Delta\theta\sim10~\mu$as, bringing the distant Galaxy ($d\gtrsim10$\,kpc) into sharper focus.
+		\begin{SCfigure}
+			\centering
+			\includegraphics[width=0.55\textwidth]{redi2019}
+			\caption[\citet{Reid2019} Figure 1.]{Figure 1 from \citet{Reid2019} including BeSSeL and published--VERA parallaxes. Plane--view of the Milky Way where Galactic rotation is clockwise. Spiral arms are fit to inverted parallaxes (dots: size inversly proporitonal to distance uncertainty)-- {\bf Cyan:} Local arm; {\bf blue:} Scutum--Centaurus-OSC arm; {\bf black:} Perseus arm; {\bf purple:} Sagittarius-Carina arm; {\bf yellow:} 3\,kpc arm(s); {\bf red} Norma--Outer arm; {\bf white:} unclear/spur.}
+			\label{intro:milkywayreid2019}
+		\end{SCfigure}
+        
+		VLBI Exploration of Radio Astrometry (VERA) was a Northern Hemisphere VLBI array/project dedicated to maser astrometry by the National Astronomical Observatory of Japan (NAOJ). VERA (interferometer) is comprised of $4\times22$~m radio telescopes spread over Japan with a maximum baseline of $2300$\,km. Despite this, it is also the only VLBI array dedicated to phase--reference astrometry. To this effect, they utilise a unique `dual--beam' receiver system where simultaneous observations of target masers and reference quasars can be conducted, which greatly minimises the ambiguity of calibrating tropospheric line--of--sight effects \citep{Honma2003}. 
+		
+		VERA targets water masers tracing star forming regions, but also SiO masers tracing evolved stars. The former boasts results with astrometric accuracy comparable to BeSSeL \citep{Reid2019,vera2020}.
+		
+		Combined, the two Northern Hemisphere maser--astrometry surveys have measured over 200 maser parallaxes and mapped the 1st, 2nd and 3rd Galactic quadrants \hyperref[intro:milkywayreid2019]{Figure \ref*{intro:milkywayreid2019}}. It is clear from \hyperref[intro:milkywayreid2019]{Figure \ref*{intro:milkywayreid2019}}, that the 4th Galactic quadrant is heavily under-represented. 
+	
+		\subsection{Southern Hemisphere -- \spirals} \label{sec:spirals}
+        The Southern Parallax Interferometric Radio Astrometry Legacy Survey (\spirals -- pronounced `spirals') in an emerging Australian--led maser astrometry project. While first announced in September 2018 \citep[at the Cagliari Maser IAUS; ][]{Hyland2018}, the first iteration of \spirals dates back to pre--2010 -- with the first epoch on the then V255 project observed March $30^\text{th}$ 2008 on the Australian Long Baseline Array (LBA). %, see \hyperref[section:astro_lba]{Section \S \ref*{section:astro_lba}}). 
+        This project is responsible for the first Southern Hemisphere parallax \citep{Krishnan2015} and consequent works including \citet{Krishnan2017} and \citet{Sanna2015}.
+        
+        As briefly discussed, parallax inversion requires an astrometric accuracy of $\frac{\Delta\varpi}{\varpi}<0.2$ and in the LBA parallax reduction by \citet{Krishnan2015,Krishnan2017}, authors report an astrometric accuracy of $80-150\mu$as. At this uncertainty, maser distances are required to be $d<1.3-2.5$~kpc which severely limits the mapping capability of maser astrometry. 
+        
+        The LBA observations of \citet{Krishnan2015,Krishnan2017} had a maximum baseline length of approximately $B=3500$~km which implies a synthesised beam size of $\theta_B=3$~mas at 6.7~GHz. Taking into account the $\text{SNR}>100$ detections of relevant quasars and target maser in images, per--epoch thermal astrometric uncertainty \citep[$\Delta\theta_T\approx \frac{1}{2}\frac{\theta_B}{SNR}$;][]{ReidHonma2014} is around $\Delta\theta_T=15\mu$~as. If I assume (incorrectly) optimal parallax sampling over the 5 epochs there should be $\Delta\theta=2\Delta\varpi$ as one measures twice the parallax between two maxima. This leaves an apparent $\Delta\theta\ge0.3$~mas per--epoch systematic uncertainty.
+        
+        If I assume that this parallax uncertainty is solely due to residual ionospheric delays between target and calibrator (average separation $\theta_{sep}=2.5^\circ$; $\Delta\theta=\theta_{sep}\frac{\Delta\tau}{|B|}$; $\tau_{iono}=40.3\,I_e\nu^{-2}$) there would be a minimum of 10~TEC units residual ionosphere per epoch. This is at the upper end of what is expected by \citet{WalkerChatterjee1999} and likely implies a combination of residual ionosphere and poorly constrained tropospheric and clock delays due to limited available bandwidth in those observations \citep[see ][ for more details]{Krishnan2015}.
+        
+        The final issue is poor parallax sampling. Although I will introduce the relevant equations and theory in \hyperref[chap:chapter2]{Chapter \S\ref*{chap:chapter2}} at this point I can say that due to non--preferential scheduling availability on the LBA, astrometric epochs did not necessarily align with peak parallax peaks or sample the parallax curve optimally. This leads to a parallax sensitivity reduction of approximately a factor of 2.
+        
+        Therefore to measure trigonometric parallaxes in the southern sky it was decided that a Southern Hemisphere trigonometric parallax array was necessary; with appropriate frequency coverage, availability, ionospheric calibration techniques and target pre--selection. 
+        
+        The AuScope array \citep{Lovell2013} is an existing S/X geodetic array comprised of Hobart~12m,  Katherine~12m and Yarragadee~12m. It operates as part of the International VLBI Service (IVS) with a downtime of approximately $\sim100$\,days/year that is available for parallax observations. Ceduna~30m \citep{McCulloch2005} operates as part of the LBA with an uptime of only a few weeks/year and therefore the array will be the AuScope--Ceduna Interferometer (ASCI; \hyperref[fig:asci]{Figure \ref*{fig:asci}}) with a maximum baseline of $B\approx3500$\,km. A possible extension to the array is the Warkworth~30m telescope, owned and operated by the Institute for Radio Astronomy and Space Research (IRASR), which would extend the maximum baseline up to $B\approx5500$\,km or $B_\lambda=120$\,M$\lambda$ at 6.7~GHz.
+        
+        With Hobart and Katherine upgraded to wide--C band capable receivers (completed in 2017 and 2019 respectively), Yarragadee scheduled for upgrade and Ceduna/Warkworth with pre--existing C--band capabilities but planned wideband upgrades, \spirals\space aims to measure dozens of trigonometric parallaxes towards High Mass Star Formation regions traced by 6.7~GHz class II methanol masers over the next 3 years.
+        
+        \begin{SCfigure}
+        	\centering
+        	\includegraphics[width=0.45\textwidth]{asci}
+        	\caption[ASCI Array]{The AuScope--Ceduna Interferometer formed with telescopes at Ceduna (yellow), Hobart (green), Katherine (red) and Yarragadee (blue). All radio telescopes are owned and operated by the University of Tasmania.}
+        	\label{fig:asci}
+        \end{SCfigure}
+        
+        \newpage
+        This thesis aims to answer the questions of target selection, ionospheric calibration and methodology relevant to accomplishing this goal: \hyperref[chap:chapter2]{Chapter \S\ref*{chap:chapter2}} goes over appropriate theory and methodology of VLBI astrometric calibration; \hyperref[chap:chapter3]{Chapter \S\ref*{chap:chapter3}} demonstrates said calibration via the reduction and analysis of recent BeSSeL VLBA data and determination of new distances towards the Perseus spiral arm; in \hyperref[chap:chapter4]{Chapter \S\ref*{chap:chapter4}} I reduce and analyse LBA data to determine target selection for the \spirals\, project and to determine Southern Hemisphere methanol maser compactness properties; \hyperref[chap:chapter5]{Chapter \S\ref*{chap:chapter5}} discusses atmospheric calibration techniques and introduces MultiView and in \hyperref[chap:chapter6]{Chapter \S\ref*{chap:chapter6}} I observe, calibrate and test inverse MultiView calibration and contrast it against traditional phase referencing.
+        
+        
+       
+        
+        
+
+

@@ -1,0 +1,484 @@
+%%chapter6
+%!TeX spellcheck = en_GB
+%\blankpage
+%\blankpage
+\chapter{Southern Hemisphere 6.7 GHz methanol maser compactness catalogue}\label{chap:chapter4}
+	\onehalfspacing
+
+    \vspace{3cm}
+	Many of the problems encountered during the BeSSeL VLBI maser astrometry analysis completed in the previous chapter are immediately resolved by using class II methanol masers instead of 22~GHz water masers. Class II 6.7~GHz methanol masers are almost as intrinsically bright as 22~GHz water masers and are known to be stable for periods much longer than a year.
+	
+	There are over 1000 known individual 6.7~GHz class II methanol masers visible from the Southern Hemisphere, approximately half exclusively so.  However, compared to water masers, methanol masers spots are typically larger-- in many cases being resolved. If \spirals\space is to use 6.7~GHz masers as astrometric targets these diffuse, weak and/or structured masers need to be identified so that they can be avoided. The desirability of a maser target for astrometry is often summarised with a quantity called `compactness'. 
+	
+	In this chapter I determine a first target list for \spirals by modelling angular sizes of 6.7~GHz methanol maser spots and relating them with metrics that characterise compactness. In this way, I construct a VLBI compactness catalogue for all relevant Southern Hemisphere 6.7~GHz methanol masers.
+	
+	\singlespacing
+
+\newpage
+\section{Introduction}
+	Class II 6.7~GHz methanol masers are the second brightest masing transition observed in astronomy after 22~GHz water masers. However, it can be the case that a large fraction of the flux density emanates from large diffuse structures \citep[$>0.1-1.5$~as at a distance of 4~kpc; ][]{Caswell1997} or many small velocity/spatially overlapping regions of low flux density. The surveys that discover these masers \citep[e.g. ][ etc]{Caswell2010} will use single--dish observation and the intrinsic size of methanol maser emitting regions are much smaller than a single dish beam. Therefore the exact angular size, extent and compactness of many masing species are unknown until high resolution imaging with interferometry \citep[e.g. ][]{Phillips1998} or VLBI \citep[e.g. ][]{Minier2002,Goehart2005,Bartkewicz2009}.
+	
+	%Considering a typical methanol maser emission region of size $s=0.03$~pc \citep{Caswell1997} at distance $d=4$~kpc; the whole region will have angular size $1.5$~as. `Large' emission regions occur on scales an order of magnitude larger than the resolution of the observing instrument. `Small' emission occurs on scales approaching the instrumental resolution. In masers the large structures are diffuse gas between the small structures which are line--of--sight opacity overdensities. For VLBI, the resolution/synthesised beams are on the scale $1-5$~mas and therefore compact regions are $4-20$~AU and large/diffuse regions are $50-100$~mas or $200-400$~AU in this example. Therefore what instrumentation is being used determines what is considered compact.
+	
+	\spirals\space is scheduled to spend hundreds of hours observing class II 6.7~GHz methanol masers for the purpose of high--accuracy, high--precision astrometry. Therefore there is an initiative to find 6.7~GHz methanol masers that are the most compact, and can give the best astrometry. The Methanol Multibeam catalogue \citep[MMB; ][]{Caswell2010,Green2010,Caswell2011,Green2012,Breen2015} contains all known Southern Hemisphere 6.7~GHz class II methanol masers as observed by the Parkes 64~m radio telescope. However, in order to determine which ones are the best for astrometry in \spirals, I must observe all appropriate masers from this list with VLBI.
+
+\section{Source Selection and Observations}
+    \label{sec:v534_observation}
+    %The \spirals project aims to measure parallaxes towards as many star formation regions in the $4^\text{th}$ Galactic quadrant as possible. However, 
+    As discussed in \hyperref[sec:spirals]{Section \S\ref*{sec:spirals}}, the AuScope--Ceduna Interferometer (ASCI) array will be the instrument used for \spirals. The ASCI array is not specifically designed for maser astrometry and is comprised of sensitive but heterogeneous large telescopes and homogeneous geodetic 12~m telescopes. The new 6.7~GHz capable receivers being installed on the 12~m telescopes have a focus on broad frequency coverage and low maintenance, rather than maximising performance at 6.7 GHz (receiver temperature 70\,K, SEFD estimations around 3500\,Jy). %The wide bandwidths possible with these receivers will assist greatly with multifrequency delay determination on calibrators, however, will detecting line sources like masers. 
+    
+    Considering these factors, I can estimate a detection limit for masers. The baseline sensitivity between Ceduna~30m ($\text{SEFD}\approx650$\,Jy) to a geodetic 12\,m antenna is expected to be
+    \begin{equation}
+        \sigma=\sqrt{\frac{S_1\,S_2}{2\,\tau_\text{int}\Delta\nu}}=\sqrt{\frac{3000\times 650}{2\times60\times2\times 10^3}}= 3.0\,\text{Jy}
+    \end{equation}  
+    for $\tau_\text{int}=60$~s integration and $\Delta\nu=2$~kHz spectral resolution ($\Delta v = 0.09$\,\kms). Therefore, for a $5\sigma$ detection ASCI needs to observe masers on baselines $|\textbf{B}|/\lambda=B_\lambda=35$~M$\lambda$ with a correlated flux density of at least $S_{B_\lambda}\ge 15$~Jy. 
+    
+    As such, I take all masers with peak flux density catalogued $S_0\ge10$~Jy for completeness and accounting for possible variability. Although it is unlikely the peak flux density will remain constant for all baselines, this sub--catalogue of targets then also provides sampling for weaker sources appropriate for the more sensitive Australian Long Baseline Array (LBA), Square--Kilometer Array (SKA) or potential future iterations of ASCI.
+    
+    This subset of masers was observed using the LBA on 4th March 2016 and 22 March 2016 (project code V534). The participating telescope parameters are listed in \hyperref[tab:lbaantenna_table]{Table \ref*{tab:lbaantenna_table}} and the baselines and sensitivities are listed in \hyperref[tab:baseline_table]{Table \ref*{tab:baseline_table}}. The LBA utilised a Data Acquisition System (DAS) which recorded two IF bands, each 16~MHz dual circular polarisation centred on 6308 and 6668~MHz at a total data rate of 256~Mbits/s.
+    \afterpage{ 
+    \begin{table}[t]
+        \centering
+        \caption[V534 LBA telescopes]{V534 LBA telescopes. {\bf Columns: (1)} Telescope colloquial name; \textbf{(2)} two letter station code; \textbf{(3)} latitude; \textbf{(4)} longitude; \textbf{(5)} height above sea--level; \textbf{(6)} dish diameter; \textbf{(7)} 6.7~GHz primary beam size; \textbf{(8)} 6.7~GHz nominal SEFD; \textbf{(9)} owner/operating institute. All telescopes participated in both epochs of V534.}
+        \label{tab:lbaantenna_table}
+        {\onehalfspacing\footnotesize 
+        \begin{tabular}{l|c|ccccccr}
+            \toprule
+            \hline
+            \textbf{Station}&\textbf{Code}&\textbf{Latitude}&\textbf{Longtitude}&\textbf{$z$}&\textbf{D}&$\boldsymbol{\theta_{6.7}}$&\textbf{SEFD }&\textbf{Institute }\\
+            &     &\textbf{(deg)}&\textbf{(deg)}&\textbf{(m)}&\textbf{(m)}&\textbf{(as)}&\textbf{(Jy)}&                   \\
+            \midrule
+            \textbf{ATCA (tied)}&   At   & 30.31288\,S &   149.56476\,E &  252 &5$\times$22  &413&   50  &CSIRO  \\\hline
+            \textbf{Ceduna}     &   Cd   & 31.86769\,S &   133.80983\,E &  165 &   30        &303&   650 &UTAS   \\\hline
+            \textbf{Hobart}     &   Ho   & 42.80358\,S &   147.44052\,E &  65  &   26        &350&   850 &UTAS   \\\hline
+            \textbf{Mopra}      &   Mp   & 31.26781\,S &   149.09964\,E &  867 &   22        &413&   850 &CSIRO  \\\hline
+            \textbf{Parkes}     &   Pa   & 32.99840\,S &   148.26352\,E &  415 &   64        &142&   110 &CSIRO  \\\hline
+            \textbf{Warkworth}  &   Wa   & 36.43316\,S &   174.66295\,E &  123 &   30        &303&   650 &WRAO   \\
+            \bottomrule
+        \end{tabular}}
+    \end{table}
+    %      
+    \begin{table}[t]
+        \centering
+        \caption[V534 LBA baselines]{{\bf Left:} VLBI baselines for the Australian LBA participating telescopes. {\bf Upper Left:} Linear distances (km) between the antennas as calculated by NRAO VLBI scheduling program SCHED. {\bf Lower Left:} Approximate mean $uv$-distance (M$\lambda$) for 6.7\,GHz  observations. {\bf Right:} Approximate ($\pm10\%$) baseline sensitivites (Jy) for a 1~min integration and $2$\,kHz spectral resolution. }
+        \label{tab:baseline_table}
+        {\onehalfspacing\small
+        \begin{tabular}{l| rrrrrr | rrrrrr}
+            \toprule
+            \hline
+                    &        &        &$|\textbf{B}|$&&        &         &        &$\boldsymbol{\sigma_S}$&\textbf{(Jy)}&        &   \\\hline
+		            &{\bf At}&{\bf Cd}&{\bf Ho}		 &{\bf Mp}&{\bf Pa}&{\bf Wa}& {\bf At}&{\bf Cd}&{\bf Ho}			   &{\bf Mp}    &{\bf Pa}&{\bf Wa}\\\hline
+            {\bf At}&        &  1508  & 1396   		 &  114   &  322   & 2409   &         &        &        			   &            &        &   \\
+            {\bf Cd}&   34   &        & 1702   		 & 1448   & 1361   & 3718   &   0.4   &        &        			   &            &        &   \\
+            {\bf Ho}&   31   &    38  &        		 & 1286   & 1089   & 2415   &   0.5   & 1.8    &        			   &            &        &   \\
+            {\bf Mp}&    2   &    32  &   29   		 &        &  207   & 2411   &   0.5   & 1.8    & 2.1    			   &            &        &   \\
+            {\bf Pa}&    7   &    30  &   24   		 &    5   &        & 2425   &   0.2   & 0.7    & 0.8    			   & 0.8        &        &   \\
+            {\bf Wa}&   54   &    83  &   54   		 &   54   &   54   &        &   0.4   & 1.6    & 1.8    			   & 1.8        & 0.7    &   \\ 
+            \bottomrule 
+        \end{tabular}}
+    \end{table}
+    }
+    
+    Observational structure was 150~s scans on each of 187 separate 6.7\,GHz maser targets distributed between $l=188\rightarrow360^\circ$ and $|b|\le2^\circ$ over two epochs (\hyperref[fig:compact_maserspos]{Figures \ref*{fig:compact_maserspos}} and \ref{fig:lvallmasers}). Scans on fringe--finder quasars were also scheduled every $\sim3$\,hours, with an average onsource time of $\sim5$\,min.
+    
+    Telescope baseband data was correlated with DiFX \citep{Deller2007} at the Pawsley supercomputer facilities in association with Curtin University, WA. The data for each experiment was correlated in one pass with an integration time of $\tau_\text{int}=2$\,s and 8192 spectral channels. This gave a frequency resolution of $\Delta\nu=1.95$\,kHz or a velocity resolution of $\Delta v = 0.09$\,\kms at 6.7~GHz in each IF.
+    
+    \afterpage{%
+    \begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{maser_positions.pdf} 
+    \caption[Southern Hemisphere Methanol Masers]{{\bf Black:} The positions of all known Galactic 6.7~GHz methanol masers collected in \citet{Yang2019}, primarily from \citet{Caswell2010,Green2010,Caswell2011,Green2012,Breen2015} (and additional referenced therein) between $-200<l<20^\circ$, $|b|<5^\circ$. Only 4 methanol masers (G$206.542-16.355$, G$208.996-19.386$, G$209.016-19.398$, G$213.705-12.597$) are catalogued $-200<l<20^\circ$, $|b|>6^\circ$ and were not included in this survey. {\bf Red circles:} The positions of all 6.7\,GHz methanol masers included in this survey. {\bf Green:} Positions of modelled masers.}
+    \label{fig:compact_maserspos}
+    \end{sidewaysfigure}
+    %
+    \begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\textwidth]{all_maserslv.pdf} 
+    \caption[All masers $l-v$ diagram ]{Longtitude--velocity ($l-$v) diagram of the 3rd and 4th quadrants of the Milky Way. {\bf Grey:} Greyscale CO integrated emission (K/arcdeg) from the $b\le4^\circ$ central strip of the Milky Way, adapted from \citet{Dame2001} (Figure 3 therein). {\bf Blue:}  Positions of all known 6.7\,GHz methanol masers between $270<l\le360^\circ$. {\bf Red circles:} Positions of targeted masers. {\bf Green:} Modelled masers.}
+    \label{fig:lvallmasers}
+    \end{sidewaysfigure}%
+    \clearpage
+    }
+\section{Data Reduction}
+    \subsection{\textbf{\bf \aips} reduction}
+        Data were reduced in \aips using the procedure shown schematically in \hyperref[fig:v534_pipeline]{Figure~\ref*{fig:v534_pipeline}}. %The reduction process to calibrate flux the density such that maser flux density values reflect absolute/real values at the day/time of observation and to calibrate excess delay/delay--rate so that time averaging can be performed without data--degradation. 
+        As a note on the nomenclature, some \aips\space`tasks' calculate and produce solution ({\it SN}) tables which can then be applied to multi--source data by being merged with a calibration ({\it CL}) table. New {\it CL} tables can be applied directly to the multi--source data upon inspection or further calibration/analysis. Descriptions of the various steps are given below.
+        \begin{enumerate}
+            \item Using the task `FITLD', the data were loaded into AIPS from the correlated FITS files as $uv-$data sets and basic header tables.           
+            \item The analog signal measured by a telescope is first digitised (in this case 2--bit) before being recorded. The task `ACCOR' is used to calculate potential errors resulting from sampler thresholds by determining how much the autocorrelation spectra deviates from unity. This creates \textit{SN1} which is merged with \textit{CL1} using the task `CLCAL' to create \textit{CL2}.            
+            \item Where available, the antenna temperatures over the experiment are extracted from the antenna .log files. \textit{TY1} and \textit{GC1} are created from the antenna temperatures and gain--curves (at $\sim6.7$\,GHz) respectively by \aips\space task `ANTAB'. \textit{TY1} and \textit{GC1} are then merged into an amplitude gain calibration table \textit{SN2} which is merged with \textit{CL2} via `CLCAL' to make \textit{CL3}. Where tsys information was not available, nominal SEFD values (\hyperref[tab:baseline_table]{Table \ref*{tab:baseline_table}}) were added to \textit{CL3} with task `CLCOR'. This approximate amplitude calibration procedure made {\it step 8} necessary.            
+            \item Antenna .log files are used to determine off--source slewing times, windstows and downtime. Offending times are flagged with `UVFLG' to produce flag table \textit{FG1}.            
+            \item Autocorrelation data on quasars was used to determine time--variable bandpass shape for each antenna IF/polarisation via task `BPASS', creating a bandpass table \textit{BP1}.         
+            \item Bulk--electronic and instrumental delays for each antenna/polarisation/IF are solved for by task `FRING'. Scan chosen for this solution is a bright continuum source for which all antennas had onsource time. Rate solutions are zero--ed. This created \textit{SN3} which is merged into \textit{CL3} by `CLCAL' to create \textit{CL4}.        
+            \item Task `FRING' is used on the remaining continuum sources to calculate a time--variable multiband delay, the slope of which should approximate the antenna clock drift rate. This clock rate is externally calculated ($\dot{\tau}\approx\frac{\Delta\tau}{\Delta\,t}$), then applied via task 'CLCOR' into \textit{CL5}.          
+            \item Externally, the ParselTongue script \textit{maser\_amplitude\_calibrate.py} is run. The amplitudes of the cross--correlation data are corrected using the autocorrelation flux density of the masers, which in effect scales the antenna gains to that of the reference. This process generates \textit{CL6}. See \hyperref[sec:external_scripts]{Section \S\ref*{sec:external_scripts}} for more information on this external processing.          
+            \item Now that antenna gains, clock--rates and delays are approximately accounted for, the internal integration time for the $uv-$data is increased from $\tau_\text{int}=2$\,s to $60$\,s with task `UVAVG'. This has the effect of averaging the data. This process applies all pre--existing calibration, bandpass and flag tables, and generates a new $uv-$data set.          
+            \item Task `SETJY' is used to set the reference frequency of the data to the rest--frequency of \choh\, $5_1\rightarrow6_0$\,A$^+$, at 6.6685192(8)\,GHz \citep{Muller2004}. This re--calculates Doppler velocities and results in spectra. `CVEL' can then be used to shift the spectral line data to account for the rotation of the Earth and Solar System movement. This creates a final $uv-$data set.               
+        \end{enumerate}
+        \afterpage{%
+        \tikzstyle{line}   = [thick,->,>=stealth]
+        \tikzstyle{ablock}  = [draw,rectangle,text width=20em,minimum height=12mm, node distance=4em,fill=green!10]
+        \tikzstyle{pblock}  = [draw,rectangle,text width=20em,minimum height=12mm, node distance=4em,fill=red!10]
+        \tikzstyle{block}  = [draw,rectangle,text width=20em,minimum height=12mm, node distance=4em] 
+        \begin{figure}
+            \centering
+            \begin{tikzpicture}
+                \draw [line] (-2,-17)--(-2,-18)--(2.5,-18)--(2.5,0)--(3,0); 
+                \node [ablock, xshift=-5em](fitld){ {\bf FITLD}
+                $\rightarrow$ UVDATA.1};
+                \node [ablock,below of=fitld](accor){ \bf ACCOR \\
+                $\rightarrow SN1$};
+                \node [ablock,below of=accor](clcal1){ \bf CLCAL (ACCOR)\\
+                $CL1+SN1=CL2$};
+                \node [ablock,below of=clcal1](antab){ \bf ANTAB \\
+                $\rightarrow TY1, GC1$};
+                \node [ablock,below of=antab](apcal){ \bf APCAL \\
+                $TY1+GC=SN2$};
+                \node [ablock,below of=apcal](clcal2){ \bf CLCAL (APCAL)\\
+                $SN2+CL2=CL3$};
+                \node [ablock,below of=clcal2](uvflg){ \bf UVFLG\\
+                $\rightarrow FG1$};
+                \node [ablock,below of=uvflg](bpass){ \bf BPASS\\
+                $\rightarrow BP1$};
+                \node [ablock,below of=bpass](fring2){ \bf FRING (MPCAL)\\
+                $\rightarrow SN3$};
+                \node [ablock,below of=fring2](clcal3){ \bf CLCAL (MPCAL)\\
+                $SN3+CL3=CL4$};
+                \node [ablock,below of=clcal3](fring3){ \bf FRING (RATE)\\
+                $\rightarrow SN4$};
+                \node [ablock,below of=fring3](clcal4){ \bf CLCAL (RATE)\\
+                $SN4+CL4=CL5$};
+                \node [pblock,below of=clcal4](acal_script){\bf maser\_amplitude\_calibration.py \\
+                $CL5+FG1+BP1\rightarrow SN5, SN5+CL5=CL6$};
+                \node [ablock,right of=fitld, xshift=20em](uvavg){{\bf UVAVG } $\rightarrow$ UVDATA.2 \\
+                $\tau_\text{int}=2\rightarrow60$\,s};
+                \node [ablock,below of=uvavg](setjy){{\bf SETJY }  \\};
+                \node [ablock,below of=setjy](cvel){{\bf CVEL } $\rightarrow$ UVDATA.3 \\};
+                \node [pblock,below of=cvel](uvprt){\bf find\_peak\_uv.py};
+                \node [ block,below of=uvprt](fit){\bf lsq\_fit\_masers.py};
+            \end{tikzpicture}
+            \caption[Data Reduction Process for V534]{Data reduction process for V534 data involving AIPS (green), ParselTongue (red) and Python (white) steps.}
+            \label{fig:v534_pipeline}
+        \end{figure}
+        \clearpage 
+        %
+        }
+    \subsection{Notes on external ParselTongue scripts}
+        \label{sec:external_scripts}
+        \paragraph{ParselTonuge script \textit{maser\_amplitude\_calibration.py}} is a custom alternative to the \aips-task `ACFIT'. `ACFIT' uses a well--calibrated template autocorrelation spectra from one antenna and a short time range to determine amplitude gain errors in the remaining spectra. This generates an \textit{SN} table of time--variable gains to be reapplied to the data. Regrettably, `ACFIT' is suited for a single/limited number of individual maser sources observed in one epoch. The alternative but approximate technique as introduced in \hyperref[sec:altmasercal]{Section \S\ref*{sec:altmasercal}} uses a similar approach to `ACFIT' but tailored for observations of hundreds of masers in a single observing session.
+        At each scan, for each antenna/polarisations the $S_\nu>10\sigma$ peaks are located in the baseline--subtracted autocorrelated spectra. A reference antenna is chosen (either Ho or Cd due to largest experiment participation time and stable gains) and matching--velocity peaks in the various spectra are divided by the reference. This gives a correction factor ($\Gamma$) for that antenna/polarisation/time (equal to 1 for the reference). Similarly determining $\Gamma$ for each scan gives a time--variable scaling factor for each antenna/polarisation.  If no peaks can be found above the threshold for an antenna/polarisation at time ${t_\text{ant,pol}}_i$, the final $\Gamma_\text{ant,pol}$ is interpolated to that time. Finally $\sqrt{\Gamma_\text{ant,pol}}$ are internally applied via task `CLCOR' to generate a new \textit{CL} table. The reason $\sqrt{\Gamma_\text{ant,pol}}$ is applied to the visibility data ($\overline{s_i}$) to correct is because $\Gamma_\text{ant,pol}$ is determined from autocorrelation products ($\overline{s_i}\cdot \overline{s_i}$).
+        
+        As with `ACFIT', this method re--weights the visibility data to a reference antenna without consolation of maser amplitude catalogues (e.g. MMB). As I discuss later, this advantageously can identify extreme cases of maser variability or flaring rather than blindly assuming static flux density. \hyperref[fig:maserfitting]{Figure \ref*{fig:maserfitting}} demonstrates that combined data collected over two epochs with independent amplitude calibration agree and indicate the method is sufficiently accurate at the 10\% level. %{\R How accurate do you think it is?  Perhaps show a few of you calibrated spectra and the equivalent MMB spectra?  If you do that I would select a good case, a poor case and one which shows some significant variation.} for the purposes of this survey.
+        
+        \begin{figure}[h]
+        	\centering
+        	\includegraphics[width=0.5\textwidth]{/Users/Lucas/Dropbox/Thesis/fit2/G345,010+1,792_-17,46.pdf}
+        	\caption[Example visibility fitting]{Example maser visibility fit on maser G345.010+1.792 velocity feature $v=-17.46$~\kms. \textbf{Red line:} linear least--squares regression; \textbf{magenta line:} `SoftL1'/Huber Loss linear regression-- robust fitting. \textbf{Green lines} indicate $10\sigma$ sensitivity thresholds of the ASCI array}
+        	\label{fig:maserfitting}
+        \end{figure}
+         
+    
+       
+       
+        %{\R Can you put a figure that demonstrates the amplitude calibration?  Something which shows the AC spectra before and after the scaling process, probably for the same source you use in fig 1.4}
+        
+        \begin{figure}[h]
+        	\centering
+        	\includegraphics[width=1.0\textwidth]{G192_comparespec.pdf} 
+        	\caption[G192.600--0.048 spectrum]{Comparison of various baseline/scalar--averaged spectra of G192.600--0.048. {\bf Black:} Baselined, combined autocorrelated spectrum. {\bf Magenta:} Scalar averaged cross--correlated spectrum from all 15 baselines. {\bf Green:} Scalar averaged cross--correlated spectrum from 12 baselines, excluding baselines with $B_{\lambda}\le20$\,M$\lambda$. {\bf Red:} Vertical lines indicated the derived position for potential compact structures by fitting the peak of the green spectrum. The reader is encouraged to note that the peaks of the green spectrum do not necessarily line up with peaks in the magenta or black spectra.}
+        	\label{fig:g192_spec}
+        \end{figure} 
+        
+        \paragraph{ParselTongue script \textit{find\_peak\_uv.py}} 
+        is used to find potential maser spots of interest and extracts the relevant calibrated $uv-$data. Without appropriately precise gain and accurate polarisation calibration, true polarisation analysis as part of this survey is not feasible. In addition, Class II methanol masers are considered to be only weakly circularly polarised \citep[$<1\%$; ][]{Stack2011} and so in the interest of improving mean amplitude calibration, the polarisations are averaged together to form stokes--$I$ in all further analysis.
+        For each maser, baseline and scalar--averaged stokes $I$ cross--correlated spectra are generated with a lower bound $uv-$distance of $20$\,M$\lambda$. Large and diffuse physical structures are assumed to have a kinematic 'continuum' of emission centred at the mean LSR velocity. Down weighting the contribution from this can potentially reveal otherwise spectrally resolved maser components and generally bias the selection process towards compact candidates (\hyperref[fig:g192_spec]{Figure \ref*{fig:g192_spec}}). Peaks in this averaged spectrum are identified via $S_\nu>20\sigma_m$ and the visibility information extracted to an external file for modelling ($uv$ vs. $S_\nu$, including baseline--subtracted autocorrelations). As a note, in the instance that all antennas are onsource for 2 scans, 2.5\,min each, the scalar averaged spectral noise should be: $$\frac{1}{\sqrt{5}}\frac{\sum_{i=1}^{12}\sigma_i}{12}\approx0.5\,\text{Jy}$$ where $\sigma_i$ are the appropriate baseline sensitivities (Jy\,min$^{1/2}$; \hyperref[tab:baseline_table]{Table \ref*{tab:baseline_table}}). Therefore a $20\sigma$ detection in this spectrum implies an average spectral amplitude of $\approx10$\,Jy.
+        
+        As seen in \hyperref[tab:lbaantenna_table]{Table \ref*{tab:lbaantenna_table}}, a $uv=20$\,M$\lambda$ cutoff removes At--Mp, At--Pa and Mp--Pa baselines. Therefore masers detected only on these baselines are automatically filtered out by this process and are automatically considered bad candidates.
+    \subsection{Maser Visibility Fitting} \label{sec:analysis}
+        To avoid a degenerate naming scheme, I will refer to the whole region as the {\it maser}; emission from each extracted velocity channel an assumed separate {\it maser spot}; and different apparent emission structures at the same velocity channel as {\it maser components}. The \textit{find\_peak\_uv.py} script ensures that only one channel from each peak/velocity feature has data extracted (see vertical red lines in \hyperref[fig:g192_spec]{Figure~\ref*{fig:g192_spec}}). Discrepancies to these assumptions are discussed in \hyperref[sec:badmodel]{Section~\S\ref*{sec:badmodel}}. So I aim to determine which masers have appropriate spots to use for inverse phase--referencing by analysing the spatial and energetic properties of their components.
+        
+        In order to determine meaningful component properties, I require a model with realistic attributes. The model considered for a maser spot is a simple two--component Core/Halo model, where each component is estimated by a Gaussian brightness distribution:
+        \begin{equation}
+            I(r) =  \frac{2\,I_0}{\sqrt{\pi\ln 2\theta^2}} \exp\left( -\frac{8\ln 2\,r^2}{2\theta} \right)
+        \end{equation}
+        The Gaussian component has an unresolved flux density of $\int_{0}^{\infty}I(r)=I_0$; where $r$ is the radius from the centre of the distribution; and an angular diameter characterised by the FWHM of the Gaussian $\theta$. If I assume there are 2 components centrally co--located, then the corresponding visibility amplitude vs. baseline length ($S_\nu(B_\lambda)$; which is the Fourier Transform of this model) is also a Gaussian and is given by:
+        \begin{equation}
+            S_\nu(B_\lambda) =  S_C\exp\left( {-\frac{2\pi^2}{8\ln 2}(\theta_C\,B_\lambda)^2} \right) + S_H\exp\left( {-\frac{2\pi^2}{8\ln 2}(\theta_H\,B_\lambda)^2} \right)
+        \end{equation}
+        where $\theta_C,\theta_H$ are the Core/Halo angular sizes, $S_C,S_H$ are the Core/Halo peak flux densities and $B_\lambda$ is the baseline length expressed in units of the observing wavelength $\lambda$ (aka $uv$--distance). The Core/Halo components are defined such that $\theta_C<\theta_H$. This is quite possibly the simplest model geometrically, computationally and for many sources on milliarcsecond scales will be a reasonable assumption \citep{Minier2002}.
+        
+        Non--linear least squares fitting techniques were deployed to determine parameters for each model with visibility amplitude uncertainties ($\sigma_{S_\nu}$) estimated from spectral noise. Constraints imposed on the modelling process were $\theta_H>\theta_C$, $\theta_\text{comp}\in[0.1,500]$, $S_\text{comp}\ge0.3$.
+  
+        Initial $\chi^2$ values were produced from the fit, then the uncertainties were re--weighted such that they produced $\chi^2\approx1$. These more representative uncertainties (presumably accounting for systematic model offsets) are shown as errors bars in visibility plots (\hyperref[app:allmasercompactness]{Appendix \ref*{app:allmasercompactness}}). Model parameters and modified uncertainties are included in \hyperref[tab:detected_masers]{Table \ref*{tab:detected_masers}}~.
+        
+        All maser spot fits are shown in \hyperref[app:allmasercompactness]{Appendix \ref*{app:allmasercompactness}}.
+        
+        \begin{figure}[H]
+            \begin{subfigure}[t]{0.48\linewidth}
+                \includegraphics[width=\linewidth]{compact_sizehalocore1.pdf}
+                \caption{\footnotesize Distribution of modelled component size (mas) for all detected maser components. {\it x}--axis has $\log_{10}$ scale and histogram bins are equally spaced in $\log_{10}$ at 0.05 units.}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{0.48\linewidth}
+                \includegraphics[width=\linewidth]{compact_fluxhalocore1.pdf}
+                \caption{\footnotesize Distribution of modelled component flux density (Jy) for all detected maser components. {\it x}--axis has $\log_{10}$ scale and histogram bins are equally spaced in $\log_{10}$ at 0.1 units.}
+            \end{subfigure}   
+            \caption[Global distributions of $S_C$, $\theta_C$, $S_H$ and $\theta_H$]{Global distributions for fitted parameters $S_C$, $\theta_C$, $S_H$ and $\theta_H$. Blue components are attributed to a core and red to a halo, where the definition for each was assigned during modelling when $\theta_H>\theta_C$.}
+            \label{fig:model_parameters}                                   
+        \end{figure}
+        
+        \hyperref[fig:model_parameters]{Figure \ref*{fig:model_parameters}} shows the global distribution of parameters for the 393 modelled maser spots in 104 masers. I find median $\theta_H=13.6^{+25.8}_{-9.8}$\,mas and $\theta_C=1.3^{+1.9}_{-1.3}$\,mas (error bars expressing 75\% CI) which agrees with the expectation imposed by model constrains and definition of core vs. halo components (${\theta_H}>{\theta_C}$).
+        
+        I find the component flux density of the halo structure is globally greater at $S_H =27.8^{+98.8}_{-20.4}$\,Jy compared to $S_C=7.3^{+50.0}_{-5.2}$\,Jy at 75\% CI. While this was not strictly imposed, this follows expected trends. Now that the model parameters have been determined, I aim to compose them into a thorough categorisation which clearly hints at quality for parallax measurements, and which naturally relates to the ever elusive compactness.
+
+	\clearpage
+	\section{Categorisation} \label{sec:categorisation}
+		Given the model parameters, I wish to categorise the maser spots and therefore their host masers on an intuitive grading scheme that quantifies compactness. \citet{Immer2011} conducted a VLBA survey to find quasar calibrators appropriate for BeSSeL maser astrometry and graded detections on a decreasing scale from $A$ to $D$, and then $F$ for non--detections. Compactness was solely associated with this grade and the grade determined by the baseline length at which the normalised visibility amplitude (NVA; $S_{B_\lambda}/S_0$) fell below a threshold value of 20\%. Following this, I will also grade the methanol masers on a scale from $A$ to $D$, however, since masers have a more complex structure than quasars, I will use more than one metric. In the next few sections I will define these additional metrics and establish cutoffs in those metrics that encompass what characteristics I expect $A-$, $B-$, $C-$ and $D$--grade masers to have.
+
+		To that end, I expect $A-$grade will represent as close to a perfect astrometric candidate as I can determine, $B$ will be a good candidate, $C$ will represent a possible but not recommended candidate, and $D$ will be reserved for masers for which high accuracy astrometry is unlikely. Unmodelled masers are classed as such, having failed the basic detection constraints in {\it find\_peak\_uv.py}. Depending on the reason, they are classed as failed ($F$) or undetected/unknown 
+		($U$). These masers are discussed in \hyperref[nondetections]{Section~\S\ref*{nondetections}}.
+		
+	\subsection{Fitting Results}
+        \afterpage{%
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{compact_parametercorrelations.pdf}
+            \caption[]{Correlation distributions between the 4 model parameters in the 2 component fit. All axis are in $\log_{10}$ space to allow the visualisation of the full dynamic ranges and acts as more sensitive visual correlation probe. {\bf Upper:} Scatter plot for parameters and associated correlation coefficients for the exponentiated populations ($x$ not $\log_{10}$x). {\bf Diagonal:} Self--correlated histograms of parameter distribution density and single--variable KDE. {\bf Lower:} KDE for two parameter comparison. Fit parameters are each randomly modulated with `weak' Gaussian distribution to represent the respective uncertainty at the lower bound cutoffs. This smooths the visual transition at the bound edges (otherwise `unresolved' cores stack at the $\theta_C=0.1$\,mas level) and leaves the remaining distribution unchanged. Modulations are sampled from distribution $P_m=\frac{1}{\sqrt{2\pi}}\exp\left({-\frac{1}{2}(x-\sigma)^2/(3\sigma)^2}\right)$ for $\sigma_\theta=0.1$\,mas, $\sigma_S=0.3$\,Jy respectively.}
+            \label{fig:raw_parametercorrelations}
+        \end{figure}%
+        }
+        In order to categorise the maser spots, I needed metrics that represented the physical properties attributed to compactness. \hyperref[fig:raw_parametercorrelations]{Figure \ref*{fig:raw_parametercorrelations}} shows the global distributions of model parameters against one another. A weak correlation between halo and core component flux density, but almost no correlation between core and halo sizes is implied. Seemingly apparent 1:1 correlation between $\log_{10}\theta_H$ and $\log_{10}\theta_C$ can be explained by a degenerate fit -- the maser spot is well explained by a single Gaussian component with $\theta_S=\theta_C\approx\theta_H$ and $S_0=S_C+S_H$.  The lack of an apparent global (and quite possibly inherent) correlation between core and halo parameters implies the ratios $S_C/S_H$, $\theta_C/\theta_H$ vary independently and possibly randomly for each spot. This unknown variability limits the independent inference power of NVA for compactness, and confirms that I must rely on multiple metrics to describe it fully.
+        
+    \subsection{Visibility Amplitude vs. $\boldsymbol{uv-}$distance}
+        Possibly the most intuitive metric to characterise compactness are visibility amplitudes thresholds at fixed $uv-$distance cuts ($S_{B_\lambda}$). To represent average Cd--AuScope12m, AuScope12m--AuScope12m and/or future Cd--Warkworth 30m \citep{Petrov2015} $uv$--distances, baseline cuts are set at $B_\lambda=35$ and $80$\,M$\lambda$. Global estimates for the median visibility amplitudes are $S_{35\text{M}\lambda}=5.6^{+61.6}_{-3.9}$\,Jy and $S_{80\text{M}\lambda}=2.2^{+21.5}_{-2.2}$\,Jy respectively (90\% CI; \hyperref[fig:compact_metrics1]{Figure \ref*{fig:compact_metrics1}}). 
+        
+        %These CI`s can also be interpreted as the probability (P) of the flux density for any particular maser with an autocorrelated flux density ($S_0$) greater than 10\,Jy being also greater than 10\,Jy at 35\,M$\lambda$ ($S_{35\text{M}\lambda}>10$\,Jy) being greater than 10\,Jy is of P[$S_{35\text{M}\lambda}\gtrsim10$\,Jy]$=35\%$ or P[$S_{80\text{M}\lambda}\ge15$\,Jy]$\approx18\%$. These two metrics work particularly well for strong \textit{and} small modelled core components.
+        
+        Despite potentially weak individual inference power, I still will consider NVA ($R_{B_\lambda}=\frac{S_{B_\lambda}}{S_0}$) evaluated at fixed baseline cuts of $B_\lambda=35$ and 80\,M$\lambda$. Global median estimates for the NVA are $R_{35\text{M}\lambda}=0.20^{+0.45}_{-0.17}$ and $R_{80\text{M}\lambda}=0.07^{+0.36}_{-0.07}$ (90\% CI; \hyperref[fig:compact_metrics2]{Figure \ref*{fig:compact_metrics2}}).
+        
+    \subsection{Emission density/compactness index $\boldsymbol{\xi}$}
+        The next metric I use for maser spot classification is (pseudo) emission density, $\xi$:
+        \begin{equation}
+	        \xi_{comp}=\frac{S_{comp}}{(\theta_{comp}^2+\theta_B^2)^4}
+        \end{equation}
+        where $\theta$ is the particular component size in mas, $S$ is the flux density of the component in Jy and $\theta_B$ is the synthesized beam size of the array in mas and $\xi$ has units Jy\,mas$^{-8}$. This metric describes a size weighted surface flux density for each of the modelled components where the denominator $\left(\left(\theta^2+\theta_B^2\right)^4\right)$ was constructed in such a way that $\xi$ does not diverge at small modelled sizes and is most sensitive to changes in component size $\theta=\frac{\theta_B}{3}$ ($\frac{\partial^2\xi}{\partial\,\theta^2}\rvert_{\theta_B/3}=0$). 
+        \begin{figure}[H]
+        	\centering
+        	\begin{subfigure}[t]{0.7\linewidth}
+        		\centering
+        		\includegraphics[width=\linewidth]{compact_fluxSvsuv1.pdf}
+        		\caption[Global $S_{B_\lambda}$ distribution]{\footnotesize Distribution of total spot flux (Jy) derived from model and model parameters at baseline lengths 35\,M$\lambda$ (green) and 80\,M$\lambda$ (magenta) respectively. {\it x}--axis has $\log_{10}$ scale and histogram bins are equally spaced in $\log_{10}$ at 0.1 units.} \label{fig:compact_metrics1}
+        	\end{subfigure}
+        	~
+        	\begin{subfigure}[t]{0.7\linewidth}
+        		\centering
+        		\includegraphics[width=\linewidth]{compact_fluxrvsuv2.pdf}
+        		\caption[Global $S_{B_\lambda}$ distribution]{\footnotesize Distribution of total spot flux to autocorrelated flux ratio ($R_{B_{\lambda}}=S_{B_{\lambda}}/S_0$). Histogram has lower cut--off at $R_{B_{\lambda}}=-3$ or 0.1\%.  } \label{fig:compact_metrics2}
+        	\end{subfigure}
+        	~
+        	\begin{subfigure}[t]{0.7\linewidth}
+        		\centering
+        		\includegraphics[width=\linewidth]{compact_compact_index2.pdf}
+        		\caption[Global $\xi_{i}$ distribution]{\footnotesize Distribution of pseudo emission density $\xi$. {\it x}--axis has $\log_{10}$ scale and histogram bins are equally spaced in $\log_{10}$ space at 0.1 units. Vertical black line indicates $\xi_\text{min}=0.06$\,Jy\,mas$^{-2}$.  } \label{fig:compact_metrics3}
+        	\end{subfigure}
+        	\hfill
+        	\caption[Global distributions of $\xi$, $S_{B_\lambda}$ and $R_{B_\lambda}$]{Distributions of various calculated metrics for the purposes of quantifying and therefore classifying compactness.}
+        \end{figure}
+        
+        Global median estimates for the emission density are $\xi_H=0.11^{+1.22}_{-0.10}$\,Jy\,mas$^{-8}$ for the diffuse halo component and $\xi_C=0.38^{+4.61}_{-0.27}$\,Jy\,mas$^{-8}$ for the core component (90\% CI; \hyperref[fig:compact_metrics3]{Figure \ref*{fig:compact_metrics3}}), which expectedly implies core components typically have a higher concentration of emission compared to halo components.
+    
+        %$\xi$ metric is primarily used to distinguish between B and C--grade masers.
+         
+    \subsection{Constraints and grades}
+	    As I wish to not only categorise masers, but to do so in a way which graduates them on a scale from most to least appropriate for my purposes, I will again consider the observational constraints. As calculated in \hyperref[sec:v534_observation]{Section \S\ref*{sec:v534_observation}}, the baseline sensitivity from Ceduna~30m to an AuScope12m antenna would theoretically be 3~Jy (each $\sqrt{\text{minute}}$ integration) at a $uv-$distance of ${35~\text{M}\lambda}$. AuScope12m--AuScope12m baseline sensitivities can be calculated to be $\sim5$~Jy\,min$^{\frac{1}{2}}$ and a possible Ceduna~30m--Warkworth~30m baseline would be $\sim1$~Jy~min$^{\frac{1}{2}}$, both approximately at ${80~\text{M}\lambda}$. Therefore, I define an A--grade maser spot as one that has a minimum $3\sigma$ detection on every baseline (or $S_{80}\ge15$\,Jy). B--grade maser spots have a $5\sigma$ detection detected on every Ceduna baseline, but not AuScope--AuScope baselines. Ceduna--AuScope baselines are $B_\lambda\sim35$~M$\lambda$, meaning the correlated flux density of the maser has to be $S_{35}\ge10$~Jy. Both $A-$ and $B$--grade masers would be acceptable for \spirals\space in the current era.
+	    
+	    \hyperref[fig:grade_examples]{Figure \ref*{fig:grade_examples}} are representative examples of maser spots which demonstrate a compactness grade from $A$ to $D$. These masers serve as a general guide to the proportions and magnitudes of parameters that result in said grades. The aforementioned specific visibility amplitude cuts are shown for every maser compactness plot in \hyperref[app:allmasercompactness]{Appendix \ref*{app:allmasercompactness}}.
+	    
+	    \afterpage{
+	    	\begin{figure}[h]
+	    		\centering
+	    		\begin{subfigure}[t]{0.45\linewidth}
+	    			\includegraphics[width=\linewidth]{G339_622-0_121_-33_16_A.pdf}
+	    			\caption[]{\footnotesize G$339.622$--$0.121$, $v=-33.16$\,km\,s$^{-1}$\\ is a very good example of an A--grade maser feature. Although not intrinsically luminous with an autocorrelated flux density of only $\sim35$\,Jy, the modelled core is unresolved and bright with model parameters $(S_C,\theta_C, S_H,\theta_H)=(30.6\text{\,Jy},0.7\text{\,mas},5.6\text{\,Jy},50\text{\,mas})$. Due to the relative scaling of the components it is possible the halo fit is superfluous.}
+	    		\end{subfigure}
+	    		\hfill
+	    		\begin{subfigure}[t]{0.45\linewidth}
+	    			\includegraphics[width=\linewidth]{G338_925+0_634_-58_99_B.pdf}
+	    			\caption[]{\footnotesize G$338.925$+$0.634$, $v=+58.99$\,km\,s$^{-1}$\\ is an example of a B--grade maser feature. The model parameters $(S_C,\theta_C, S_H,\theta_H) = (17.2\text{\,Jy},1.3\text{\,mas},11.7\text{\,Jy},4.3\text{\,mas})$ imply a slightly resolved core structure responsible for the majority of the flux density, surrounded by a weaker marginally resolved halo structure.}                         
+	    		\end{subfigure}    
+	    		%
+	    		\begin{subfigure}[t]{0.45\linewidth}
+	    			\includegraphics[width=\linewidth]{G345_003-0_223_-26_84_LOG_C.pdf}
+	    			\caption[]{\footnotesize G$345.003$--$0.223$, $v=-26.84$\,km\,s$^{-1}$\\ is an example of a C--grade maser feature with model parameters $(S_C,\theta_C, S_H,\theta_H) = (5.4\text{\,Jy},1.4\text{\,mas},105.4\text{\,Jy},28.4\text{\,mas})$. The model parameters clearly reflect that this maser spot has a diffuse halo surrounding slightly resolved weak core. Given appropriate calibrator sources in the neighbourhood of this maser, phase--referencing astrometry could be conducted as the maser spot is marginally detected on the long baselines. To note: The $y-$axis for this plot has a $\log10$ scale, and the black line indicates the detection threshold.}                     
+	    		\end{subfigure}
+	    		\hfill
+	    		\begin{subfigure}[t]{0.45\linewidth}
+	    			\includegraphics[width=\linewidth]{G359_436-0_104_-46_66_LOG_D.pdf}
+	    			\caption[]{\footnotesize G$359.436$--$0.104$, $v=-46.66$\,km\,s$^{-1}$\\ is a good example of a D--grade maser feature. As the model parameters imply $(S_C,\theta_C, S_H,\theta_H) = (21.9\text{\,Jy},5.8\text{\,mas},86.2\text{\,Jy},26.3\text{\,mas})$, the bright autocorrelation emission ($133\pm4$\,Jy) can be explained by a very diffuse halo and a very resolved core. Due to the limited correlated flux density remaining at intermediate to longer baselines, it is not recommended that phase--referencing observations be conducted towards this maser.}    
+	    		\end{subfigure}
+	    		\caption[]{Examples of the 4 categories of detected masers in the survey. {\bf $\boldsymbol{x-}$axis:} Projected wavelength--scaled baseline distance (M$\lambda$). {\bf Top $\boldsymbol{y-}$axis:} Correlated flux density (Jy) of specified maser channel velocity. {\bf Bottom $\boldsymbol{y-}$axis:} $\log_{10}S_\nu$ scaled axis. {\bf Black dots:} 60\,s--averaged $uv-$data with scaled errors bars to attain $\chi^2=1$. {\bf Red:} Gaussian Core/Gaussian Halo model for maser structure with linear residual scaling.  {\bf Magenta:} GCGH model with robust residual loss. {\bf Green:} Categorisation thresholds at 10\,Jy and 15\,Jy for 35 and 80\,M\,$\lambda$ respectively. {\bf Black line:} Rician noise detection threshold -- values below are modelled but not considered detected.}
+	    		\label{fig:grade_examples}
+	    	\end{figure}
+	    	\clearpage
+	    }
+	    
+        C--grade masers would fail both the previous constraints and therefore not be ideal first targets for \spirals. However, foreseeing possible future sensitivity upgrades, I further separate C--grade and D--grade maser spots. C--grade masers are classically weak, but compared to D--grade masers they are compact. $D-$grade masers are weak and almost immediately resolve out to fall below detection thresholds.
+        
+        \hyperref[fig:metricsvsgrades]{Figure \ref*{fig:metricsvsgrades}} shows the distributions and correlations of the metrics explained above from the global sample of maser spots overlayed with the metrics derived from the ideal maser spots. I only include metrics $S_{35}$, $S_{80}$ and $\xi_{C}$ and for all these cases the compactness grades are arranged left to right. A value of $\xi_C\ge0.3$\,mJy/mas$^8$ implies if $S_C=5$\,Jy, $\theta_C/\theta_B\le0.5$ or if $\theta_C/\theta_B\ge1$, $S_C\ge30$\,Jy. Since bright compact objects ($\xi\gg0.3$) have been most likely identified by either $S_{80}$ or $S_{35}$, $\xi$ serves as a method to segregate fits to marginally weak cores from fits to Rice noise/baseline non--detections. This is because $\xi$ simultaneously takes into account and weights the core component modelled flux density and size under a certain threshold.
+        \afterpage{%
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1.0\textwidth]{compact_cut_decision.pdf}
+            \caption[]{Correlation distributions between 3 compactness metrics for -- {\bf black:} All modelled maser spots; {\bf blue:} A--grade maser spot G$339.622$--$0.121$ $v=-33.16$\,\kms; {\bf green:} B--grade maser spot G$338.925$+$0.634$ $v=+58.99$\,\kms; {\bf orange:} C--grade maser spot G$345.003$--$0.223$ $v=-26.84$\,\kms; {\bf red:} and D--grade maser spot G$359.436$--$0.104$ $v=-46.66$\,\kms.  {\bf Upper:} Scatter plot for parameters. {\bf Diagonal:} Self--correlated single--variable KDE and markers indicating classic maser spot positions. {\bf Lower:} KDE for two parameter comparison.}
+            \label{fig:metricsvsgrades}
+        \end{figure}%
+        \clearpage
+        }
+	\subsection{Summary}
+        Finally I categorise all modelled maser spots from these cuts. \hyperref[fig:metricsandgradesfinal1]{Figures \ref*{fig:metricsandgradesfinal1}} and \hyperref[fig:metricsandgradesfinal1]{\ref*{fig:metricsandgradesfinal2}} show correlations with the determined categorisations against the original modelled parameters and full range of metrics. It can be seen here that NVA ($R_{35}$ and $R_{80}$) do not clearly separate into the populations as determined by this method. This can likely be attributed to the inclusion of the diffuse flux density from the halo which is uncorrelated with the core size and flux density and therefore compactness. Maser regions are then categorised via the highest grade maser spot (\hyperref[tab:detected_masers]{Table \ref*{tab:detected_masers}}). Masers with multiple `equal' grade spots (apart from D--grade) are all included.
+        \begin{table}[H]
+            \centering
+            \caption[Compact maser catagorisation descriptions]{Compact maser catagorisation descriptions. {\bf Rows:} Condition that core--compactness index is greater than the threshold value $\xi_C\ge0.06$\,Jy\,mas$^{-4}$, condition that correlated flux density at 35\,M$\lambda$ is greater than five times the detection limit $5\sigma_S=15$\,Jy, condition that the correlated flux density at 80\,M$\lambda$ is greater than 10\,Jy.} %(see subsection \ref{subsubsec:spirals_constraints}). }
+            \label{tab:catagorisation_table}
+            {\onehalfspacing \small 
+            \begin{tabular}{ccccl}
+                \toprule
+                {\bf Grade}&$\boldsymbol{S_{35}\ge10}$&$\boldsymbol{S_{80}\ge15}$&$\boldsymbol{\xi_C\ge0.3} $&{\bf Description}                   \\ 
+                           &(Jy)                      &(Jy)                      &(mJy\,mas$^{-8}$)          &                                    \\\midrule
+                 A         &   Y                      &   Y                      &                       Y   &Compact and strong on all baselines.\\\hdashline
+                 B         &   Y                      &   N                      &                       Y   &Compact, flux density tapers off on long baselines\\
+                           &                          &                          &                           &but still good for reverse--phase reference \\\hdashline
+                 C         &   N                      &   N                      &                       Y   &Compact but weak. Okay for normal phase \\
+		                   & 						  & 						 &							 &referencing subject to quasars availability\\\hdashline
+                 D         &   N                      &   N                      &                       N   &Diffuse and weak.  \\\hdashline
+                 F         &   N                      &   N                      &                       -   &Only detected on $uv<20$\,M$\lambda$ baselines. \\
+                           &                          &                          &                           &Target maser was too weak to initially  find \\
+                           &                          &                          &                           &peaks to fit $uv-$data from  \\\hdashline
+                 U         &   -                      &   -                      &                       -   &Unknown grade. Maser had insufficient valid \\
+                           &                          &                          &                           &$uv-$data due to issues.   \\
+                \bottomrule
+            \end{tabular}}
+        \end{table}
+\section{Discussion}
+    
+    \subsection{Non--detections} 
+        \label{nondetections}
+        I consider masers that were unable to have a single maser spot modelled successfully (degrees of freedom$>1$) as non--detections. Out of the 187 masers surveyed, 85 are considered as non--detections, and are given the grade of either F(ailed) or U(nknown) (\hyperref[tab:catagorisation_table]{Table \ref*{tab:catagorisation_table}}). If maser is designated F--grade, it had no significant detection on non-- At--Mp, At--Pa or Mp--Pa baselines ($B_\lambda\ge25$~M$\lambda$). This implies that the angular size of any present components were much larger that the synthesized beam at that $uv-$distance $\theta_C\gg\theta_B=10$\,mas or that any small angular components present were much weaker than the detection thresholds (\hyperref[tab:baseline_table]{Table \ref*{tab:baseline_table}}). If given a U-grade, maser had no autocorrelated or cross correlated detection due to scheduling, correlation or observational issues.
+        
+        %Where possible, I have recorded the approximate auto-- and cross--correlated flux density received in clear detections on stated baselines (\hyperref[tab:nondetections]{Table~\ref*{tab:nondetections}}).
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{grade_histogram.pdf}
+        \caption[Maser catagory populations]{Histograms showing number/percentages of masers categorised into each grade. {\bf Left:} Number of masers graded $A\rightarrow D$ compared against non--detections $F$ and unknown $U$. {\bf Right:} Percentage of detected masers categorised into each grade.}
+        \label{fig:compact_gradehistogram}
+        \end{figure}
+    
+    \subsection{Interstellar scattering}
+        It is well known that multipath diffraction through the Interstellar Medium (ISM) causes scintillation and angular broadening \citep[e.g. ][]{Cordes1991b,Fey1991,Pushkarev2015}. From \citet{Cordes2001} the Galactic angular broadening ($\Theta$; mas) at 6.7\,GHz as a function of the scattering measure ($SM$) and frequency ($\nu$; GHz) is given by:
+        \begin{equation*}
+	        \Theta = 71\,\frac{{SM}^{3/5}}{\nu^{11/5}}\,\text{mas}
+        \end{equation*}
+        \citet{Minier2002} investigated whether the presence of extended emission (halos) around maser spots can be explained by scatter broadening. They argued that while some degree of scattering is expected ($\Theta\sim0.3$ and $1$\,mas at 12.2 and 6.7\,GHz respectively), it is not large enough in magnitude to give rise to the 5--50\,mas halos--like structures seen in their sample of 12.2\,GHz masers. In addition, they found that the ratio of halo size at the two frequencies did not behave as $\lambda^2$ as would be expected if the halo size originates primary from scatter broadening. Therefore they concluded that apparent distinct core/halo structures are the result of either saturation in some uniform spherical cloud, physically different environments (dense gas vs. weak diffuse gas), or turbulence in a homogeneous medium.
+        A similar argument was put forward by \citet{Menten1992}, comparing the spot sizes of 6.7~GHz \choh\, against 12.2~GHz \choh\, and 1.665~GHz OH at the same velocities in W3(OH). The conclusion was that since a $\lambda^2$ variation was not seen, the observed spot size was intrinsic.
+        
+        Masers are confined to the plane of the Milky Way, however, not all to the same extent (\hyperref[fig:compact_maserspos]{Figure \ref*{fig:compact_maserspos}}). Since HMSF--associated masers have a scale height from the Galactic Plane of $19\pm2$\,pc \citep{Reid2019}, masers at higher Galactic $b$ are more biased towards being closer to us. In addition, regardless of whether the masers are actually closer, a higher Galactic Latitude line--of--sight passes through less of the Galactic Plane. Either way, it is not unreasonable to suggest that higher Galactic $b$ masers might be effected less by scattering.
+        
+        \citet{Pushkarev2015} surveyed VLBI quasar size as a function of Galactic $b$ and frequency. They found that there was a significant difference in the modelled angular size of AGN inside $|b|<10^\circ$ and outside the Galactic plane $|b|>10^\circ$. While data at 5\,GHz suffered from completeness issues, 2/8\,GHz data were collected simultaneously allowing for the frequency dependence to be explored about 5\,GHz. For sources within the plane, 33\% had a frequency--dependant core size ratio with index $\sim2$, suggesting scatter broadening. The exact graduation of this effect was not explored, most likely due to diminishing sample size as $|b|\rightarrow0$. However the maximum observed size of quasars at 2\,GHz and 8\,GHz at $|b|=2,1,<1$ were approximately $10,10,20$\,mas and $4,6,4$,\,mas. From this I derive approximate max values of $SM=0.5,0.5,1.5$ for $|b|=2,1,<1$ (removing extreme values by consulting expected values for the scattering measure from \citet{Cordes1991b}). This gives $\Theta=0.7,0.7,1.4$\,mas.
+        \begin{figure}[H]
+	        \centering
+	        \includegraphics[width=0.98\textwidth]{compact_sizevslb.pdf}
+	        \caption[Size distribution in $l$ and $b$]{Distribution of maser minimum modelled size vs. Galactic coordinates. {\bf Point size:} Radius scales with modelled size-- Key top left: $0.1,1.0,5.0$\,mas left to right. {\bf Colourmap:} Component flux density in Jy. }
+	        \label{fig:sizevslb}
+        \end{figure}
+        
+        Next I compared modelled values against values in \citet{Cordes1991a} Fig 2, where the expected angular broadening at 1\,GHz is modelled against $l$ and $b$ towards the Galactic Centre. Values closer to $\Theta=0.5,1.9,3.8$\,mas are implied, most likely due to Galactic Centre and/or Galactic Plane proximity ($|b|<10$). I take the geometric average and see that my graduated scale is approximated as $\Theta=0.6,1.2,2.3$\,mas for $|b|=2,1,<1$.
+        
+        If there is a minimum size due to interstellar scattering, I expect to see a tendency for targets at low Galactic latitudes to have a larger minimum size than those at higher latitudes. Also, if that effect is larger than the intrinsic maser size and variations to it, I would expect to see a maser minimum size `cap' at the values derived above. Taking the smallest `significant' maser spot core size for each maser (no D--grade spots), I examine the distribution in both $l$ and $|b|$ (\hyperref[fig:sizevslb]{Figure \ref*{fig:sizevslb}}). 
+        I have 8 masers outside of $|b|>1$, 18 masers inside the range $0.5<|b|<1$ and 56 masers inside $|b|<0.5$. I find the average spot minimum spot size within those ranges as $\theta_{|b|>1.0}=0.22\pm0.17$\,mas, $\theta_{0.5<|b|<1.0}=0.55\pm0.66$\,mas and $\theta_{|b|<1.0}=0.58\pm0.59$\,mas respectively.
+        
+        I cannot detect any significant difference between minimum maser spot sizes as a function of $|b|$. In addition, is it clear that derived minimum spot sizes do not cap at the above values of $\Theta=0.6,1.2,2.3$\,mas for $|b|=2,1,<1$. Therefore, it is safe to infer that the values and variation between my modelled Core/Halo spot sizes are very unlikely the product of interstellar scattering at the level that can limit the astrometric accuracy. Therefore, maser spot size appears to be purely intrinsic at 6.7\,GHz. % a detectable level.
+%      
+%    \subsection{Survey regions with parallax measurements}
+%        The following regions have a published VLBI parallax from either 22.2\,GHz water, 12.2\,GHz or 6.7\,GHz methanol and therefore will be excluded from the list of first targets if applicable. A brief summary of the VLBI observations giving the parallax and interesting notes are given below.
+%        \subsubsection{G$\bf 188.946+0.886$}
+%            In this survey the maser region G$188.946+0.886$ is considered a B-grade candidate as the $v=10.85$\,km\,s$^{-1}$ component has a considerable $S_{35\text{M}\lambda}\approx60$\, Jy, however trails off to $S_{80\text{M}\lambda}\approx3$\, Jy. The modelled core size is also appreciable to the expected \spirals beam size at $\theta_C=2.7$\,mas. However, as a maser region easily visible from the Northern Hemisphere, numerous parallax measurements have been taken of this region.  
+%            Referring to the region as S252, \citet{Reid2009a} measured a parallax of $\pi=0.476\pm0.006$\,mas and proper motion of $\mu_x = 0.02 \pm0.01$\,mas\,yr$^{-1}$ $\mu_y=-2.02\pm0.04$\,mas\,yr$^{-1}$. The authors used the $v=10.8$\,km\,s$^{-1}$ and $v=11.5$\,km\,s$^{-1}$ components of the 12.2\,GHz methanol emission to attain the parallax, stating that the $v=10.8$\,km\,s$^{-1}$ was the most compact at $S \sim 10$\,Jy. Referring to the region as IRAS $06058+2138$, \citet{Oh2010} measured the combined parallax of $\pi=0.569\pm0.034$\,mas from 4 22.2\,GHz water masers features between the velocities of $v=-8.0 \rightarrow 2.0$\,km\,s$^{-1}$. 
+%            Thus far there have not been any published parallaxes of the class II 6.7\,GHz methanol emission \citep[However an attempt was made by][]{Rygl2010}, however it is likely that it would be identical to the class II 12.2\,GHz methanol if conducted. Potential future observations by \spirals could include this, but re-mapping previously mapped sections of the Milky Way is not a first priority.
+%           
+%            The S252 region has a `losinger'--shaped emission region with a resolved bright core. This fits well with the modelling performed here. {\R need an image from the papers}
+%            
+%        \subsubsection{G$\bf 192.600-0.048$}
+%            \label{g192_discussion}
+%            In this survey the maser region G$192.600-0.048$ is considered an A-grade candidate due to the $v_1=5.20$\,km\,s$^{-1}$ and $v_2=5.90$\,km\,s$^{-1}$ components, with the $v_1$ component being the most compact and preferable for astrometry. However this classification comes with some caveats which will be discussed below.
+%            Also known as S255, two parallaxes have been measured for this region; \citet{Rygl2010}  reported a parallax of $\pi=0.628\pm0.027$\,mas for the $v=4.6$\,km\,s$^{-1}$ velocity component of 6.7\,GHz methanol emission and \citet{Burns2016} reports a combined parallax of $\pi=0.563 \pm0.036$\,mas of five 22.2\,GHz water maser spots between the velocities of $v=4.8 \rightarrow 12.2$\,km\,s$^{-1}$.
+%            In June 2015, S255 began to rapidly increase in luminosity (colloquially a `burst'). \citet{Szymczak2018b} presents a detailed overview of burst and \hyperref[fig:szymczak2018]{Figure \ref*{fig:szymczak2018}} is Fig. 3, page 3 from that article. hyperref[fig:szymczak2018]{Figure \ref*{fig:szymczak2018}} shows that at the time of these observations (MJD 57451 and 57469) S255 was very close to the peak of the burst, especially the 5.2 and 5.9\,km\,s$^{-1}$ velocity components. This coincidental occurrence explains the extremely enhanced flux density encountered for this source compared to that catalogued by the MMB, and the different spectral features and spectra. Although the previous methanol parallax was for a $v=4.6$\,\kms component, that feature is no longer present in auto- or cross-correlation spectra. It is clear that the accretion event lead to the appearance of some very compact emission regions at $v_1=5.20$\,\kms and $v_2=5.90$\,\kms.
+%            In summary G$192.600-0.048$ is already a very well--studied source visible from the Northern Hemisphere. As such it already has 2 VLBI parallaxes, one at 6.7\,GHz. Although it has undergone a burst in 2015-2016, this does not add credence to it's further study, and the results gained for it as part of this survey are unreliable due to the dynamic morphological changes it was undergoing at the time of observations.    
+%            
+%        \subsubsection{G$\bf 196.454-1.677$}
+%            \citet{Honma2007,Asaki2014,Quiroga-Nunez2019}
+%            Also known as Sharpless 269 or S269
+%            Source is subject to variability \citet{Caswell1995}
+%            Or is this the losinger--shaped boi that Mark was talking about?
+%        \subsubsection{G$\bf 232.620+0.996$}
+%            \citet{Reid2009a} measured a parallax for this region as $\pi=0.596\pm0.035\,$mas for 12.2\,GHz methanol, reporting that there was only one spot suitable for astrometric measurements at $v=22.8$\,km\,s$^{-1}$. We find that G$232.620+0.996$ is an A-grade astrometric target at 6.7\,GHz, with the $v_1=22.82$\,km\,s$^{-1}$ component being the best for astrometric measurements within our parameters. We also find 3 other components total, with the $v_2=22.36$\,km\,s$^{-1}$ being C-grade and the other 2 being D-grade which I will not talk about. The $v_2$ component has a much smaller modelled size that the $v_1$ component ($\theta_1=2.0$\,mas compared to $\theta_2=0.7$\,mas) however is weaker, at 10\,Jy compared to $\sim 100$\,Jy. As 12.2\,GHz methanol masers are much weaker than 6.7\,GHz masers \citep[approximately a factor of 10;][]{Breen2016,Caswell1995}), with suitable phase-referencing calibrators one could potentially perform astrometry on the weaker and more compact component as well as the stronger 22.8\,km\,s$^{-1}$ component and thereby increase the parallax accuracy. In addition, with Southern Hemisphere baselines there would be a better $uv-$coverage for this $\delta_{\text{J2000}}\sim-17^\circ$ maser. Future considerations should be given to this initiative.
+%        \subsubsection{G$\bf 305.200+0.019$}
+%            We classify G$305.200+0.019$ as a B--grade maser, with the $v=-32.04$\,\kms component modelled to be unresolved and with a $S_C=8.5$\,Jy and the `most' suitable. \citet{Krishnan2017} measured a parallax of $\pi=0.21pm0.06$\,mas with a proper motion of $\mu_x=-6.69\pm0.03$\,mas\,y$^{-1}$ and $\mu_y=-0.60\pm0.14$\,mas\,y$^{-1}$ for the $v=-33.1$\,\kms component. This feature (at $v=-33.09$\,\kms) is recognised as a very close secondary candidate for the region, with the advantage that is it brighter and the disadvantage that it is modelled to be less compact with weaker emission on the long baselines ($B_{\lambda}\ge60\text{M}\lambda$).
+%        \subsubsection{G$\bf 305.202+0.208$}
+%            \citet{Krishnan2017} measures a parallax of $\pi=0.42\pm0.13$\,mas and proper motion of $\mu_x=−7.14\pm0.17$\,mas/yr, $\mu_y=−0.44\pm0.21$\,mas/yr for the $v=-44.03$\,\kms\, feature. The authors also note that the same feature has an integrated flux density of 
+%            Phillips et al 1998
+%        \subsubsection{G$\bf 339.884-1.259$}
+%            G$339.884-1.256$ was the first maser exclusively visible from the Southern Hemisphere for which a VLBI parallax was measured. \citet{Krishnan2015} measured this parallax from archival 2012--2013 LBA data as $\pi=0.48\pm0.08$\,mas with a proper motion of $\mu_x=-1.6\pm0.1$\,mas\,y$^{-1}$ and $\mu_y=-1.9\pm0.1$\,mas\,y$^{-1}$ for the $v=-35.6$\,\kms component. This survey finds the same component ($v=-35.63$\,\kms) to have a size of $\theta_C=0.6$\,mas with a correlated flux density if $S_\nu=525\pm10\%$\,Jy and to be the most compact in the emission region. The component is only marginally resolved for the 2012 LBA beam of $5.9\times4.2$\,mas, and would have made a very good first target for \spirals.
+%        \subsubsection{G$\bf 351.44+0.65$}
+%            G351.44+00.65 NGC6334 17:20:54.6010 −35:45:08.620 
+%        \subsubsection{G$\bf 359.13+0.03$}
+%            G359.13+00.03 17:43:25.6109 −29:39:17.551
+%        \subsubsection{G$\bf 359.61−0.24$}
+%            G359.61−00.24 17:45:39.0697 −29:23:30.265
+%        \subsubsection{G$\bf 359.93−0.14$}
+%            G359.93−00.14 17:46:01.9183 −29:03:58.674
+%    
+    \subsection{Class II Methanol Variability and Flaring}
+        Class II methanol masers are known to be variable on time scales of more than months to years \citep{Caswell1995,Szymczak2018a}. While this variability is normally by a factor of less than 2 and rarely by a factor of less then 10, there have been some extreme examples in recent years.
+        These rapid increases in flux density are called flares. G$192.600-0.048$ as observed in this survey serendipitously was undergoing flaring \citep{Szymczak2018a}. 
+        
+        In this survey the maser region G192.600--0.048 (also known as S255) is considered an $A-$grade candidate due to the $v_1=5.20$\,km\,s$^{-1}$ and $v_2=5.90$\,km\,s$^{-1}$ components, with the $v_1$ component being the most compact and preferable for astrometry.
+        %Also known as S255, two parallaxes have been measured for this region; \citet{Rygl2010}  reported a parallax of $\pi=0.628\pm0.027$\,mas for the $v=4.6$\,km\,s$^{-1}$ velocity component of 6.7\,GHz methanol emission and \citet{Burns2016} reports a combined parallax of $\pi=0.563 \pm0.036$\,mas of five 22.2\,GHz water maser spots between the velocities of $v=4.8 \rightarrow 12.2$\,km\,s$^{-1}$.
+        In June 2015, S255 began to rapidly increase in luminosity. \citet{Szymczak2018b} presents a detailed overview of burst and \hyperref[fig:szymczak2018]{Figure \ref*{fig:szymczak2018}} is Fig. 3, page 3 from that article. \hyperref[fig:szymczak2018]{Figure \ref*{fig:szymczak2018}} shows that at the time of these observations (MJD 57451 and 57469) S255 was very close to the peak of the burst, especially the 5.2 and 5.9\,km\,s$^{-1}$ velocity components. This coincidental occurrence explains the extremely enhanced flux density encountered for this source compared to that catalogued by the MMB, and the different spectral features and spectra. Although the previous methanol parallax was for a $v=4.6$\,\kms component, that feature is no longer present in auto- or cross-correlation spectra. It is clear that the accretion event led to the appearance of some very compact emission regions at $v_1=5.20$\,\kms and $v_2=5.90$\,\kms.
+        \afterpage{
+		\begin{figure}[h]%
+			\centering
+			\includegraphics[width=0.8\textwidth]{sz2018} 
+			\caption[Maser Plot]{{\bf Original Caption}: {\it Fig. 3. Dynamic spectrum of the 6.7 GHz methanol maser emission for S255IR-NIRS3. The color scale maps to the flux density as shown in the wedge on the top. The flux densities are linearly interpolated between consecutive 32 m telescope spectra. The velocity scale is relative to the local standard of rest. Individual observation dates are indicated by black tick marks near the left ordinates. The horizontal dashed lines from bottom to top mark the approximate times of the start first peak, dip, and second peak of the burst.} \textbf{Cyan line:} Approximate dates for V534A and B epochs.}
+			\label{fig:szymczak2018}
+		\end{figure}
+		\clearpage
+        }
+        %In summary G$192.600-0.048$ is already a very well--studied source visible from the Northern Hemisphere. As such it already has 2 VLBI parallaxes, one at 6.7\,GHz. Although it has undergone a burst in 2015-2016, this does not add credence to it's further study, and the results gained for it as part of this survey are unreliable due to the dynamic morphological changes it was undergoing at the time of observations. 
+        
+        Therefore, I acknowledge that in this relatively blind survey with a very short time baseline there is a non--zero chance that the derived compactness for some targets may be appear significantly different at a later date due to un--monitored episodic accretion resulting in morphological, spectroscopic and luminous variations. 
+        
+    \subsection{Variation from Model}
+        \label{sec:badmodel}
+        Maser regions are complex dynamic structures, and it is possible for multiple emission regions in the field of view to coincide with a single line--of--sight velocity channel. The relatively high velocity resolution aims to combat this ambiguity without sacrificing thermal sensitivity. Nevertheless $<500$~s worth of integration time spread over 2 to 4 scans per maser provides very little $uv-$coverage, especially continuous coverage required for accurate and precise imaging. As a consequence, it is very difficult to ascertain whether the measured flux density is due to more than one spatially separate emission region and to what fraction. Furthermore the determination of individual structure for each region becomes highly degenerate when one considers potential flux density variation due to component separation and position angle. 
+        
+        This point is clearly illustrated by Figures 2 and 3 from \citet{Goehart2005}, where the authors image the strong methanol maser G9.62$+$0.2E with the VLBA. This maser has a complex morphology-- the diffuse components are quite elongated and it is easy to see that one or two cuts at different hour angles on structures like this are going to give quite different visibility amplitudes on similar baseline lengths. Therefore, there can be the case that there are multiple spatially distinct maser spots which overlap in velocity and/or there can be complex morphologies in a single maser spot. Both of these can produce results which may be confusing or inconsistent when there is only one or two small cuts.
+
+	\clearpage
+	\section{Conclusion - First Targets}
+        I have conducted a survey of 187 individual 6.7\,GHz methanol masers from the Methanol Multibeam Catalogue and have determined which ones are currently most appropriate for future \spirals\space observations that will culminate in a parallax measurement. I report successful detections of over 90\% of the surveyed sources and have modelled structural parameters for over 50\% of them. \hyperref[tab:best_masers]{Table~\ref*{tab:best_masers}} contains a list of the recommended first targets for VLBI parallax measurements set to begin mid--2020, while \hyperref[fig:best_masers]{Figure \ref*{fig:best_masers}} shows the distribution of first targets in $l$--$v$ space.
+        \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.9\textwidth]{best_masers.pdf} 
+        \caption[Best masers $l-v$ diagram ]{$l-$v distribution of 6.7\,GHz visible from the Southern Hemisphere. {\bf Blue:}  Positions of all known masers between $270<l<2^\circ$. {\bf Red:} Positions of best maser targets determined by this survey. The best masers appear to have a fairly good sampling of the 4th Galactic quadrant with the exception of $l<285^\circ$.}
+        \label{fig:best_masers}
+        \end{figure}
+        I find that out of the sample of 187 masers, 13 are categorised as $A-$grade, 40 as $B-$grade, 29 as $C-$grade and 21 as $D-$grade. A further 83 can be classed as unsuitable for milliarcsecond astrometry in the current era (if at all) due to extremely heavy resolution on small to intermediate baselines (10--20\,M$\lambda$), and a further 2 as unknown due to observational issues (\hyperref[fig:compact_gradehistogram]{Figure~\ref*{fig:compact_gradehistogram}}).
+        
+        %\begin{figure}[h]
+        %\centering
+        %\includegraphics[width=0.7\textwidth]{compact_bestdistance.pdf} 
+        %\caption[Best Masers Kinematic Distances]{Near/Far kinematic distances.}
+        %\label{fig:maser_dist}
+        %\end{figure}
+        
+        %Need to talk about \hyperref[fig:maser_dist]{Figure \ref*{fig:maser_dist}}

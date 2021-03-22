@@ -1,0 +1,487 @@
+%!TeX spellcheck = en_GB
+
+%\blankpage
+\chapter{VLBI Astrometry and Calibration}\label{chap:chapter2}
+	\onehalfspacing
+	\vspace{5cm}
+	Astrometry is the science of accurately positioning objects in the sky and Very Long Baseline Interferometry (VLBI) currently boasts the highest regularly achievable angular 
+	resolution and therefore the highest possible positional accuracy. In this chapter I will review the calibration techniques necessary to achieve this high positional accuracy, the relevant theory and discuss why the highest precision is required for trigonometric parallax. I will also introduce and justify additional modified calibration techniques used throughout the data analysis presented in \hyperref[chap:chapter3]{Chapter~\ref*{chap:chapter3}} and \hyperref[chap:chapter4]{\ref*{chap:chapter4}}, and finish with a summary of steps needed to calibrate VLBI data for astrometry.
+	
+	\singlespacing
+	
+\newpage
+\section{Introduction}
+	This chapter presents specific details about the multiple aspects of VLBI calibration required to obtain high accuracy astrometry necessary for determining Galactic--scale distances. The following topics are discussed:
+	\begin{itemize}
+		\item \hyperref[sec:distancecalibration]{Section~\S\ref*{sec:distancecalibration}} establishes how and why distance determination in the Galaxy via trigonometric parallax is dependent on astrometric uncertainty and delay calibration;
+		\item \hyperref[sec:delaycalibration]{Section~\S\ref*{sec:delaycalibration}} begins discussion of the delay calibration process from the correlation stage and as it continues into the data reduction process; 
+		\item \hyperref[sec:atmosphericcalibration]{Section~\S\ref*{sec:atmosphericcalibration}} introduces phase referencing and discusses atmospheric calibration not included in \hyperref[sec:delaycalibration]{Section~\S\ref*{sec:delaycalibration}};
+		\item \hyperref[sec:amplitudecalibration]{Section~\S\ref*{sec:amplitudecalibration}} defines amplitude calibration techniques that are used in this thesis;
+		\item \hyperref[sec:parallaxcalibration]{Section~\S\ref*{sec:parallaxcalibration}} discusses parallax determination from astrometry, parallax sampling and proper motions;
+		\item \hyperref[sec:standardvlbicalibration]{Section~\S\ref*{sec:standardvlbicalibration}} contains a practical summary of astrometric VLBI calibration that is applied in \hyperref[chap:chapter3]{Chapter~\ref*{chap:chapter3}} and \hyperref[chap:chapter6]{Chapter~\ref*{chap:chapter6}}.
+	\end{itemize}
+	
+\section{Distance and Astrometric Uncertainty}	\label{sec:distancecalibration}
+	\subsection{Determination of distance}
+		A given parallax, $\varpi$, with an uncertainty $\sigma_\varpi$ yields a distance $d$ with some upper and a lower bound. Since there are more objects (for a uniform distance distribution) outside than inside the distance range (because of the different sampled volumes) a higher number of objects from outside the distance range will scatter in than the number from inside scattering out. A source can have a measured parallax $\varpi\pm\sigma_\varpi$ when it has a true parallax $\varpi_T$ such that the probability distribution of detecting the correct parallax is:
+		\begin{equation*}
+		P(\varpi)=\frac{1}{\sqrt{2\pi\sigma_\varpi}}\exp{\left(-\left(\frac{\varpi-\varpi_T}{2{\sigma_\varpi}}\right)^2\right)}
+		\end{equation*} 
+		This Gaussian distribution is symmetric in $\varpi$, with the $[0, \varpi_T+\sigma_\varpi]$ and $[ \varpi_T-\sigma_\varpi,0]$ ranges having equal area and is strongly peaked about the mean/mode $P(\varpi_T)$. However using traditional Taylor expansion methods to estimate the error in $d$ ($\sigma_d$) would yield:
+		\begin{align*}
+		d &= \frac{1}{\varpi} \\
+		\implies\sigma_d&=\left|\frac{d(1/\varpi)}{d\varpi}\sigma_\varpi\right|=\frac{\sigma_\varpi}{\varpi^2}
+		\end{align*} and systematic underestimation in the error for $d$. \hyperref[fig:parallax2distance]{Figure \ref*{fig:parallax2distance}} shows the effect of increasing $f$ on the (relative) probability of determining to incorrect distance $P\left(\frac{1}{\varpi}-\frac{1}{\varpi_T}\right)~/~\frac{1}{\varpi_T}$). At $f\ge0.2$ is would not be uncommon to determine a distance that was off by a factor of 2.
+		
+		It is reported that this effect causes a systematic bias where measured parallaxes will on average yield too small distances \citep{LutzKelker1973} and this effect is only a function of fractional parallax error $f=\frac{\sigma_\varpi}{\varpi}$, not total parallax. However \citet{LutzKelker1973} specifically concerns inverting stellar parallaxes in a magnitude limited sample. 
+		
+		In a more practical vein, \citet{BailerJones2015} determines that the optimal way to determine distance from parallax is to not only consider the non--linearity of the parallax--to--distance conversion but to truncate and modulate the probability distribution to consider realistic Galactic sizes.			
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.9\textwidth]{parallax2dist}
+			\caption[Parallax to distance asymmetry]{Parallax to distance asymmetry as a function of fractional uncertainty $f$. \textbf{Left:} Parallax probability distribution $P$ against parallax $\varpi$ as a function of fractional parallax uncertainty $f$. X--axis is centred on and normalised by true parallax $\varpi_T$, y--axis is similarly centred and scaled by $P(\varpi_T)$. \textbf{Right:} Distance probability distribution against centred, scaled distance as a function of $f$. This effectively demonstrates (unnormalised) probability of fractional distance error given $f$.} \label{fig:parallax2distance}
+		\end{figure}
+		Nevertheless, at $f=0.1$ the effect is negligible, there is a turnover point at $f=0.25$ and at $f=0.5$ no answer can be reasonably determined. This generally puts an upper limit of $\sim10\%$ on fractional uncertainty. 
+	
+	 	In the Galaxy, we expect masers to be anywhere from 0.4 (e.g. Orion nebula) to 20~kpc away \citep{Sanna2017} with a reasonable upper--median estimate of 10~kpc. Such a maser will have a trigonometric parallax of 0.1~mas and for a reasonable fractional uncertainty of $\frac{\sigma_\varpi}{\varpi}=10\%$ it is required that $\sigma_\varpi=10$\,$\mu$as. The positional uncertainty required to detect this parallax in multiple epochs is $\sigma_\theta\lesssim20\mu$as and the only way to regularly achieve this positional accuracy is with VLBI astrometry.
+	 	
+	 	As I will introduce soon, the path delay between two elements in an interferometer due to a positional offset $\Delta\theta$ goes as $\tau_\theta \approx \Delta\theta\frac{|B|}{c}$ where $|B|$ is the baseline. Therefore in order to detect the delay due to a very small position offset aka a trigonometric parallax, the interferometric delay needs to be calibrated very accurately. %such that the residual uncertainty is not mistaken as a position offset.
+	 	
+\section{Delay Calibration}	\label{sec:delaycalibration}
+	\subsection{Correlation} \label{sec:correlation}
+		The correlation stage is the first point of reduction and pre--calibration for any VLBI data set. Baseband data is taken from a pair of telescopes and correlated to form a visibility data product:
+		\begin{equation}
+			\overline{V}_{jk}(t,\nu) = V_{jk}(t,\nu)e^{-2\pi\phi_{jk}(t,\nu)}
+		\end{equation}
+		where $V_{jk}(t,\nu)$ is the normalised visibility amplitude and $\phi_{jk}(t,\nu)$ is the phase for baseline $B_{jk}$ at time $t$ and frequency $\nu$. The visibility $\overline{V}_{jk}(t,\nu)$ is produced for each baseline, at each time step ($m$) for $t=t_{int}m$ and each frequency step (channel, $n$) for $\nu=n\Delta\nu+\nu_{ref}$. The fundamental relationship between phase $\phi$, frequency $\nu$ and delay $\tau$ is:
+		\begin{equation}
+			\phi = 2\pi\nu\tau
+		\end{equation} such that the output phase from the correlator tracking changes will be:
+		\begin{equation}
+			\begin{split}
+				\phi(t,\nu) &= \frac{\partial\phi}{\partial t}(t-t_0) + \frac{\partial\phi}{\partial \nu}(\nu - \nu_{ref}) \\
+				&= \dot{\tau}(t-t_0) + \tau(\nu - \nu_{ref})
+			\end{split}
+		\end{equation} where I now only have the delay $\tau$ (units s) and { delay--rate/rate} $\dot{\tau}$ (units s/s). Therefore the delay and the instantaneous rate that which it changes are the fundamental variables to correct in visibility data. 
+		
+		The measured delay ($\tau_m$) is comprised of many different effects added in series:
+		\begin{equation}
+			\tau_m = \tau_{geo}+\tau_{tr}+\tau_{iono}+\tau_{cl}+\tau_e+\tau_\theta+\tau_\sigma+\tau_{th}
+		\end{equation} where I have (in order) the delay due to: geometry, troposphere, ionosphere, clock offset, electronics, target position, target structure and thermal uncertainty.
+		
+		In practice, many of these effects are partially removed in the correlation stage as there is always a delay detection threshold between two adjacent channels. For a correlated frequency step (channel width) of $\Delta\nu$ and a delay of $\tau$, the phase difference between two adjacent channels ($\delta n = 1$) has to be much less than a wrap in phase (aka $\Delta\phi = 2\pi$) otherwise no delay can be determined. As such it has to be the case that:
+		\begin{align*}
+			\Delta\phi=2\pi\tau(n_2\Delta\nu+\nu_0-n_1\Delta\nu-\nu_0)&\ll2\pi\\
+			\therefore \tau\Delta\nu &\ll 1
+		\end{align*} with $\tau$ in seconds and $\Delta\nu$ in cycles/Hertz. Delays of order $\tau\sim1$\,ms would require extremely high spectral resolution which requires more computational time and storage space for visibility products.
+		
+		In general the delays corresponding to baseline geometry, troposphere and clock offset have their bulk effects removed in the correlation stage such that the remaining residual delays have magnitude $|\tau_m|\lesssim 10$\,ns.
+	
+	\subsection{Geodetic and Source Position Delay}
+		The largest source of pre-correction delay in a VLBI array is the geodetic delay due to the baseline geometry. For a baseline $\textbf{B}$, when an observed source has some distance $d$, if $d\gg |\textbf{B}|$ then the wavefronts approaching the baseline can be considered plane parallel to good approximation. The time delay between the signal arriving at one antenna w.r.t the other will be: 
+		\begin{equation}
+			\tau_{geo}=\frac{{\bf \hat{s}} \cdot {\bf B}}{c}
+		\end{equation} where $\bf \hat{s}$ is the direction of the radiation, $\textbf{B}$ is the baseline vector in metres and $c$ is the speed of light (\hyperref[fig:geodeticeffect]{Figure \ref*{fig:geodeticeffect}}).
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.8\textwidth]{geodetic}
+			\caption[Geodetic Effect]{To--scale diagram of the geometric delay encountered for 2 telescopes separated by $|\textbf{B}|=3000$~km observing a target source at $\theta=30^\circ$ to the baseline vector. In this example the measured delay (red) will be $c\tau\approx2600$\,km or $\tau=8.67$\,ms.}\label{fig:geodeticeffect}
+		\end{figure}	
+		
+		Antenna positions are defined on a Cartesian grid with the centre of mass of the Earth at $(X,Y,Z)=(0,0,0)$, $XY-$plane defined by the equator (latitude $0^{\circ}$) and $XZ$-plane defined by the prime meridian at Greenwich (longitude $0^{\circ}$). Since this is a fixed reference frame and tectonic plate movement is not accounted for, `positions' on the Earth are time variable and are also denoted a velocity $\dot X$ etc. The baseline between antenna 1 and 2 is the instantaneous difference in the positions: %$\textbf{B} = B_x~\textbf{\hat{x}}$    $B_x = X_1 - X_2$, etc.
+		
+		The correlation process is able to use {\it a priori} antenna positions and velocities to model $\textbf{B}$ and to account for the changes. Error in the geodetic delay due to antenna position uncertainty is a function of observed target position ($\alpha,\delta$), observational sidereal time ($t_{lst}$) and is given by:
+		\begin{equation}
+			c\tau_{bl} = \Delta B_x\cos(t_{lst}-\alpha)\cos\delta - \Delta B_y\sin(t_{lst}-\alpha)\cos\delta + \Delta B_z\sin\delta
+			\label{eq:baselineerror}
+		\end{equation} where $\Delta B_x,\Delta B_y,\Delta B_z$ are the baseline uncertainties in the $X, Y, Z$ directions and $c\Delta\tau_{bl}$ is in metres. If the relative magnitudes of the uncertainties are equal then the equation can be reduced to: $$c\Delta\tau_{bl}\approx|\Delta B|$$ over the whole sky to a good approximation.
+		
+		Often tied in with the geodetic delay is the delay due to target source positional uncertainty: 
+		\begin{equation}
+			\begin{split}
+				c\tau_\theta =&~\sigma_\alpha\cos\delta\left(~B_x\sin(t_{lst}-\alpha)+B_y\cos(t_{lst}-\alpha)~\right)\\
+				&+ \sigma_\delta(~-B_x\cos(t_{lst}-\alpha)\sin\delta+B_y\sin(t_{lst}-\alpha)\sin\delta+B_z\cos\delta~) \\
+				 \le&~\sigma_\theta~|\textbf{B}|
+			\end{split}
+			\label{eq:poserror}
+		\end{equation} where $\sigma_\alpha$ and $\sigma_\delta$ are the associated errors in the Right Ascension and Declination components of the target source position and $\sigma_\theta = \sqrt{\sigma_\alpha^2+\sigma_\delta^2}$. Unlike the geodetic delay which varies slowly over the day with delay--amplitudes given by the component errors, the rate of change in delay due to a source positional offset is a strong factor of baseline length:
+		\begin{equation}
+			\begin{split}
+				c\dot{\tau}_\theta &= \sigma_\alpha\cos\delta(~B_x\cos(t_{lst}-\alpha)-B_y\sin(t_{lst}-\alpha)~)\\
+				&+ \sigma_\delta(~B_x\sin(t_{lst}-\alpha)\sin\delta+B_y\cos(t_{lst}-\alpha)\sin\delta~)
+			\end{split}
+		\end{equation}
+		and longer baselines will have a greater delay and much greater rate.
+		
+		The science of geodesy is able to solve for source and antenna positions simultaneously using absolute astrometry. Over the past decade the International VLBI Service (IVS) has performed regular observations of quasars and catalogued the International Celestial Reference Frame (ICRF). They are able to measure baseline lengths and quasar positions up to $\Delta B=1$~cm and $\sigma_\theta\ge0.1-0.3$~mas and the Earth Orientation Parameters (EOPs)-- a documentation of various irregularities to the Earth's rotation which are applied directly to VLBI data to correct for those effects.
+		
+		The high precision achieved for quasar positions are due to the regular IVS observations and averaging the results (which is fine for stationary objects like quasars). The positional accuracy at a certain epoch will be dependent on the final residual delay:
+		\begin{equation}
+			\sigma_\theta \approx \frac{c\Delta\tau}{|\textbf{B}|} \ge 0.6~\text{mas}
+			\label{eq:astoerror}
+		\end{equation} from \hyperref[eq:poserror]{Equation \ref*{eq:poserror}} if $|\textbf{B}|=3500$~km and $c\Delta\tau\ge1$~cm. As this accuracy is 1--2 orders of magnitude too low for accurate trigonometric parallax estimation, we require relative astrometry which I will cover in \hyperref[subsec:phasereferencing]{Section \S \ref*{subsec:phasereferencing}}.
+	
+	\subsection{Electronic and Clock Offset Delays}
+		No radio telescope or consequent signal path is identical and differences in propagation time though cables and devices will cause a bulk electronic delay relative to the other telescopes in the array ($\tau_e$). In fact this delay is expected to be slightly different for each recorded intermediate frequency (IF) at a telescope due to small but measurable differences in paths and/or phase offsets in the local oscillators. 
+		
+		Each radio telescope time stamps recorded data using internal clocks phase--locked to a time and frequency standard (usually a hydrogen maser), making them theoretically accurate to the Allen standard deviation of the masers $\sigma_A\sim10^{-15}$\,s/s. However as each maser is independent they gain and lose time at a constant and measurable rate with respect to each other, equivalent to multiples of $\sigma_A$ or $\sim1$\,ns/day. As 1\,ns is equivalent to $\sim30$\,cm or $\sim20$~mas, this effect is very important to measure and to take into account. 
+		
+		When all telescopes are referenced to one antenna in the array, all the clocks drift linearly w.r.t this antenna. Therefore the bulk electronic delay and clock offset rate can be subtracted by fringe searching and linear clock--fitting in the correlation stage. Post--correlation, electronic delay residuals are expected to be $|\delta\tau_e|\lesssim100$\,ns and the clocks can be estimated and removed to $|\delta\dot{\tau}_{clock}|<10^{-15}$\,s/s provided that there have been multiple observations of strong `fringe finder' sources over the course of an experiment. While there will always be a measurement residual, theoretically clock electronic delays could be removed to the level of pre--reduction levels ($c\delta\tau\sim1$\,cm) at the correlation stage, but in practice this is tedious and time--consuming as it would require a high spectral resolution and additional correlator passes. In practice there are post--correlation techniques to subtract residuals for both clock and electronic delays down to the detection limit. Correlator model is moderately accurate such that there is no negative impact on the quality of final data products by using this simple two step process.
+		
+		During reduction, further electronic delay calibration is performed with what is referred to as a \textit{manual phase calibration}. The antennas are `synced--up' at some point in time to remove their individual electronic delay component (which is expected to be constant over the observational period). For this purpose, delays are solved on a strong quasar target that is observed simultaneously by all telescopes. Application of this solution will remove electronic delays.
+		
+		All telescopes as part of the ASCI array use Vremya-CH 1005 Hydrogen masers\footnote{www.vremya-ch.com/english/product/} as frequency standards.
+	
+	\subsection{Additional Delays}
+		The final causes of path delay are attributed to the atmosphere (troposphere and ionosphere), source structure and general thermal uncertainty. I will discuss atmospheric delay and consequent calibration schemes in \hyperref[sec:atmosphericcalibration]{Section \S \ref*{sec:atmosphericcalibration}}.
+		
+		Source structure can also add delay ($\tau_\sigma$). For a point source, where we know the position accurately there will be no contribution from source structure. However, for any non--point like object some of the emission comes from locations away from the phase centre (nominal position of the source) and hence will impact the delay in a way that depends on intensity distribution of the emission from the source.
+		
+		Delay/phase tied to target structure is the only antenna--independent observable and therefore effectively reduced by self--calibration. This is important as unlike the other delays addressed before and hereafter, delay introduced by resolved target structure cannot be reduced by phase referencing. While delay uncertainty due to structure can be reduced by self--calibration, care must be taken to apply solutions to calibrator and target identically. Therefore to obtain the best astrometry it is always best to carefully select targets or calibrators that do not have significant structure. 
+		
+		Thermal noise ($\tau_{th}$) is unable to be calibrated. This is not typically considered a limiting factor as it due to stochastic processes and in final astrometric products takes the form of a positional accuracy ($\sigma_{th}$):
+		\begin{equation}
+			\sigma_{th} = \left(\frac{4}{\pi}\right)^\frac{1}{4}\frac{\theta_b}{\sqrt{8\ln 2}}\frac{1}{SNR}\hspace{0.2cm}\text{rads}
+		\end{equation} where $SNR$ is the signal--to--noise for detection and $\theta_b=\lambda/B$ is the synthesised beam size for the interferometric array \citep{Reid1988}. For small $\theta_b$ (large arrays) and high $SNR$ detections, $\sigma_{th}$ can be reduced far below the expected error introduced by other sources of delay.
+		
+		For the ASCI Array, maximum baseline is $|\textbf{B}|\sim3500$~km and observing frequencies 6.7 and 8.4~GHz give synthesised beam size of $\theta_b=2.6$ and $2.0$~mas. For detections in final images $\text{SNR}\ge100$, $\sigma_{th}\le52$ and $40\mu$as respectively.
+	
+\section{Calibrating for the Atmosphere} \label{sec:atmosphericcalibration}
+	The atmosphere can be broadly divided into three components: the non-dispersive dry/wet troposphere and the dispersive ionosphere. All three components contribute a large, dynamic delay into target visibilities, which can change drastically over various lines--of--sight and rapidly cause large loss of $SNR$ and astrometric uncertainty.
+	
+	\afterpage{	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[t]{1.0\textwidth}
+			\centering
+			\includegraphics[width=0.95\textwidth]{ionos_tropos2.pdf}
+			\caption[]{$\sim5000$\,km scale}\label{vlbi_scales1}
+		\end{subfigure}
+		%\hfill
+		\begin{subfigure}[t]{0.49\textwidth}
+			\includegraphics[width=0.9\textwidth]{ionos_tropos3.pdf}
+			\caption[]{$\sim1000$\,km scale}\label{vlbi_scales2}
+		\end{subfigure}
+		%\vskip\baselineskip
+		\begin{subfigure}[t]{0.49\textwidth}
+			\includegraphics[width=0.9\textwidth]{ionos_tropos4.pdf}
+			\caption[]{25\,km scale}\label{vlbi_scales3}
+		\end{subfigure}
+		\caption[VLBI Atmosphere]{Diagramatic representations of the true VLBI and atmospheric scales present for a VLBI baseline. Baseline length is $B=3000$~km (black dot--dashed line). Magenta line represents the thin ionosphere ($\sim10$~km approximation) at a height of 400~km above the Earth's surface and red lines are lines--of--sight from each element towards the two targets (solid and broken). Black dashed lines are local zenith for respective baseline elements. Respective rays are parallel due to target distance. }
+		\label{vlbi_scales}
+	\end{figure}}
+	
+	
+	\subsection{Phase Referencing}\label{subsec:phasereferencing}
+		Hereafter I will refer to VLBI astrometry with the expectation that phase referencing has/will be performed. Phase referencing astrometry is the narrow--field case of measuring relative position/phase differences between a target and calibrator, separated by some angular distance $\theta$. The general idea is that as long as $\theta$ is kept small, atmospheric contributing effects to the delay along a line--of--sight (LOS) will be identical. If there is a calibrator with a measured delay $\tau_C$ at time $t_i$, this delay can be applied/subtracted from target data/delay $\tau_T$ at time $t_{i+1}$. The delay in target data is present whether detectable or not (e.g in the case of masers there is a delay in data but as a line source delay is impossible to measure) and the various forms of delay subtract:
+	
+		\begin{equation}
+		\begin{split}
+		\tau_T(t_{i+1})-\tau_C(t_{i}) &= (\tau_{bl,T}-\tau_{bl,C})+(\tau_{tropo,T}-\tau_{tropo,C})+(\tau_{iono,T}-\tau_{iono,C})\\
+				&+\delta\dot{\tau}_{clock}(t_{i+1}-t_i)+(\delta\tau_e-\delta\tau_e)+(\tau_{\theta,T}-\tau_{\theta,C})+(\tau_{\sigma,T}-\tau_{\sigma,C})+\tau_{th} \\
+				&= \Delta\tau_{bl}+\Delta\tau_{tropo}+\Delta\tau_{iono}+\tau_{\theta,T}-\tau_{\theta,C}+\tau_{th}
+		\label{eq:phaserefequation}
+		\end{split}
+		\end{equation} where $\delta\tau$ signifies an effect that is a residual due to previously being partially accounted for.
+	
+		The strong assumptions are that: for pre--calibrated effects $\delta\tau_e,\delta\dot{\tau}_{clock}$, while there are residuals they will be small and not change by any significant amount between $\Delta t=t_{i+1}-t_i$; the structure of target and calibrator are non--existent or subtracted with self--calibration then $\tau_{\sigma,1}\approx\tau_{\sigma,2}\approx0$; the positional uncertainty of the calibrator $\tau_{\theta,C}$ will appear as an small constant offset in consecutive epochs. This can be easily achieved for compact quasar calibrators or compact target masers.
+		
+		Therefore I am left with only the tropospheric, ionospheric and baseline--based delay differences and the accuracy to which they can be removed. Taking \hyperref[eq:baselineerror]{Equation \ref*{eq:baselineerror}}\,, phase referencing has the effect to reduce the baseline uncertainty by:
+		\begin{equation}
+			\Delta\tau_{bl} = \frac{|\overline{\bf s}_2 - \overline{\bf s}_1||\Delta B|}{c}\approx \theta_{sep}\frac{|\Delta B|}{c}
+		\end{equation} which is equivalent to a position error of 
+		\begin{equation*}
+			\Delta\theta \approx \theta_{sep}\frac{|\Delta B|}{|B|} \ge 0.01\,\text{mas}
+		\end{equation*} if $\theta_{sep}\ge 1$\,deg, $|\Delta B|=1$\,cm and $|\textbf{B}|=3500$\,km. In the next few sections I will discuss the possible ways to use phase referencing observations to reduce the tropospheric and ionospheric errors to a level where the astrometric accuracy required for parallax measurements of objects at distances of up to 10~kpc can be achieved. 
+		
+	\subsection{Dry Tropospheric Delay} \label{sec:drytropotheory}
+		The dry component of the troposphere can contribute 200~cm or more zenith delay \citep{ReidHonma2014}. However, the large majority of this effect is removed during the correlation stage using `seasonally averaged' models for temperature, pressure and humidity \citep{Deller2007}. As with every and all modelling techniques this will leave residuals which are expected to be of the order of $\pm10$\,cm zenith delay \citep{Reid2014}. From the geometry and respective heights in \hyperref[vlbi_scales]{Figure \ref*{vlbi_scales}} I derive that relative path--lengths $\tau_{tropo}$ as a function of elevation $\varepsilon$ can be described $\tau_{tropo} = \tau_z\,m_i$ by the following mapping function:
+		\begin{equation}
+		m_1(\varepsilon) = \frac{ \sin(\varepsilon)-\sqrt{\sin(\varepsilon)^2 + \left(\frac{H}{R_\oplus}\right)^2 + \frac{H}{2\,R_\oplus} }}{ 1-\sqrt{1 + \left(\frac{H}{R_\oplus}\right)^2 + \frac{H}{2\,R_\oplus} }}
+		\label{eq:mappingfunction1}
+		\end{equation} where $H$ is the height of the troposphere ($\sim$15\,km), $R_\oplus=6370$\,km is the radius of Earth and $\varepsilon$ is the antenna elevation measured from local horizon. I take this to be the correct and full mapping function, however, in this thesis I will use two approximations to this. Firstly the Neill's mapping function:		
+		\begin{equation}
+		m_2(\varepsilon) = \sin(\varepsilon)+\frac{a}{\sin(\varepsilon)+\frac{b}{c+\sin(\varepsilon)}}
+		\label{eq:neills}
+		\end{equation} where $a=5.6795\times10^{-4}$, $b=1.5139\times10^{-3}$ and $c=4.6730\times10^{-2}$. This function is used extensively during geoblock and baseline fitting programmes (discussed below). Secondly:
+		\begin{equation}
+		m_3(\varepsilon) = \sec\left({\frac{\pi}{2}-\varepsilon}\right) = \sec(Z)
+		\label{eq:mappingfunction3}
+		\end{equation} as shown in \citet{Honma2008}, where $Z=\frac{\pi}{2}-\varepsilon$ is the zenith angle. \hyperref[fig:mappingfunc]{Figure \ref*{fig:mappingfunc}} shows the distribution of these functions and the differences between them.
+		
+		\afterpage{		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=1.0\textwidth]{mappingfunc.pdf} 
+			\caption[Mapping Functions]{{\bf Left:} magnitudes and {\bf centre/right} differences between mapping functions $m_1$, $m_2$ and $m_3$ given in text against elevation $\varepsilon$. Right plot is in log units to highlight differences difficult to see in centre plot.}
+			\label{fig:mappingfunc}
+		\end{figure} }
+		As is hinted at by the geometry in \hyperref[vlbi_scales]{Figure \ref*{vlbi_scales}} and shown by all the mapping function, the additional path length increases rapidly for decreasing elevations and doubles the zenith delay after $\varepsilon\lesssim30^\circ$. \hyperref[eq:mappingfunction1]{Equation \ref*{eq:mappingfunction1}} reveals that for elevations $\varepsilon\rightarrow0$ I approach a maximum additional path of $\sim \sqrt{\frac{2R_\oplus}{H}}\frac{H/R_\oplus+1}{H/R_\oplus+\frac{1}{2}}\approx71.3$. %which is extreme but finite. 
+		
+		In phase referencing observations, delay is relative to a nearby position ($Z_2 = Z_1 + \delta z$):
+		\begin{equation}
+		\Delta\tau_{dtropo} = \tau_z (m_3(Z_2) - m_3(Z_1)) \approx \tau_z\sec^2 Z_1 \sin Z_1 \delta z
+		\label{eq:dtropo_zenitherror}
+		\end{equation} where I have used the $m_3$ mapping function for mathematical simplicity. This function diverges rapidly for values of $Z_1\ge60^\circ$ or $\varepsilon_1\le30^\circ$. Therefore, it is generally accepted (despite the existence of calibration methods), that phase referencing observations should be conducted at elevations $\varepsilon>30^\circ$ so that delay errors are minimised while getting as much $uv-$coverage as possible. For reasonable elevations $\varepsilon$, this reduces the tropospheric delay error ($\Delta\tau_{dtropo}$) by a factor of $\delta z$.
+		
+		The current methodology for removing the residual dry tropospheric delay is called {\it geoblock fitting} \citep{Reid2009}. This is performed by scheduling `geoblocks' during observations spaced roughly every 2--3~hours. Each geoblock consists of 10--20 quasars at different elevations and generally takes $\sim30$\,mins per geoblock. For each geoblock $b$ a zenith delay $\tau_{z,bi}$ can be determined for each antenna $i$ by fitting the elevations to \hyperref[eq:neills]{Equation \ref*{eq:neills}}. In practice the geoblocks are used to determine the dynamic tropospheric component {\bf and} the residual clock--delay rates $\delta\dot{\tau_i}$ by fitting \hyperref[eq:geoblock]{Equation \ref*{eq:geoblock}} to antenna elevations $\varepsilon_{ik}$ observed at time $t_l$:
+		\begin{equation}
+			\tau(t_l)_{ij} = \tau_{0,ij} + (\delta\dot\tau_i-\delta\dot\tau_j)(t_l-t_0) + \tau_{z,bi}\,m_2(\epsilon_{ik}) - \tau_{z,bj}\,m_2(\epsilon_{jk})
+			\label{eq:geoblock}
+		\end{equation}
+				
+ 		The tropospheric delay is a non--dispersive delay and as such is the same at all frequencies. Therefore it is not only advantageous to maximise recorded bandwidth to better constrain the delay but it also allows a smaller delay to be detected. In order to minimise delays due to source position offsets, only quasars with catalogued reliable positions should be used for this analysis. Also, each quasar needs to be compact and bright enough to be detected across the whole bandwidth on each baseline to get a reliable multiband delay detection.
+		
+	\subsection{Wet Tropospheric Delay} \label{sec:wetdelay}
+		The wet atmosphere is characterised by a fast (minute-scale) change in the amount of water vapour present along the LOS. In order to remove these effects, the target and reference calibrator need to be observed near `simultaneously'. The tropospheric coherence time ($T_{coh}$) is defined to be the characteristic time--scale that the wet tropospheric component varies enough to cause a phase ambiguity: 
+		\begin{equation}
+			2\pi \sigma_A T_{coh}\nu\sim1
+			\label{eq:wettropocoherence}
+		\end{equation} where $\sigma_A=0.7\times10^{-13}$ is the Allan standard deviation for the troposphere \citep{ReidHonma2014}. For radiation of frequency 6.7~GHz, this leads to a coherence time of $T_{coh}\sim5$~mins. Thus, to avoid decorrelation and successfully phase reference the wet-tropospheric phase, the source and reference need to be observed within a time-scale of 5~mins or less.
+		
+		Due to the wet--troposphere being randomly dynamic, there is no known structural form that can reduce the errors by separation between target and calibrator. As such {\it as long} as time--phase interpolation can occur the LOS delay is considered identical if the separations are small, subject to the interpolation errors. There are two main schools of wet--tropospheric removal which take advantage of observing techniques to minimise delay errors.
+		
+		\textit{In--beam calibration} involves looking at a source and calibrator simultaneously, with both inside the same primary beam. Therefore, there is no specific time--interpolation required which resolves the issue. This technique becomes particularly common for low--frequency observations where beam size becomes appreciably large such that there is a high chance of finding in-beam calibrators. However, it is difficult to find a source and calibrator close enough at mid/high frequencies ($\nu\gtrsim4$\,GHz).
+		
+		\textit{Nodding} is perhaps the most commonly-used option for mid/high frequency phase-referencing observations. It involves bracketing target source observations with calibrator source observations well within $T_{coh}$. Nodding becomes difficult for high-frequency observations ($\nu\gtrsim30$\,GHz) and requires either very sensitive and/or fast-slewing telescopes. Nodding is the primary technique used in \hyperref[chap:chapter3]{Chapter \S\ref*{chap:chapter3}} to analyse recent BeSSeL VLBA data.
+		
+		I will introduce and discuss an alternative technique in \hyperref[chap:chapter5]{Chapter~\S \ref*{chap:chapter5}}.
+	
+
+	\subsection{Ionospheric Delay} \label{sec:ionodelay}
+		The ionosphere is a layer of ionised plasma with a characteristic height of 400 km. Unlike the troposphere, the ionosphere introduces a {\it dispersive} delay: one that is frequency--dependant: 
+		\begin{equation}
+		c\,\tau_{iono}=40.3\,I_e\,\nu^{-2} \space\text{cm}
+		\end{equation} with $\nu$ in GHz (\hyperref[fig:ionosdelay]{Figure \ref*{fig:ionosdelay}}). $I_e$ is the total electron content (TEC) along the line of sight measured in units of TECU ($1\,\text{TECU}=1\times10^{16}$\,electrons\,m$^{-2}$). Typical total zenith values of $I_e$ are expected to be $I_e<50$\,TECU excluding major solar events. Due to the characteristic height of the ionosphere, for most elevations the field of view is very large and small differences in the LOS will lead to very different ionospheres (e.g. shown in \hyperref[vlbi_scales]{Figure \ref*{vlbi_scales}}). In turn this makes it difficult to characterise the ionosphere or make initial assumptions of local similar delays. 	
+		\begin{figure}
+			\includegraphics[width=\textwidth]{ionosdelay}
+			\caption[Ionospheric Delay vs. Observing Frequency]{Dispersive delay causes by ionosphere. \textbf{y--axis}: Delay per unit TEC; \textbf{x--axis:} frequency in GHz.} %At frequencies lower than $\sim6.6$~GHz the TEC 
+			\label{fig:ionosdelay}
+		\end{figure}		
+		%There are numerous documented ways  to $\tau_{ionos}$. 	
+		The most general method to subtract bulk $I_e$ contributions is to use TEC maps provided by NASA Jet Propulsion Laboratory (JPL) as well as other groups. These maps are calculated from GPS data (which operate at 1.23 and 1.58 GHz) and can be imported to calculate the expected delay through that region of the ionosphere. Rather than the absolute delay along a line of sight being the same, if the residuals in a region are similar then phase referencing should serve to reduce the error. However \citet{WalkerChatterjee1999} estimate that the ionospheric residuals in these maps is around $5-10$\,TECU, which at is $4.5-9$\,cm at 6.7\,GHz, $2.9-5.7$\,cm at 8.4\,GHz and $0.4-0.8$~cm at 22~GHz. In addition the resolution of TEC maps is reduced in the Southern Hemisphere due to the spacing and number of GPS stations compared to the North (4800 vs. 1000 GPS stations).
+	
+	%Using the same data as the geodetic calibration, a dispersive delay is calculated using the highest and lowest frequency over the time of observation. This requires dual-frequency observations, and the greater the spacing the better. In fact due to the $\propto\nu^{-2}$ relation, the lower the frequency you can access, the greater the {\it range} over which the dispersive delay can be constrained and the TEC value evaluated.
+	
+	%Figure \ref{vlbi_scales} represents a fairly accurate diagram for the ionosphere and troposphere on VLBI-scales. As discussed, mapping function can be used locally to determine the additional wet-path-delay seen as a function from zenith. This largely should hold true due to the valid `local-ness' of the phenomena for elevations $\epsilon>30^\circ$. However, not only does the wet-mapping-function (wmf) rapidly increase to some maximum for low-elevations due to the much larger (but finite) path length encountered.
+	
+	
+	%There also exists a mapping function for the ionosphere. Due to the thin-nature of the ionospheric approximation and the height at which it occurs, the ionospheric mapping function is simply:
+	%\begin{equation*}
+	%\text{imf}(\epsilon) = \sec\left(\arcsin\left(\frac{R_\oplus}{R_\oplus+H_I}\right)\,\cos\left(\epsilon\right)\right)
+	%\end{equation*}
+	%Which represents the additional physical path length through the ionosphere as a function of elevation angle compared to zenith $\epsilon=90^\circ$. Interestingly, due to the thin ionosphere, this mapping function converges to a value of $1/\sqrt{2\frac{H_I}{R_\oplus}}\approx2.82$ for $\epsilon=0^\circ$ instead of diverging. However, local approximations cannot apply to the ionosphere due to the height at which it exists. This means that no simple and well-behaved solution such as `ionoblocks' (ionospheric-geoblocks) are doomed to fail on systematic level (there is a reference for this). This is also demonstrated in Figure \ref{vlbi_scales}. Although theoretically some thorough ionospheric sampling could be used to derive some direction-dependent effects, `supergeo-ionoblocks', which can be interpolated to the zenith for troposphere and gridded for the ionosphere, this is impractical. Not only would this give an even greater calibration-overhead, but the ionosphere is believed to be clumpy and turbulent (tubes paper reference) and a full-sky solution is not necessary. 
+
+		Dual--frequency observations are without a doubt the best way to remove residual line-of-sight delays due to the ionosphere, as is conducted in geodetic VLBI observations at S (2.3\,GHz) and X ($\sim8.2$\,GHz). This is because they are currently the only way to directly `measure' and therefore accurately remove the ionospheric residual. Given a total (or total--residual) LOS delay $\tau(t,\nu) = \tau_{nd}(t) + \tau_d(t)\,\nu^{-2}$ the non--dispersive component will affect all frequencies identically and subtracting the total delay at two frequencies leaves only the dispersive delay:
+		\begin{equation}
+		\tau(t,\nu_2) - \tau(t,\nu_1) = \tau_d(t)\left(\frac{1}{\nu_2^2}-\frac{1}{\nu_1^2}\right)
+		\end{equation}
+		$\tau_d$ can then be appropriately subtracted from the delays towards both LOS and therefore this still requires the assumption that the delay does not vary much in angular separation. Therefore in traditional nodding-techniques, derived residual delays are believed to be a `DC' effect and the solution directly applied from calibrator to target (either spectra line or too weak to derive delays). In fact, it is very likely that for any degree--scale field of view there is a smooth--gradient of residual delay which most-likely would break down on the 10's of degree scale \citep{Dodson2017}. %\hyperref[chap:chapter5]{Multiview} holds promise to remove FOV ionospheric effects if they obey a planar structure.	
+
+\section{Amplitude Calibration} \label{sec:amplitudecalibration}
+	A distant source of electromagnetic radiation with spectral luminosity $L_{\nu}$ (W~Hz$^{-1}$) will illuminate the surface of a radio telescope with flux density $$S_\nu=\frac{L_{\nu}}{4\pi d^2}$$ The surface of the telescope will sum the flux density ($W\,m^{-2}\,Hz^{-1}$ or $Jy$) and it will be detected as a voltage at the receiver. However this summation and detection process is not perfect and there will be losses such that the actual power at the receiver will be $$P\propto\eta A S_\nu $$ where $\eta$ is the antenna efficiency ($0<\eta<1$) and $A$ is the antenna collecting area. The radio telescope records a normalised response voltage proportional to the power received.
+	
+	The SEFD (system equivalent flux density) is the system noise (contributions from antenna, receiver, electronics etc) expressed in units of flux density and in practice serves as a conversion between normalised voltages/power and flux density. For astrometric VLBI, poor amplitude calibration can lead to incorrectly weighted baselines which can corrupt images and potentially ruin astrometric accuracy. Absolute amplitude calibration requires careful and constant monitoring of the above contributing factors which may be unavailable at some sites. While correct weighting of baselines is important, absolute amplitude determination is not the primary goal, therefore alternative methods to calibrate antenna SEFDs become available.
+
+	 %over time and correlation of this signal over a baseline gives a complex amplitude. If we represent the the amplitude recorded by a telescope as $V_i$ and that seen on a baseline as $V = \|\sqrt{V_iV_j}\|$, $i=j$ is an autocorrelated amplitude will be and $i\not=j$ is a cross-correlation amplitude.
+	 
+	\subsection{Alternative maser calibration}
+		\label{sec:altmasercal}
+		In the event that traditional methods are either impossible or insufficient and amplitude calibration is required  pre--imaging, masers themselves present a possible solution. At any one time, if the angular size of a maser is smaller than the primary beam of all telescopes in an array, then the velocity--corrected bandpass--subtracted autocorrelation spectra should be identical (excluding noise). If at least one telescope in the array has stable and accurate pre--calibration applied, or if the maser has a known spectral flux density this can be used as a reference for the remaining spectra. This technique sacrifices absolute amplitude calibration for relative amplitude calibration under the condition that the above criteria are met.
+
+		If a maser has some reference spectral flux density $S_{\nu_r}$ and some baseline $B_{ij}$ flux density $$ s_{ij} = | \sqrt{\bf\bar{s_i} \bar{s_j}}| i=j$$ then the correction factor will be: $$\Gamma = \frac{S_{\nu_r}}{s_{ij}}$$ As this springs from autocorrelations I need to multiply the antenna--based data by $\sqrt{\Gamma}$ as I ultimately want to correct the cross--correlations. This can be calculated separately for each telescope in the array over time.
+
+	\subsection{Alternate quasar calibration} \label{sec:altquascal}
+		Unlike masers, quasars are continuum sources that have a relatively low `per spectral channel' flux density ($\sim100\,mJy$ level) and as such it is more difficult to detect them in autocorrelation spectra above the system temperature and with the thermal noise. However, they are generally unresolved and have much better detections in cross-correlation spectra across the band where system noise from each telescope is largely absent as they do not correlate. 
+		
+		In order to calibrate quasars over a bandwidth and baseline, I first need to establish that this is appropriate.
+		\subsubsection{Calibrating amplitude over frequency}
+			Due to synchrotron emission contributing the majority of flux to the quasars, they are well modelled by a power law spectrum:
+			\begin{equation}
+				S_\nu=S_0\,\nu^{\alpha}
+			\end{equation}
+			Taylor expanding the above equation about some reference frequency $\nu_0$, assuming that $\alpha\not=0$ %, we arrive at:
+			%\begin{equation}
+			%%	S_\nu(\nu) %%=S_0\,\nu_0^{\alpha}\left(1+\frac{\alpha}{\nu_0}(\nu-\nu_0)+\frac{\alpha(\alpha-1)}{\nu_0^2}\frac{(\nu-\nu_0)^2}{2!}+...+\frac{\alpha(\alpha-1)...(\alpha-n)}{\nu_0^n}\frac%%{(\nu-\nu_0)^n}{n!}\right)
+			%\end{equation}
+		    I want to know the flux density change over a spanned-bandwidth from $\nu_0$ to $\nu_0+\Delta\nu$:
+			\begin{equation}
+			S_\nu(\nu_0+\Delta\nu) =S_0\,\nu_0^{\alpha}\sum_{n=0}^{\infty}\frac{\alpha(\alpha-1)...(\alpha-n)}{n!}\left(\frac{\Delta\nu}{\nu_0}\right)^n
+			\label{eq:qflux1}
+			\end{equation}
+
+			For typical frequencies and spanned-bandwidths explored in this thesis (e.g. $\nu_0=6300$\,MHz, $\Delta\nu=374$\,MHz and $\nu_0=8213$\,MHz, $\Delta\nu=256$\,MHz) it is reasonable to assume that $\left(\Delta\nu/\nu_0\right)^n \ll 1, n>1$. Now equation \hyperref[eq:qflux1]{Equation \ref*{eq:qflux1}} reduces to:
+
+			\begin{equation}
+			S_\nu(\nu_0+\Delta\nu) =S_0\,\nu_0^{\alpha}\left(1+\alpha\frac{\Delta\nu}{\nu_0}\right)
+			\end{equation}
+
+			Using \citet{Kellermann1969}, I take the median spectral index of quasars to be $\alpha\approx-1.0$ in the neighbourhood of our frequencies of interest. Now I can see the fractional change of the flux density over the bandwidth is:
+			\begin{align*}
+			\frac{S_\nu(\nu_0+\Delta\nu)-S_\nu(\nu_0)}{S_\nu(\nu_0)} &\approx -1.0\frac{\Delta\nu}{\nu_0} \\
+			 &= 6\% \text{   at 6.3\,GHz} \\
+			 &= 3\% \text{   at 8.2\,GHz}
+			\end{align*}
+			%https://arxiv.org/pdf/1603.08626.pdf
+
+			Therefore a constant amplitude over a small bandwidth is a reasonable assumption. This allows one to assume a fixed flux density of a quasar over the whole bandwidth, and calibrate the bandwidth compared to this number. In addition I can average a quasar over the spanned bandwidth and ensure the imaged flux density is accurate for each baseline. 
+
+		\subsubsection{Calibrating amplitude over baseline}
+			\label{quasaramp_cal}
+			Assuming a quasar of known zero--spacing flux density $S_0$ that has emission resembling a 2D Gaussian with angular size (full width at half maximum) $\theta$. Then the visibility amplitude of the quasar can be represented as: 
+			\begin{equation}
+				S_{uv} = S_0 \exp\left({-\frac{2\pi^2}{8\ln 2}(\theta B_{\lambda})^2}\right)
+			\end{equation} 
+			where $B_{\lambda} = uv/\lambda$ is the projected baseline length $uv$ expressed in terms of wavelength $\lambda$. If the peak flux density of such a source were constant over time and it never underwent evolutionary/structural changes we could use the source as a VLBI flux density calibrator. If the detected flux density on baseline $B_{ij}$ is $$ s_{ij} = | \sqrt{\bf\bar{s_i} \bar{s_j}} |, i\not=j$$ then the ratio of $s_{ij}$ to $S_{uv}(b_{ij})$ serves as a diagnostic for the `goodness of calibration' as a function of baseline pairs. Consider $$s_{ij} = x_i x_j$$ being the `true' flux density and $$S_{uv}(b_{ij}) = \delta x_i \delta x_j x_i x_j$$ being the detected flux density, with $0<\delta x\le1$. If the model and source flux are identical for all baseline pairs, then $\delta x_i = 1$ $\forall i$ and the data is perfectly calibrated. Elsewise we can simply solve for the antenna--dependent offset between baselines and correct it. 
+
+			To isolate the parameters we consider that for $N$ antennas there are $\frac{N(N-1)}{2}$ independent baselines. While the immediate problem is non-linear:
+			\begin{equation}
+				\delta x_i \delta x_j = \frac{S_{uv}(b_{ij})}{s_{ij}}, i\not=j
+			\end{equation}
+			we can assume that the required corrections are small $\delta x_i = 1 + \epsilon_i$ so that we can get:
+			\begin{equation}
+				(1 + \epsilon_i) (1 + \epsilon_j) = (1 + \epsilon_i + \epsilon_j + \epsilon_i\epsilon_j) = \frac{S_{uv}(b_{ij})}{s_{ij}}
+			\end{equation}
+			 and it is likely that $\epsilon_i\epsilon_j \ll 1$. We now can convert this to a matrix formula to solve for the offsets.
+			 \begin{equation}
+				 \epsilon_i + \epsilon_j = \frac{S_{uv}(b_{ij})}{s_{ij}}-1 = d_{ij}
+			 \end{equation}
+			 \[
+			\begin{bmatrix}
+				1 		& 1 		& 0 		& 0 	& \dots		& 0	  		& 0      & 0\\
+				1 		& 0 		& 1 		& 0     & \dots 	& 0  		& 0      & 0\\
+				\vdots 	& \vdots 	& \vdots 	& 		& \ddots	& \vdots 	& \vdots & \vdots\\
+				0 	    & 0 	    & 0   	    & \dots &\dots    	& 0	     	& 1      & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				\epsilon_1 		\\
+				\epsilon_2 		\\
+				\vdots 	\\
+				\epsilon_N 	    
+			\end{bmatrix}
+				=
+			\begin{bmatrix}
+				0 & d_{12} & d_{13} & \dots  & d_{1N} \\
+				d_{21} & 0 & d_{23} & \dots  & d_{2N} \\
+				d_{31} & d_{32} & 0 & \dots  & d_{3N} \\
+				\vdots & \vdots & \vdots & \ddots & \vdots \\
+				d_{N1} & d_{N2} & d_{N3} & \dots  & 0
+			\end{bmatrix}
+			\]
+			Where we set $d_{ii}=0$ to mask the solution. The above is the matrix equation $$\mathbb{P}{\bf x}=\mathbb{D}$$ where $\mathbb{P}$ is a $N\times N(N-1)/2$ matrix, ${\bf x}$ is a $1\times N$ vector containing the solutions and $\mathbb{D}$ is a $N\times N$ matrix of the observables. $\mathbb{P}$ is non-singular if $N\ge3$ and therefore has in inverse such that we can solve the above for ${\bf x}$:
+			\begin{equation}
+				{\bf x} = (\mathbb{P}^{T}\mathbb{P})^{-1}\mathbb{P}^{T}\mathbb{D}
+			\end{equation}
+			The array $1+{\bf x}$ contains the correction that needs to be applied to each telescope in the array to match the model and therefore calibrate the telescope SEFDs.
+
+\section{Additional Considerations} \label{sec:parallaxcalibration}
+	\subsection{Annual Parallax Sampling}
+		The first of many pre--data collection considerations is optimal sampling. A parallax is a magnitude and is a constant over all observations, however, it modulated by the Earth's orbit around the Sun and depends on source position. As the parallax magnitude is (in Galactic maser cases) very small and astrometric data contains comparable uncertainty as it is, further measurement uncertainty should be minimised if possible. %In addition, non-optimal sampling can {\it double} the uncertainty.
+		
+		To begin with, a source with equatorial position $\text{(RA, DEC)}=\left(\alpha, \delta\right)$ and distance $d=\frac{1}{\varpi}$ at any given time $t$ (yrs) will have a parallax of magnitude:
+        \begin{equation}
+        	\begin{split}
+        	\begin{split}   
+        		x&=\varpi\,T_e\,\left(Y\,\sin\alpha-X\,\sin\alpha\right) + \mu_x\,(t-t_\text{ref})\\
+        		y&=\varpi\,T_e\,\left(Z\,\cos\delta-X\,\cos\alpha\,\sin\delta-Y\,\sin\alpha\,\sin\delta\right) + \mu_y\,(t-t_\text{ref})
+        	\end{split}\\ \\
+        	\begin{split}
+        		X &= \cos 2\pi(t-t_0) \\
+        		Y &= \sin 2\pi(t-t_0)\,\cos\theta \\
+        		Z &= \sin 2\pi(t-t_0)\,\sin\theta \\
+        		T_e &= 1.0+0.0167\,\sin 2\pi\left(t-0.257\right)     	
+        	\end{split}
+        	\end{split}
+      		\label{eq:parrequation}
+        \end{equation}
+		where $x,y$ (mas) are the sampled position of the source in the RA, DEC directions, $\alpha,\delta$ are the nominal source position in RA and DEC at $t_{ref}$, $t$ is fractional time of year, $\theta=23.4^\circ$ is obliquity of the Earth, $t_0=0.22$\,yr is the time of the vernal equinox, $T_e$ describes the eccentricity of the Earth's orbit, $\varpi$ is the parallax (mas), and $\mu_x,\mu_y$ are the proper motions in $x,y$ (mas/year).
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.9\textwidth]{model_parallax}
+			\caption[Model parallax]{Simulated parallax for 6.7\,GHz maser G329.339$+$0.148: $\alpha\sim16.0$\,hr, $\delta\sim-52.7^\circ$ and kinematic distance $d\sim6.0-8.5$. I arbitrarily set $\mu_x=2.0$ and $\mu_y=-2.0$\,mas/yr, and set $\varpi=0.143$\,mas. {\bf Left}: apparent motion of target across sky. \textbf{Centre}: respective apparent motions in $\alpha$ (or $x$, red) and $\delta$ (or $y$, blue). \textbf{Right}: projected parallax motion (subtracting proper motion) in $x$ and $y$.} \label{fig:model_parallax}
+		\end{figure}
+
+		Since the change in the measured astrometric position for the target source with time depends on the proper motion of the source in RA and DEC and the parallax, a minimum of 3 observations are required. However, this leaves zero degrees of freedom remaining to calculate residuals and in practice many more epochs of observations are generally conducted to reduce the uncertainty in the measured proper motion and parallax. As such optimal parallax sampling has a weak dependence on target $\alpha$ and $\delta$. \hyperref[fig:model_parallax]{Figure \ref*{fig:model_parallax}} shows a simulated parallax. In this instance the Right Ascension component is $2.5\times$ more sensitive to the parallax amplitude due to the projection of Earth's orbit and therefore observations made at the times when the RA offset due to parallax will be at a maximum magnitude (in this case early July for the minimum and early February for the maxima) is optimal.
+	
+	\subsection{Proper motion}
+		A proper motion is defined as the movement of an object tangential to the line of sight. Spectral line Doppler shift can be used to measure relative LOS velocity, a principle kinematic distance determinations utilise. However proper motions require sufficiently accurate astrometry and/or time.
+		
+		As demonstrated in \hyperref[fig:model_parallax]{Figure \ref*{fig:model_parallax}} the proper motion is often much larger in apparent magnitude than the parallax, unless the target is particularly close or the proper motion is extremely large \citep[e.g. Barnards Star; $\mu_y = 10.3\times10^{3}$\,mas/yr][]{Barnard1916}. 
+		
+		In VLBI astrometry, cardinal directions are always expressed as RA/DEC ($\alpha,\delta$) and hence the measured proper motions are $\mu_x=\mu_\alpha\cos(\delta), \mu_y=\mu_\delta$. \citet{Poleski2013} provides a succinct conversion from the measured equatorial coordinate system to a more relevant Galactic coordinate system via introduction of a simple rotation matrix:
+		\[\begin{bmatrix}
+		\boldsymbol{\mu_{l*}} \\
+		\boldsymbol{\mu_b}
+		\end{bmatrix}
+		=  \frac{1}{\cos b}
+		\begin{bmatrix}
+		C_1 & C_2\\
+		-C_2 &C_1
+		\end{bmatrix}
+		\
+		\begin{bmatrix}
+		\boldsymbol{\mu_{\alpha*}} \\
+		\boldsymbol{\mu_\delta}
+		\end{bmatrix}
+		\ 	    
+		\]
+		where
+		\begin{align*}
+		C_1 =&\sin\delta_G\cos\delta - \cos\delta_G\sin\delta\cos(\alpha-\alpha_G) \\
+		C_2 =&\cos\delta_G\sin(\alpha-\alpha_G) \\
+		\cos b =& \sqrt{C_1^2 + C_2^2}
+		\end{align*} and $\alpha_G=192.859^\circ$ and $\delta_G=27.128^\circ$. This method requires no initial conversion into native Galactic coordinates. The `*' on the proper motions indicate reduced proper motions due to the area inequality at high $l$ or $\delta$: $\mu_l* = \mu_l\cos b$ and $\mu_{\alpha*} = \mu_\alpha\cos\delta$. In VLBI astrometry we directly measure $\mu_{\alpha*}$ and $\mu_\delta$.
+
+
+\section{Summary -- Standard Astrometric VLBI Calibration} \label{sec:standardvlbicalibration}
+	Throughout this thesis I will refer back to the Standard Astrometric VLBI Calibration scheme outlined in this section. This is a procedure to calibrate VLBI data starting from correlated data product form into a final form - either astrometric images (\hyperref[chap:chapter3]{Chapter \S\ref*{chap:chapter3}}), $uv$--tracks (\hyperref[chap:chapter4]{Chapter \S\ref*{chap:chapter4}}) or pre--multiview fitting stage (\hyperref[chap:chapter6]{Chapter \S\ref*{chap:chapter6}}).
+		
+	Based heavily on the procedures outlined in \citet{Brunthaler2011,Reid2009a,Reid2009f} Standard VLBI Calibration is almost completely performed via \aips\,\,\citep[Astronomical Image Processing Software; ][]{Greisen1990} and the python wrapper software {\it ParselTongue/Obit} \citep{Kettenis2006}. {\it ParselTongue} enables access to the \aips\space data and tables from within a python environment and facilitated examination and manipulation of the data in ways that are not provided by existing \aips\space tasks. Nevertheless \aips provides the fast calculation and general data visualisation/manipulation via its {\it tasks, tables} and {\it catalogue} structure. 
+	
+	Here we concisely summarise Standard Astrometric VLBI Calibration procedure:
+	\begin{enumerate}
+		\item The initial calibration step is to flag data that has been collected outside of mutual onsource time (slewing) or influenced by clock--jumps or strong radio frequency interference;
+		\item Geoblock analysis:\begin{enumerate}
+			\item Taking the geoblock data, delays and phase corrections are applied corresponding to known Earth Orientation Parameter (EOP) corrections and feed rotation effects due to parallactic angles for circular polarised feeds. TEC maps are downloaded and used to estimate ionosphere delays, which are then applied. 
+			\item A single scan of source within the geoblock dataset is chosen based off mutual onsource time by all telescopes and SNR. Manual phase calibration is performed on this scan: single--band delays and phases are calculated (rates are specifically zeroed) for each polarisation/IF and applied to the remaining geoblock data;
+			\item All geoblock scans are fringe--fit for a single multiband delay and rate for each each scan. These solutions are then fed into an external tropospheric zenith delay/residual clock delay fitting programme {\bf fit\_geoblocks\_tropos} which outputs an AIPS--friendly input file containing tropospheric zenith delays vs. time for each antenna;
+			\item When wide--band observations have also been undertaken, dispersive delay solutions are first taken out of the dispersive geoblock delay inputs before tropospheric zenith delay fitting.
+		\end{enumerate}
+		\item The calibrator and maser datasets are calibrated identically and in parallel:
+		\begin{enumerate}
+			\item TEC maps are applied, EOP and feed rotation effects are corrected, then zenith delay solutions are applied;
+			\item Telescope gains and system temperatures are applied to correct the raw voltage amplitudes to Jy;
+			\item Ff known, target/calibrator positional offsets are applied. This can only be calculated at one epoch and must be applied identically to all epochs thereafter;
+			\item The manual phase calibrator scan is chosen, delays and phases are calculated and applied;
+			\item Telescope motion in the source direction due to Earth orbit and rotation at telescope position not included in correlator model is calculated. This Doppler Shift is applied so that for all telescopes the frequencies observed are those that would be observed at the geocentre.
+		\end{enumerate}
+		\item Either a specific channel of the maser or a calibrator is chosen as the phase reference (PR) source. If it is the calibrator is it normal PR and if it is the maser/target it is referred to as reverse--PR;
+		\item If the quasar is chosen: \begin{enumerate}
+			\item The calibrator is averaged in frequency to increase SNR and a fringe--rates/phases are calculated at the correlated+shifted position. This solution is applied to the maser and itself;
+			\item self--calibration can be performed on the quasar to remove structure phases, solutions are applied to maser and quasar identically;
+			\item maser scans not observed within the coherence time to the quasar are flagged (if multiple quasars);
+			\item maser channel(s) are imaged via CLEAN algorithm and emission regions are fitted with Gaussian ellipticals. Centroids positions are recorded for parallax fitting.
+		\end{enumerate}
+		\item If the maser is chosen: \begin{enumerate}
+				\item A single maser channel is chosen and fringe--rates/phase are calculated at its correlated + shifted position.
+				\begin{itemize}
+					\item Side note: in the case of low SNR multiple maser channels can be averaged to increase SNR. However, care must be taken to ensure that emission originates from the same maser spot otherwise astrometric accuracy will be significantly decreased.
+				\end{itemize}
+      			\item fringe solutions can be applied to maser and self--calibration can be performed. Solutions are identically applied to maser and quasar;
+				\item quasar is averaged in frequency and the fringe solution is applied;
+				\item quasar is imaged via CLEAN algorithm and emission region is fit with Gaussian elliptical. Centroid positions have sign reversed and are recorded for parallax fitting.
+			\end{enumerate}
+		\end{enumerate}
+
+ 
+
+
+
+
+
+
+
+
+

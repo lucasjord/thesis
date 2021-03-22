@@ -1,0 +1,345 @@
+%!TeX spellcheck = en_GB
+%\blankpage
+%\blankpage
+\chapter{MultiView}\label{chap:chapter5}
+	\onehalfspacing	
+
+	\vspace{2cm}
+	The ASCI array is a much sparser, less sensitive array containing fewer telescopes than the VLBA, European VLBI Network (EVN) or LBA. ASCI also cannot rely on sophisticated dual--beam receivers like those that assist VERA in atmospheric calibration. In order to achieve the same level of astrometric accuracy as BeSSeL or VERA, \spirals\space must rely on observational methods and calibration techniques to overcome the current limitations of ASCI. %The secondary limiting factor for ASCI is that it is located in the Southern Hemisphere and has access to fewer 
+	
+	In this chapter I will introduce the background, theory and observational methodology of the calibration technique to be tested in \hyperref[chap:chapter6]{Chapter \S\ref*{chap:chapter6}}\,: MultiView.  The core idea of the MultiView astrometric calibration technique is that if it were possible to simultaneously observe multiple calibrators positioned around the target, then all residual delays could be determined and perfectly removed.
+	
+	Certain technology may allow direct use of Multiview in its purest conceptual form: phased array feeds or multi--beam receivers can simultaneously observe target and calibrator(s) providing direct calibration. However, as ASCI does not have access to any of these systems, I need to develop an observational--based version of MultiView.
+	
+	Following a brief background, I step through the delay budget after calibration, each component in turn to explain how inverse MultiView can calibrate that effect. I finish off with an explanation on how I will structure the inverse MultiView part of observations and consequently solve for target positions. 
+
+	
+	\singlespacing
+
+\newpage
+\section{Background}
+	MultiView is a relatively new approach to astrometric calibration. The first iteration of MultiView was called `cluster--cluster' phase referencing \citep{Rioja1997,Rioja2002}. This involved simultaneous observations of a target and multiple calibrators at low frequencies by utilising multi--element single stations. Unfortunately, the availability of such observing sites (let alone multiple sites for VLBI) is extremely limited, and therefore, modification was required. Despite this, cluster--cluster showed promise in removing residual ionospheric and tropospheric delays that plagued low--frequency astrometry.
+	
+	The next iteration was the phase referencing stage demonstrated by \citet{Rioja2017}. Observations were structured such that the calibrators and an OH maser were looped through as C1--C3--(M+C4)--C3--C1..., where the total duty cycle was $\sim5$~mins (\hyperref[fig:rioja2017]{Figure \ref*{fig:rioja2017}}). The OH maser had an in--beam calibrator that was used as an astrometric comparison. This is what I will refer to as traditional MultiView -- an important caveat is that all sources have to be observed in under the tropospheric and ionospheric coherence times \citep[hence the $5$\,mins; ][]{Orosz2017} and this was considered the definition of simultaneity. 
+	
+	The method involved extracting phases from the 4 calibrators and 2D linear interpolating them to the position of the maser and in--beam calibrator. Phase ambiguities that were multiples of $2\pi$ were iteratively removed from calibrator phases to minimise residuals and optimise image rms noise.
+	\begin{SCfigure}[][h]
+		\centering
+		\includegraphics[width=0.45\textwidth]{ajaa5828f1_hr}
+		\caption[Figure 1. \citet{Rioja2017}]{\citet{Rioja2017} Figure 1. Original caption: \textit{Sky distribution of the sources observed with the VLBA at 1.6 GHz ... Dashed lines and arrows mark the source switching order during the observations with 5 minute duty cycles. Star and solid symbols mark the simultaneously observed OH–C4 pair, with the VLBA antennas pointed halfway between the two. The two concentric circles represent the half-power beam width and full beam width of the antennas. Both OH and C4 are targets in the astrometric analyses ... C1 was used as the fringe finder.}} \label{fig:rioja2017}
+	\end{SCfigure}
+	Although effective at lower frequencies ($\sim1.5$~GHz) this technique has limited direct applicability at intermediate frequencies ($\sim7$~GHz) where tropospheric coherence times are shorter and in--beam calibrators are rare.
+	
+	Inverse phase referencing (iPR) is commonplace in maser astrometry as it uses the strong maser as the fringe fit location rather than the often weak quasar calibrators. As the masers are strong, less on--source integration time is required to get sufficient SNR, and therefore observations of maser/calibrator can be kept within the increasingly shorter coherence times as the frequency increases. Doing so transfers the (opposite of the) positional information from the maser to calibrator and therefore, the offsets, proper motion and parallax. This technique is important as you can nod between a maser and calibrator in many different ways and also maximise the time on, and $uv-$ coverage on the maser (for imaging and structure analysis).
+	
+	Therefore, instead of MultiView, I will do \textit{inverse MultiView} (iMV) using the maser as the reference. Again, time on and $uv-$coverage of the maser can be maximised and because the maser is strong, the individual scan on--source time can be minimised while still measuring fringe solutions. Calibration is achieved by iteratively nodding to various calibrators at different position angles and angular separations, and then measuring phases referenced to the maser. Individual calibrators can be chosen less rigorously than normal PR/iPR: compactness and calibrators with more flux density are a higher priority than target--calibrator separation so as to achieve stable phase solutions with high SNR.
+	
+	Finally a phase plane solution or wedge can be fit over the FoV above each telescope based on the measured phases and their change over time. As I will show, application of this solution to the target will return the positional information while minimising the effect of residual delays.
+
+\section{Inverse MultiView Theory} \label{sec:advpr}
+	I want to establish how MultiView is expected to reduce phase referencing errors using a theoretical approach. To this end I am going to start by assume a target (T) separated $\theta_{sep}$ radians away from a calibrator (C) on a single baseline. I will use $\sigma$ to signify an error/uncertainty and $\Delta$ to signify a difference. 
+	
+	Recall the total delay budget after phase referencing (\hyperref[eq:phaserefequation]{Equation \ref*{eq:phaserefequation}}):
+	\begin{equation}
+	\begin{split}
+	\tau_C(t_{i+1})-\tau_T(t_{i}) &= \Delta\tau_{bl}+\Delta\tau_{tr}+\Delta\tau_{io}+\tau_{\theta,C}-\tau_{\theta,T}+\tau_{th} \\
+	& = \tau_{\theta,C}-\tau_{\theta,T} + \sigma_{\tau_{pr}}
+	\label{eq:delaybudget}
+	\end{split}
+	\end{equation} where $\Delta\tau_{bl},\Delta\tau_{tr},\Delta\tau_{io}$ refer to difference in the respective LoS delays due to baseline, tropospheric and ionospheric residuals and $\tau_{th}$ is the thermal uncertainty. Therefore the difference in delay between the target and calibrator gives the positional offset corrupted by a factor `$\sigma_{\tau_{pr}}$'. If the positional offset of the calibrator is constant (e.g. for a quasar), then any change in the sum $\tau_{\theta,C}-\tau_{\theta,T}$ over time/between epochs is due to the change in position of the target.
+	
+	Accepted wisdom \citep[e.g. ][]{ReidHonma2014} is that delay errors are effectively reduced by phase referencing such that the final error becomes:
+	\begin{equation}
+		\sigma_{\tau_{pr}} \le \theta_{sep}\sigma_\tau+\tau_{th}
+		\label{eq:prerror}
+	\end{equation} where $\sigma_\tau$ is the quadrature sum of all individual sources of delay uncertainty (calibration uncertainty). This function increases linearly with target--calibrator separation, and therefore, for a fixed upper limit on calibration delay uncertainty $\sigma_\tau$, smaller separations are expected to give increasingly better astrometry up to the thermal limit $\tau_{th}$.
+	
+	The uncertainty $\sigma_{\tau_{pr}}$ can be interpreted as `the maximum value residual delay could be over angular distance $\theta_{sep}$'. Rather than accept this upper limit, MultiView is a technique to indirectly measure $\sigma_{\tau}$ and subtract the effect it has on the data. %In order to do so effectively with minimal data, a model is required.
+	
+	Following \citet{Rioja2017} I will be using 3D phase--planes in equatorial coordinates RA, DEC ($\alpha$, $\delta$) as the MultiView model. However, I would like to take a moment to justify why. In the following few sections, I will show that the residual LoS delay terms $\Delta\tau_{bl}$ and $\Delta\tau_{tr}$ can be modelled by 3D delay (or phase) planes out to reasonable target--calibrator separations.
+
+	\subsection{Baseline delay differential $\boldsymbol{\Delta\tau_{bl}}$}
+		%Continuing on with the idea that I have subtracted a measured target delay $\tau_T$ from a calibrator with delay $\tau_C$ on a single baseline. 
+		The baseline component $\Delta\tau_{bl}$ from \hyperref[eq:delaybudget]{Equation \ref*{eq:delaybudget}} is the difference in residual baseline error for each line of sight. The residual baseline delay for any LoS depends on the individual baseline uncertainties, hour angle and declination, and is given in \hyperref[eq:baselineerror]{Equation \ref*{eq:baselineerror}}. Target and calibrator are separated by $\textbf{a}$ radians in RA and $\textbf{b}$ radians in DEC: $\alpha_C-\alpha_T=\textbf{a}$, $\delta_C-\delta_T=\textbf{b}$ and $\theta_{sep}^2 = \textbf{a}^2+\textbf{b}^2$. Subtracting the measured target delay from the calibrator data would give:
+		\begin{equation}
+			\begin{split}
+				c(\tau_{bl,C}-\tau_{bl,T}) = c\Delta\tau_{bl} =&  \Delta B_x\cos(t_{lst}-\alpha_1)\cos\delta_1 - \Delta B_y\sin(t_{lst}-\alpha_1)\cos\delta_1 + \Delta B_z\sin\delta_1 \\
+				&- \Delta B_x\cos(t_{lst}-\alpha_2)\cos\delta_2 + \Delta B_y\sin(t_{lst}-\alpha_2)\cos\delta_2 - \Delta B_z\sin\delta_2
+			\end{split}
+		\end{equation} where $\Delta B_i$ are the baseline errors in the geocentric coordinate system $x,y,z$ and $t_{lst}$ is the local sidereal time. Substitution of $\alpha_C=\textbf{a}+\alpha_T$ and $\delta_C=\textbf{b}+\delta_T$ gives:
+		\begin{equation}
+			\begin{split}
+				c\Delta\tau_{bl} =&~{\bf a} \left[ \Delta B_x\sin(t_{lst}-\alpha_T)\cos\delta_T - \Delta B_y\cos(t_{lst}-\alpha_T)\cos\delta_T \right] \\
+				&+ {\bf b} \left[ \Delta B_x\cos(t_{lst}-\alpha_T)\sin\delta_T - \Delta B_y\sin(t_{lst}-\alpha_T)\sin\delta_T + \Delta B_z\cos\delta_T\right] + \sigma_{O^2} \\
+			=&~{\bf a} \mathcal{A}_{bl}(t_{lst}) + {\bf b}\mathcal{B}_{bl}(t_{lst}) + \sigma_{O^2}%\\
+			\end{split}
+			\label{eq:baselineslope}
+		\end{equation} Where I have put the full derivation in \hyperref[app:baselineerror]{Appendix \ref*{app:baselineerror}}. This is an equation for a plane in Right Ascension offset and Declination offset from target position with respective time--variable slopes $\mathcal{A}(t_{lst})$ and $\mathcal{B}(t_{lst})$. The $\sigma_{O^2}$ is the error in this model due to ignoring $O^2$ terms.
+		
+		In traditional phase referencing, the slope $c\Delta\tau_{bl}$ is entirely ignored. The maximum value the slope can take will be determined by the magnitude of baseline component errors $\Delta B_i$ and the distances $\textbf{a}$, $\textbf{b}$. The error in ignoring the slope (which is the $O^1$ term) is:
+		\begin{equation}
+		\begin{split}
+		|\sigma_{O^1}|&\le|\textbf{a}\left(\Delta B_x + \Delta B_y\right) + \textbf{b}\left(\Delta B_x + \Delta B_y + \Delta B_z\right)| \\
+		                  &\le\sqrt{\textbf{a}^2 + \textbf{b}^2} \sqrt{\Delta B_x^2 + \Delta B_y^2 + \Delta B_z^2} \\
+		                  &= \theta_{sep}\sigma_{bl}
+		\end{split}
+		\end{equation} where $\sigma_{bl}$ is the quadrature sum of individual sources of uncertainty (in this case only baseline). This form is consistent with \hyperref[eq:prerror]{Equation \ref*{eq:prerror}}.
+		
+		If the error in phase referencing (effectively the $O^0$/DC solution) is the maximum values the $O^1$ term can take, then it follows the (baseline) error in MultiView is the maximum value $O^2$ term can take. $\sigma_{O^2}$ is the error in the plane due to not accounting for higher order terms (aka. curvature) and is given by:
+		\begin{equation}
+		\sigma_{O^2} =  \textbf{a\,b}\,\mathcal{C}_{bl} + \frac{1}{2}\textbf{a}^2\mathcal{D}_{bl} + \frac{1}{2}\textbf{b}^2\mathcal{E}_{bl} 
+		\end{equation} where functions for the $O^2$ coefficients $\mathcal{C}_{bl}$, $\mathcal{D}_{bl}$ and $\mathcal{E}_{bl}$ are given in derivation (\hyperref[app:baselineerror]{Appendix \ref*{app:baselineerror}}). All high order coefficients depend linearly on $\Delta B_i$ and have the same sinusoidal dependence on hour angle and declination. Therefore, they all have maximum values which only depend on baseline uncertainty $\Delta B_i$:
+		\begin{equation}
+			\begin{split}
+				|\sigma_{O^2}| &= | \textbf{a\,b}\,\mathcal{C}_{bl} + \frac{1}{2}\textbf{a}^2\mathcal{D}_{bl} + \frac{1}{2}\textbf{b}^2\mathcal{E}_{bl} | \\
+							 &\le|\frac{1}{2}\textbf{a}^2\left(\Delta B_x+\Delta B_y\right)+\textbf{a}\textbf{b}\left(\Delta B_x+\Delta B_y\right)+\frac{1}{2}\textbf{b}^2\left(\Delta B_x+\Delta B_y+\Delta B_z\right)|\\
+							 &\le|\frac{1}{2}\textbf{a}^2+\textbf{a}\textbf{b}+\frac{1}{2}\textbf{b}^2||\Delta B_x + \Delta B_y + \Delta B_z|\\
+							 &\le \frac{1}{2}\left(\textbf{a}+\textbf{b}\right)^2\sqrt{\Delta B_x^2 + \Delta B_y^2 + \Delta B_z^2} \\
+							 &\le \theta_{sep}^2~\sigma_{bl}
+			\end{split}
+			\label{eq:minbaselinemultiview}
+		\end{equation} This implies that even in the presence of baseline errors $\Delta B = 3$~cm, MultiView plane fitting uncertainty is at the level of $\sigma_{O^2}=0.0002$~cm at $\theta_{sep}=5$~deg, equivalent to an astrometric uncertainty of $\sigma_\theta=13\mu$as with a baseline of $B=3500$~km. This is opposed to the case of not fitting the plane in traditional phase referencing and getting values $\sigma_{O^1}=0.002$~cm and $\sigma_\theta=150~\mu$as. 
+		
+		\hyperref[eq:minbaselinemultiview]{Equation \ref*{eq:minbaselinemultiview}} describes the minimum value for baseline delay uncertainty. In practice the total delay uncertainty will be larger as it depends on how accurately the delay slopes can be measured, and this depends on other delay slopes such as the one due to the residual dry tropospheric path delay.
+	
+	\subsection{Dry Tropospheric delay differential $\boldsymbol{\Delta \tau_{dtr}}$}
+		The total difference in delay between a target and calibrator due to the troposphere is $$\Delta\tau_{tr}=\Delta\tau_{dtr}+\Delta\tau_{wtr}$$ given in \hyperref[eq:delaybudget]{Equation \ref*{eq:delaybudget}} and as mentioned, will have two components, dry ($dtr$) and wet ($wtr$). For the moment I will only consider the difference between residual dry tropospheric delay $\Delta\tau_{dtr}$.  For a single source at some zenith angle $Z$, the residual dry tropospheric zenith delay will be:
+		\begin{equation}
+			\tau_{dtr} = \sigma_{\tau_z}(t)\sec Z
+		\end{equation} where $\sigma_{\tau_z}(t)$ is the zenith delay error arising from either uncertainty in geoblock fitting or systematic effects like ionosphere (see \hyperref[sec:drytropotheory]{Section \S\ref*{sec:drytropotheory}} for more information of geoblock fitting). I have used the dry tropospheric mapping function $m_3=\sec Z$ (\hyperref[eq:mappingfunction3]{Equation \ref*{eq:mappingfunction3}}) as it is quantitatively easy to deal with (and I have previously shown various mapping functions $m_1$, $m_2$ and $m_3$ equivalent; see \hyperref[fig:mappingfunc]{Figure \ref*{fig:mappingfunc}}). 
+		
+		After phase referencing from the target at some zenith angle $Z_T$ to the calibrator at another zenith angle $Z_C$, the hypothetical delay difference for the two positions for a \textit{single antenna} is:
+		\begin{equation}
+			\begin{split}
+			\Delta\tau_{dtr}=&~ \sigma_{\tau_z} \left(\frac{1}{\cos Z_C}-\frac{1}{\cos Z_T}\right)\\
+							=&  \frac{\sigma_{\tau_z}}{\sin\delta_C\sin\varphi+\cos\delta_C\cos\varphi\cos(t_{lst}-\alpha_C)} \\
+							 &-\frac{\sigma_{\tau_z}}{\sin\delta_T\sin\varphi+\cos\delta_T\cos\varphi\cos(t_{lst}-\alpha_T)}
+			\end{split}
+		\end{equation} where I have used $\cos Z=\sin\delta\sin\varphi+\cos\delta\cos\varphi\cos(t_{lst}-\alpha)$ and $\varphi$ is the antenna latitude. I make this substitution because I want to determine a plane in equitorial coordinates As in the previous example, the calibrator is arbitrarily offset from the target $\alpha_C=\alpha_T+\textbf{a}$ and $\delta_C=\delta_T+\textbf{b}$. In \hyperref[app:tropoplaneerror]{Appendix \ref*{app:tropoplaneerror}} I detail the expansion leading to:
+		\begin{equation}
+			\begin{split}
+			\Delta\tau_{dtr}=&~\frac{\sigma_{\tau_z}}{\cos^2 Z_T} \big(\,\textbf{a}\left[-\cos\delta_T\cos\varphi\sin\left(t_{lst}-\alpha_T\right)\right] \\
+					    	 &+ \textbf{b}\left[\cos\varphi\cos\left(t_{lst}-\alpha_T\right)\sin\delta_T-\sin\varphi\cos\delta_T\right]\,\big) + \sigma_{O^2}\\ 
+							=&~{\bf a} \mathcal{A}_{dtr}(t_{lst}) + {\bf b}\mathcal{B}_{dtr}(t_{lst})+\sigma_{O^2}
+			\end{split}
+			\label{eq:troposplane}
+		\end{equation}
+		As before, the $\sigma_{O^2}$ term is the error in the plane fit due to omission of higher--order terms that describe curvature. Unlike in the plane due to a baseline residual, $\sigma_{O^2}$ is difficult to interpret in the equatorial coordinate system. Instead I will interpret this in a local telescope local coordinate system. 
+		
+		The worse case scenario leading to the largest value for $\sigma_{O^2}$ is that as the target moves towards $Z_T\rightarrow90$~deg at a particular antenna location (aka. sets), target and calibrator are coincidentally aligned in the direction of maximum elevation change. This depends on the antenna location, for example, at the equator this will always be in the RA direction. So in order to retain generality I assume that in this scenario only the difference in zenith angles between the two sources is needed to parametrize the difference in residual delay.
+		
+		In this case the difference in residual delay between the two sources can be described by:
+		\begin{equation}
+			\begin{split}
+			\Delta\tau_{dtr}&=\sigma_{\tau_z} \left(\frac{1}{\cos\left(Z_T+\theta_{sep}\right)}-\frac{1}{\cos Z_T}\right) \\
+							&=\sigma_{\tau_z}\sec^2 Z_T\sin Z_T \theta_{sep} + \sigma_{\tau_z}\left(\sin^2 Z_T + 1\right)\sec^3 Z_T \frac{\theta_{sep}^2}{2}+\sigma_{O^3}\\ 
+			\end{split}
+			\label{eq:troposzenith}
+		\end{equation} The $O^1$ term is the same as that previously identified in \hyperref[sec:drytropotheory]{Section \ref*{sec:drytropotheory}}, \hyperref[eq:dtropo_zenitherror]{Equation \ref*{eq:dtropo_zenitherror}} and would be the error if no plane fitting was performed (aka. the error in phase referencing). Therefore, it stands to reason that the maximum error in plane fitting from ignoring curvature is:
+		\begin{equation}
+			|\sigma_O^2| \le \sigma_{\tau_z}\left(\sin^2 Z_T + 1\right)\sec^3 Z_T \left(\frac{\theta_{sep}^2}{2}\right)
+		\end{equation} 
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\textwidth]{multiview_dtropo.pdf}
+			\caption[Positional Tropospheric Error]{Comparison of theoretical maximum residual dry troposphere effect in inverse MultiView and phase referencing for different target--calibrator separations. \textbf{y-axis:} Positional uncertainty $\sigma_\theta$ per unit residual zenith delay $\sigma_{\tau_z}$; \textbf{x-axis:} Observing zenith angle. \textbf{Dotted lines:} phase referencing ($\sigma_{O^1}$); \textbf{Solid lines:} inverse MultiView ($\sigma_{O^2}$). \textbf{Blue, green, red and black lines} indicated target--calibrator separations $\theta_{sep}=1,~3,~6,~9$~deg respectively. All values are calculated with maximum ASCI baseline of $|\textbf{B}|\sim3500$~km.} \label{fig:multiviewtropos}
+		\end{figure}
+		
+		\hyperref[fig:multiviewtropos]{Figure \ref*{fig:multiviewtropos}} shows a comparison between theoretical uncertainties in phase referencing and inverse MultiView. At $Z_T=60$~deg, with residual zenith troposphere $\sigma_{\tau_z}=3$~cm and a target--calibrator separation $\theta_{sep}=3$~deg, normal phase referencing at this elevation would yield: $$\sigma_{O^1} = \sigma_{\tau_z}\sec^2 Z_T\sin Z_T \theta_{sep} = 0.55~\text{cm}$$ equivalent to an astrometric accuracy of $\sigma_\theta=312\mu$as with a maximum baseline $|\textbf{B}|=3500$~km. Alternatively, with MultiView plane fitting and the same parameters, this becomes $$\sigma_{O^2}=\sigma_{\tau_z}\left(\sin^2 Z_T + 1\right)\sec^3 Z_T \left(\frac{\theta_{sep}^2}{2}\right)=0.06~\text{cm}$$ equivalent to an astrometric accuracy of $\sigma_\theta=33\mu$as, an order of magnitude improvement! 
+		
+		Inverse MultiView performs better than phase referencing for dry tropospheric calibration, especially in the presence of large residual tropospheric delay uncertainties ($\sigma_{\tau_z}\ge1-2$~cm), low--elevations and/or large target--calibrator separations. Theoretically, inverse MultiView should be able to give astrometric accuracy better than $10\mu$as at $\sim15$~deg elevation in the presence of well--calibrated zenith delays ($\sim1$~cm), and given proximal calibrators ($\sim1$~deg) on a baseline $|\textbf{B}|=3500$~km.
+	
+	\subsection{Positional delay difference} \label{sec:positionerrorslope}
+		So far I have shown that $\Delta \tau_{bl}$ and $\Delta \tau_{dtr}$ terms can be expressed by planes with uncertainties which depend on $\sigma_{O^2}\propto\theta_{sep}^2$ and are in general smaller than equivalent uncertainties for normal phase referencing. Now I want to discuss how positional errors in target and calibrator affect the inverse MultiView method.
+		
+		\hyperref[eq:poserror]{Equation \ref*{eq:poserror}} gives the delay uncertainty expected due to a source position error:
+		\begin{align*}
+		c\tau_{\theta} =&~ \sigma_{\alpha}\cos\delta_C(B_x\sin(t-\alpha)+B_y\cos(t-\alpha)\,)\\
+			            &+ \sigma_{\delta}(-B_x\cos(t-\alpha)\sin\delta+B_y\sin(t-\alpha)\sin\delta_C+B_z\cos\delta) 
+		\end{align*} where $\sigma_\alpha$ and $\sigma_\delta$ are the positional uncertainties in Right Ascension and Declination; $B_i$ are the baseline components in geocentric coordinates $x$, $y$, $z$; and $\alpha$ and $\delta$ are again source Right Ascension and Declination.
+		
+		Inverse phase referencing subtracts delay of the target from the calibrator, which serves to subtract the above respective expressions for the target and calibrator:		
+		\begin{equation}
+			\begin{split}
+				c\left(\tau_{\theta,C}-\tau_{\theta,T}\right) &= \sigma_{\alpha,C}\cos\delta_C(B_x\sin(t-\alpha_C)+B_y\cos(t-\alpha_C)\,)\\
+				&+ \sigma_{\delta,C}(-B_x\cos(t-\alpha_C)\sin\delta_C+B_y\sin(t-\alpha_C)\sin\delta_C+B_z\cos\delta_C) \\
+				-&  \sigma_{\alpha,T}\cos\delta_T\left(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\right)\\
+				-& \sigma_{\delta,T}\left(-B_x\cos(t-\alpha_T)\sin\delta_T+B_y\sin(t-\alpha_T)\sin\delta_T+B_z\cos\delta_T\right) 
+			\end{split}
+		\end{equation}
+		The target and calibrator will always be separated by some $\theta_{sep}^2=\textbf{a}^2+\textbf{b}^2$ s.t $\alpha_C=\alpha_T+\textbf{a}$ and $\delta_C=\delta_T+\textbf{b}$. I can substitute these expansions, and as shown in \hyperref[app:sourceposerror]{Appendix \ref*{app:sourceposerror}}, it then simplifies to:
+		\begin{equation}
+			\begin{split}
+				c\Delta\tau_\theta =& \big[\big(\sigma_{\alpha,C} - \sigma_{\alpha,T}\big)\cos\delta_T\big(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\,\big) \\
+				&+\big(\sigma_{\delta,C} - \sigma_{\delta,T}\big)\big(B_x\sin\delta_T\cos(t-\alpha_T)-B_y\sin\delta_T\sin(t-\alpha_T)-B_z\cos\delta_T\big)\big] \\\vspace{0.5cm}
+				+& {\bf a}\, \big[\sigma_{\alpha,C}\cos\delta_T \left(B_x \cos(t-\alpha_T)-B_y\sin(t-\alpha_T)\,\right) \\ 
+				&\hspace{1cm}-\sigma_{\delta,C}\sin\delta_T\left(B_x\sin(t-\alpha_T)+ B_y\cos(t-\alpha_T)\right)\big] \\\vspace{1cm}
+				+& {\bf b}\, \big[\sigma_{\alpha,C}\sin\delta_T \left(B_x \sin(t-\alpha_T)-B_y\cos(t-\alpha_T)\,\right) \\ 
+				&\hspace{2cm}+\sigma_{\delta,C}(B_x\cos\delta_T\cos(t-\alpha_T)- B_y\cos\delta_T\sin(t-\alpha_T)-B_z\sin\delta_T\,)\big] \\ 
+			\end{split}
+		\end{equation} This expression describes a plane, however, there is more nuance in this case than encountered in planes arising from dry tropospheric or baseline uncertainties. Firstly, there is an additional time--variable `constant' offset term $\tau_0(t_{lst})$ that depends on the difference in positional offsets of the two sources:
+		\begin{align*}
+				c\tau_0(t_{lst}) =&~ \big(\sigma_{\alpha,C} - \sigma_{\alpha,T}\big)\cos\delta_T\big(B_x\sin(t-\alpha_T)+B_y\cos(t-\alpha_T)\,\big) \\
+				&+\big(\sigma_{\delta,C} - \sigma_{\delta,T}\big)\big(B_x\sin\delta_T\cos(t-\alpha_T)-B_y\sin\delta_T\sin(t-\alpha_T)-B_z\cos\delta_T\big)
+		\end{align*} This is the astrometric result. Synthesising an image (say of the target) with only this delay applied (subtracted) would give the astrometric offset $\Delta\alpha_T=\sigma_{\alpha,T} - \sigma_{\alpha,C}$ and $\Delta\delta_T=\sigma_{\delta,T} - \sigma_{\delta,C}$. If the target was a maser and the calibrator a quasar, $\sigma_{\alpha,C}$ and $\sigma_{\delta,C}$ are constant over consecutive epochs and the $\sigma_{\alpha,T}$ and $\sigma_{\delta,T}$ over time give the parallax and proper motion (see \hyperref[eq:parrequation]{Equations~\ref*{eq:parrequation}}).
+		
+		The second nuance is that there is not a `shared plane' for multiple calibrators. In planes arising from residual dry troposphere or baseline offsets, RA or DEC slopes $\mathcal{A}$ and $\mathcal{B}$ can be solved for by using multiple calibrators and sampling the effect at different positions (\textbf{a}, \textbf{b}). In the case of planes arising from positional uncertainties:
+		\begin{equation}
+		     c\Delta\tau_\theta = c\tau_0(t_{lst}) + {\bf a} \mathcal{A}_{\theta,i}(t_{lst}) + {\bf b}\mathcal{B}_{\theta,i}(t_{lst})
+		\end{equation} there will be slopes $\mathcal{A}_{\theta,i}$ and $\mathcal{B}_{\theta,i}$ for each calibrator (represented with $i$ subscript) and they will not necessarily correlate between calibrators. If the positional uncertainty of all calibrators is very small or zero $\sigma_{\alpha,C,i}=\sigma_{\delta,C,i}\approx0.0\mu$as then there are `no slopes' to measure at the calibrator position, only the negative of the target positional offset. This is the desired result in normal phase referencing.
+		
+		Therefore, the uncertainty in the inverse MultiView measurement of the target--calibrator offset $\Delta\tau_\theta$ will be the first order term $\sigma_{O^1}$ as in the case of normal phase referencing:
+		\begin{equation}
+			c\Delta\tau_\theta = c\tau_0(t_{lst}) + \sigma_{O^1}
+		\end{equation} where the uncertainty is the average quadrature sum of source planes:		
+		\begin{equation}
+			|\sigma_{O^1}|\le|\frac{1}{N}\sum_{i=1}^N\left(a_i\mathcal{A}_{\theta,i}+b_i\mathcal{B}_{\theta,i}\right)|
+		\end{equation} 
+		These planes are a strong function of calibrator uncertainty, which nominally are $0.1-0.3$~mas if taken from astrometric catalogues. However, these positions can be updated over the course of calibration and checked in consecutive epochs, getting the relative calibrator positions to the $10-20\mu$as level.
+		
+%		There are two very important things to note:
+%		\begin{enumerate}
+%			\item Target source positional uncertainty does not affect the magnitude of directional slopes $\mathcal{A}_\theta$ or $\mathcal{B}_\theta$ in this first order approximation. $a$ \& $b\le 10$~deg satisfies constraint condition;
+%			\item directional slopes $\mathcal{A}_\theta$ and $\mathcal{B}_\theta$ are target--calibrator dependant: each target--calibrator pair has a unique slope that is sampled. Therefore fitting a FoV solution to many calibrators referenced to the target would sample the distance--weighted average of these slopes and have offset term solution equivalent to a position of:
+%			\begin{equation}
+%				\begin{split}
+%					\sigma_\alpha\approx - \sigma_{\alpha,T} + \frac{\sum_{i}^{N} \sigma_{\alpha,C_i}}{N}
+%				\end{split}
+%			\end{equation} and the same for $\sigma_{\delta}$. This introduces unwanted uncertainty and as such the most beneficial solution is to either chose calibrators with very well--defined positions or sacrifice an astrometric epoch to correct all positions w.r.t one another. This secondary technique still requires a calibrator with a very good position to correct the target, then the target can be referenced to the remaining calibrators.
+%		\end{enumerate}
+
+	%Therefore I expect positional, baseline, zenith delay residuals to be model--able by the above planar solutions with time--variable coefficients. 
+\subsection{Final delays}
+		The only delays from \hyperref[eq:astoerror]{Equation \ref*{eq:astoerror}} that I have not yet discussed are those associated with the wet--tropospheric delay and the ionosphere. As previously discussed in \hyperref[sec:wetdelay]{Section~\S\ref*{sec:wetdelay}}, the wet--troposphere is close to a stochastic system and depends on clumpy structures moving across the line--of--sight. This makes it difficult to theoretically predict what amount of residual water vapour will be along a line--of--sight (\textbf{a}, \textbf{b}) degrees away from the phase reference position.
+		
+		Nevertheless, if the angular distance between target and calibrator is smaller than the angular size of wet--tropospheric structures, there should be a smooth change in residual delay with angular distance from the phase reference position. Therefore, it stands to reason that there is a valid distance that this can be modelled by a plane in a first--order expansion:
+		\begin{equation}
+		\Delta\tau_{wtr} = \textbf{a}\mathcal{A}_{wtr} + \textbf{b}\mathcal{B}_{wtr} + \sigma_{wtr}
+		\end{equation} 
+		Within this distance inverse MultiView will give similar or better calibration results than inverse phase referencing as it accounts for the smooth change and removes it.
+		
+		
+		
+		%{\R \citet{Stotskii1998} develop and derive structure functions for the temporal and spatial fluctuations in the wet--tropospheric component based off interferometric data. Included is an empirically derived characteristic spatial scale of tropospheric turbulence of $L_{wt}=2.2$~km and velocity of $v=0.01$\,\kms. This is not particularly different to a `coherence distance' expected from \hyperref[eq:wettropocoherence]{Equation \ref*{eq:wettropocoherence}} with $\nu=8.3$~GHz and $R_{coh}=T_{coh}\,v=2.7$~km and therefore I will treat it as a good estimate to the real length of coherent structures in the wet--troposphere. Finally the coherence angular size $\theta_c$ will be the apparent size that these structures subtend. Assuming that $H_{wt}$ is the characteristic height of the wet--troposphere in a infinitely thin approximation, $L_{wt}<H_{wt}=10$~km such that:
+		%\begin{equation}
+		%	\sin \theta_c = \frac{L_{wt}}{H_{wt}/\sin \varepsilon}
+		%\end{equation} which equates to $\theta_{coh}\le12.7^\circ$ at zenith and $\theta_c\le6.3^\circ$ for $\varepsilon\ge30^\circ$. Therefore target and calibrator observed within these angular distances within the coherence time should remain additionally spatially coherent. Therefore the wet--tropospheric delay will also be assumed to be a planar solution within these distances:
+		%\begin{equation}
+		%	\Delta\tau_{wt} = \textbf{a}\mathcal{A}_{wt}(t_{lst}) + \textbf{b}\mathcal{B}_{wt}(t_{lst})
+		%\end{equation} however the $t_{lst}$ dependence of the slope is unknown and likely instantaneously random.}
+		
+		It has already been shown that the ionospheric structure is very well described by planar structure \citep[][ ; Figure 5]{Rioja2018}. Therefore, I assume that the residual ionosphere (after TEC GPS correction; see \hyperref[sec:ionodelay]{Section~\S\ref*{sec:ionodelay}}) is also well--described by a 3D plane in RA and DEC:
+		\begin{equation}
+			\Delta\tau_{io} = \textbf{a}\mathcal{A}_{io} + \textbf{b}\mathcal{B}_{io} + \sigma_{io}
+		\end{equation} 
+		However, as with the case of the wet--troposphere, the expected angular distance or time--scale over which this is valid is unknown.
+	
+
+	\subsection{Total delay/phase solution}
+		I have derived delay--plane solutions for the known potential causes for an angular delay difference. Each of these (apart from source position error) was derived for a particular antenna at a fixed location and is expected to change based on the hour angle $h = t_{lst} - \alpha$. However, in reality, a delay can only be measured relative to another telescope and is a baseline quantity. Each antenna will have an individual set of time--variable slopes $\mathcal{A},\mathcal{B}$ which depend on $\alpha,\delta,t_{lst},\varphi$ and the various potentially time dependent/variable (e.g. $\delta\tau_z,\delta\tau_I,\dots$), or time independent/stable (e.g. $\Delta B_x, \Delta\alpha,\dots$) sources of delay. The measured delay difference between target (observed at time $t_{j+1}$) and calibrator (observed at time $t_{j}$), will be the delay difference above antenna $i$ minus the delay difference above the reference antenna $r$:
+		\begin{equation}
+			\begin{split}
+				\left(\tau_T(t_{j+1})_i-\tau_T(t_{j+1})_r\right)-\left(\tau_C(t_{j})_i-\tau_C(t_{j})_r\right) &=\tau_0(t_{gst}) +\tau_{th}\\
+				&+ {\bf a} \left[\,\mathcal{A}_{bl,i}-\mathcal{A}_{bl,r} + \mathcal{A}_{dt,i}-\mathcal{A}_{dt,r}\dots) \right](t_{gst}) \\
+				&+ {\bf b}\left[\,\,\mathcal{B}_{bl,i}-\mathcal{B}_{bl,r} + \dots\right](t_{gst}) \\
+				& = \tau_0(t_{gst}) + \textbf{a}\,\textbf{A}\left(t_{gst}\right)+\textbf{b}\,\textbf{B}\left(t_{gst}\right)
+			\end{split}
+		\end{equation} where $t_{gst}=t_{lst}-\psi_i$ is Greenwich sidereal time and $\psi_i$ is the antenna East--Longitude in hours for antenna $i$.
+		
+		Thus far I have limited discussion to the idea of slopes in delay. However, if maximum the delay difference between target and calibrator are kept within a observing wavelength ($c\tau\ll\lambda$), then phase is an effective tool to sample the changes more accurately. Recall:
+		\begin{equation}
+			\begin{split}
+				\phi = 2\pi\nu\tau \\
+				\therefore \frac{\partial\phi}{\partial\tau} = 2\pi\nu
+			\end{split}
+		\end{equation} which shows that phase is $2\pi\nu$ times more sensitive to changes in delay than the delay itself, with the caveat that phase is subject to $2\pi$ measurement ambiguities. As phase referencing is the standard procedure, a phase--plane will be the assumed model and phases are expected to be $-\pi<\phi<\pi$.
+
+\section{Observing Method and Phase--Fitting} \label{sec:multiviewfitting}
+	In the previous section I theorised that after solving for phase and rate on a target and applying that solution to surrounding calibrators, any and all residual delay can be treated as a phase plane in RA and DEC offset from the target position:
+	\begin{equation}
+	\phi\left(\alpha,\delta,t\right)=\boldsymbol{\phi}_0\left(t\right)+\textbf{A}\left(t\right)\left(\alpha-\alpha_T\right)+\textbf{B}\left(t\right)\left(\delta-\delta_T\right)
+	\end{equation} where $\textbf{A}$ and $\textbf{B}$ are the phase--gradients in $\alpha$ and $\delta$ directions respectively. Simultaneous observations of target and calibrator are unavailable. Observational structure will be T--C1--T--C2--T--C3--T such that target and calibrators are observed within the tropospheric coherence time to approximate simultaneity.
+	
+	As the calibrator sources are not observed simultaneously, there cannot be an exact solution for the entire plane for each time-stamp. Rather I will consider a moving solution for each cluster of sources. Say if there are $n$ calibrators in the ring (henceforth orbit sources) then the measured phase for each loop (and each baseline) will be:	
+	\[\boldsymbol{\Phi}\left(\overline{t_i}\right) =
+	\begin{bmatrix}
+	\phi_1(t_{i,1}) \\
+	\phi_2(t_{i,2}) \\
+	\phi_3(t_{i,3}) \\
+	\vdots \\
+	\phi_{n-1}(t_{i,n-1}) 	\\
+	\phi_n(t_{i,n}) 	    
+	\end{bmatrix}
+	\]
+	
+	Where $t_{ij}=t_{i,j-1}+2\left(t_{\text{dwell}}+t_{\text{slew}}\right)$. Practically, this implies that the time-stamp for the solution is $\overline{t} = t_{i,\frac{n}{2}}$. Despite the fact that each loop around the ring will take $t=2n\left(t_{\text{dwell}}+t_{\text{slew}}\right)$ and I practically want to use all $n$ points to solve for the plane at a given time, I can sample the time more regularly than every loop. If I take the next phase solution from the same quasar in the following loop, I can set finer time sampling of $\delta t \approx 2\left(t_{\text{dwell}}+t_{\text{slew}}\right) $. Then the next phase vector is:
+	
+	\[\boldsymbol{\Phi}\left(\overline{t}_{i+1}\right) =
+	\begin{bmatrix}
+	\phi_2(t_{i+1,2}) \\
+	\phi_3(t_{i+1,3}) \\
+	\phi_4(t_{i+1,4}) \\
+	\vdots \\
+	\phi_n(t_{i+1,n}) \\
+	\phi_1(t_{i+1,1}) 	    
+	\end{bmatrix}
+	\]	
+	At each time step $i$, the problem and solutions are:
+	
+	\[\boldsymbol{\Phi}\left(\overline{t_i}\right) =
+	\begin{bmatrix}
+	\phi_{i,j}	    
+	\end{bmatrix}
+	=  \
+	\begin{bmatrix}
+	1& \alpha_1-\alpha_0& \delta_1-\delta_0\\
+	1& \alpha_2-\alpha_0 &\delta_2-\delta_0\\
+	&\vdots& \\
+	1& \alpha_j-\alpha_0 &\delta_j-\delta_0
+	\end{bmatrix}
+	\
+	\begin{bmatrix}
+	\boldsymbol{\phi_0}_i \\
+	\textbf{A}_i \\ \textbf{B}_i
+	\end{bmatrix}
+	\ 	    
+	= \mathbb{M} \boldsymbol{\lambda}_i
+	\]
+	
+	\begin{equation}
+	\therefore \boldsymbol{\lambda}_i = (\mathbb{M}^{T}\mathbb{M})^{-1}\mathbb{M}^{T}\boldsymbol{\Phi}_i
+	\end{equation}
+	This solution weights all points equally, which makes sense if all data is equally certain. However `weaker' calibrators will have a less certain phase solution and that measurement error has to be taken into account. If a calibrator is measured to have a phase of $\phi$ with a signal--to--noise of SNR; then I consider the uncertainty in that measurement to be:
+	\begin{equation}
+	\sigma_\phi = \frac{1}{\text{SNR}}
+	\end{equation} in radians. Finally I assume that the weights will take the form
+	\begin{equation}
+	\begin{split}
+	w_i &= \frac{1}{\sigma^2} \\
+	\sigma^2&=\sigma_s^2 + \left(\frac{180}{\pi\,\text{SNR}}\right)^2
+	\end{split}
+	\end{equation} where I have assumed a static error floor of $\sigma_s\sim10$\,deg. This ensures that extremely luminous quasars do not dominate the solution while sufficiently weak quasars are rightfully down--weighted. Therefore, I have the diagonal weight matrix:
+	\[\mathbb{W}
+	=  \
+			\begin{bmatrix}
+			w_1 	& 0 		& 0 	& \dots     & 0\\
+			0 		& w_2 		& 0     & \dots     & 0\\
+			0 		& 0 		& w_3   & \dots     & 0\\
+			\vdots 	& \vdots 	& 		& \ddots	& \vdots\\
+			0 	    & 0 	    & \dots &\dots      & w_n
+			\end{bmatrix}
+	\]	which is incorporated into the equation at each time step as:
+	
+	\[ \mathbb{W} \boldsymbol{\Phi}_i
+	= \mathbb{W} \mathbb{M} \boldsymbol{\lambda}_i
+	\]
+	\begin{equation}
+		\therefore \boldsymbol{\lambda}_i = (\mathbb{M}^{T}\mathbb{W}\mathbb{M})^{-1}\mathbb{M}^{T}\mathbb{M}\boldsymbol{\Phi}_i
+	\end{equation}
+	
+    Hence, I can calculate a solution $\boldsymbol{\lambda}\left(\boldsymbol{\bar{t}}\right)$ for each baseline, which I can use to return positional information back to the target source while correcting for the presence of phase slopes between the orbit sources and target due to residual phase errors.
+	
+%	\section{Summary}
+%		I have derived that an
+

@@ -1,0 +1,64 @@
+
+%!TeX spellcheck = en_GB
+
+% prelude.tex (specification of which features in `mathphdthesis.sty' you
+% are using, your personal information, and your title & abstract)
+
+% Specify features of `mathphdthesis.sty' you want to use:
+\titlepgtrue % main title page (required)
+\signaturepagetrue % page for declaration of originality (required)
+\copyrighttrue % copyright page (required)
+\abswithesistrue % abstract to be bound with thesis (optional)
+\acktrue % acknowledgments page (optional)
+\tablecontentstrue % table of contents page (required)
+\tablespagetrue % table of contents page for tables (required only if you have tables)
+\figurespagetrue % table of contents page for figures (required only if you have figures)
+
+
+\title{\spirals -- Southern Hemisphere Parallax Interferometic Radio Astrometry Legacy Survey} 
+\author{Lucas Jordan Hyland} 
+\prevdegrees{B.Sc. (Hons)} 
+\advisor{Prof Simon P. Ellingsen \\
+	Dr James A. Green} 
+\dept{Natural Sciences} 
+\submitdate{November 2020}
+
+\newcommand{\abstextwithesis}
+{{ \small
+		The exact structure of the spiral arms of our home Galaxy, the Milky Way, is an unknown that can be primarily resolved by a higher sampling of parallaxes to high mass star forming regions from both the Northern and Southern Hemispheres. The Northern Hemisphere has been very well sampled by surveys like BeSSeL and the VERA key project, yet they are unable to observe sources in the southern sky and complete the picture of the Milky Way.
+		
+		An upcoming large maser astrometry project the Southern Hemisphere Parallax Interferometric Radio Astrometry Legacy Survey or \spirals is commenced mid--2020 will measure the parallaxes to Southern Hemisphere high mass star formation regions. Using three 12\,m and one 30\,m radio telescopes spread over Australia, \spirals\space will measure parallaxes for dozens of High Mass Star Formation Regions in the 3rd and 4th Galactic Quadrant and thereby determine spiral arm properties and Galactic kinematics inaccessible to Northern Hemisphere instruments. However, as hardware and accessibility is different between BeSSeL and \spirals, effort is required to develop observing method and calibration techniques to account for this difference and even improve on it.
+			
+		The aims of this thesis are as follows:
+		
+		Firstly, to analyse BeSSeL VLBA data and measure parallaxes for three 22~GHz water masers and one 6.7~GHz methanol maser located in the First Galactic Quadrant. This increases the understanding of Galactic structure and establishes a benchmark for VLBI astrometry for \spirals to aspire to. 
+		I have been able to successfully measure the parallax and proper motion of the methanol maser and 2 of the water masers, and measure proper motions for the last water maser. I then use these results to determine the locations of these all masers in the Galaxy and final all four are in the Perseus spiral arm.
+		
+		Secondly, to determine a target list for \spirals\space by conducting a targeted survey of known Southern Hemisphere 6.7~GHz methanol masers. Significant effort is required to measure a parallax and therefore identification of the best targets for each Galactic region is important for time and data quality.
+		I find that there are 53 suitable first targets for \spirals and a further 29 likely appropriate for future VLBI astrometry. I am able to determine the compactness of 103 methanol masers, equivalent to a $55\%$ detection rate; the remaining $45\%$ of surveyed masers are too weak or diffuse.
+			
+		Thirdly, to develop and test inverse MultiView, a phase calibration technique nominally designed for ionospheric calibration. 
+		I find that inverse MultiView can be used to model and subtract residual delay errors due to additional effects like residual troposphere and interferometer baseline offsets. I also find that inverse MultiView is able to out--perform traditional techniques and enable target--calibrator separations of at least $8^\circ$ at $8.2$~GHz. With inverse MultiView I am able to achieve microsecond astrometry on a relatively new interferometric array which will be used for \spirals, thereby paving the way for future high accuracy Southern Hemisphere maser parallaxes.
+		}}
+
+\newcommand{\acknowledgement}
+{ {	 Firstly I would like to thank my supervisor Simon. You have always supported me in your role, helped me out and been patient with me.
+		
+	 I would like to also thank Mark Reid for being a great mentor and teacher. Almost everything I know about this topic comes from you either directly in--person or indirectly through your work.
+	 
+	 My parents, Melissa and Glenn have always been extremely supportive and kind to me, the last 
+	 
+	 Thank you my incredible partner June. 
+	 
+	 My good friend Jonny 
+	 
+	 My colleagues and friends, Patrick, Josh, Tiege, Andrew, Katie, Gabor, Jayender, Ben, Seb and Magai.
+	
+	 
+	
+	} }
+
+
+\beforepreface
+%\blankpage
+\afterpreface
